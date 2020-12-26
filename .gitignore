@@ -1,0 +1,14 @@
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+materiale
+.idea
+env 
+*.bak
+.vscode
+.history
+**/node_modules
+**/static
