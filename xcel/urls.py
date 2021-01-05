@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.urls import include, path
 from django.contrib import admin
-from rest_framework import routers
-from xcel.quickstart import views as qviews
+from django.conf.urls.static import static
+from django.conf import settings
 
+from rest_framework import routers
 
 # router = routers.DefaultRouter()
 # router.register(r'users', qviews.UserViewSet)
@@ -29,7 +30,18 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include(router.urls)),
     path('', include('xcel.product.urls')),
-    path('', include('xcel.frontend.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('', include('xcel.order.urls')),
+    path('', include('xcel.frontend.urls'))
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
+urlpatterns += [
+    path('api-auth/', include('rest_framework.urls')),
+]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    path('api-auth/', include('rest_framework.urls'))
+]

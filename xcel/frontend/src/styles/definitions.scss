@@ -1,0 +1,115 @@
+:root {
+  --txt-main: #5b4a4a;
+}
+
+.padding {
+  padding: 1rem;
+}
+
+.padding-top {
+  padding-top: 1rem;
+}
+
+.padding-left {
+  padding-left: 1rem;
+}
+
+.padding-right {
+  padding-right: 1rem;
+}
+
+.padding-bottom {
+  padding-bottom: 1rem;
+}
+
+.padding-half {
+  padding: 0.5rem;
+}
+
+.padding-half-top {
+  padding-top: 0.5rem;
+}
+
+.padding-half-left {
+  padding-left: 0.5rem;
+}
+
+.padding-half-right {
+  padding-right: 0.5rem;
+}
+
+.padding-half-bottom {
+  padding-bottom: 0.5rem;
+}
+
+.margin {
+  margin: 1rem;
+}
+
+.margin-top {
+  margin-top: 1rem;
+}
+
+.margin-left {
+  margin-left: 1rem;
+}
+
+.margin-right {
+  margin-right: 1rem;
+}
+
+.margin-bottom {
+  margin-bottom: 1rem;
+}
+
+.margin-half {
+  margin: 0.5rem;
+}
+
+.margin-half-top {
+  margin-top: 0.5rem;
+}
+
+.margin-half-left {
+  margin-left: 0.5rem;
+}
+
+.margin-half-right {
+  margin-right: 0.5rem;
+}
+
+.margin-half-bottom {
+  margin-bottom: 0.5rem;
+}
+
+.txt-main {
+  color: var(--txt-main);
+}
+
+.txt-small {
+  font-size: 0.8rem;
+  line-height: 1rem;
+}
+
+.txt-medium {
+  font-size: 1rem;
+  line-height: 1.2rem;
+}
+
+.txt-large {
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+}
+
+
+.fd {
+  animation: opacty 0.25 ease-in;
+
+  &.fd-show {
+    opacity: 1;
+  }
+
+  &.fd-hide {
+    opacity: 0;
+  }
+}
