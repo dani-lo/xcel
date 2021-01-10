@@ -1,21 +1,26 @@
+import { Product } from "./product";
+
 export interface OrderProps {
   id: number;
-  name : string;
-  description: string;
-  logo: string;
+  status : string;
+  product: Product;
+  unit_price: number;
+  quantity: number;
 }
 
 export class Order  {
   id: number;
-  name : string ;
-  description: string;
-  logo: string;
+  status : string;
+  product: Product;
+  unit_price: number;
+  quantity: number;
 
-  constructor (productData : OrderProps) {
-    this.id = productData.id;
-    this.name = productData.name
-    this.description = productData.description
-    this.logo = productData.logo
+  constructor (orderData : OrderProps) {
+    this.id = orderData.id;
+    this.status = orderData.status
+    this.product = orderData.product
+    this.unit_price = orderData.unit_price
+    this.quantity = orderData.quantity
   }
 
 }

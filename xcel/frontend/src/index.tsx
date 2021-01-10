@@ -7,5 +7,4 @@ import './styles/main.scss'
 
 import App from './components/App'
 
-
 ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('app'))

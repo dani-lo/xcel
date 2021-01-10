@@ -1,21 +1,25 @@
-import React from 'react' 
+// import React from 'react'
 
-import { getProducts } from '../../lib/api/productsApi'
+// import { useXcelContext } from 'data/provider'
 
-export const ProductsList = async () => {
+// import { Ingredient } from 'lib/collections/ingredient'
+// import { Product } from 'lib/collections/product'
 
-    const products = await getProducts()
 
-    return products.data.map((product, i) => {
-        return <div key={ `product-list-${ i }` }>
-            <h2>{ product.name }</h2>
-            <ul>
-            {
-                product.ingredients.map((ingredient, i) => {
-                    return <li key={ `ingredient-list-${ i }` }>{ ingredient.name }</li>
-                })
-            }
-            </ul>
-        </div>
-    })
-}
+// export const ProductsList = async () => {
+
+//     const { appstate } = useXcelContext()
+
+//     return appstate.products.map((product : Product, i : number) => {
+//         return <div key={ `product-list-${ i }` }>
+//             <h2>{ product.name }</h2>
+//             <ul>
+//             {
+//                 product.ingredients.map((ingredient : Ingredient, i) => {
+//                     return <li key={ `ingredient-list-${ i }` }>{ ingredient.name }</li>
+//                 })
+//             }
+//             </ul>
+//         </div>
+//     })
+// }
