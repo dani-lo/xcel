@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { useTransition } from '../../hooks/useTransition'
+
 export enum NotificationType {
   'ERROR',
   'SUCCESS',
@@ -32,7 +34,8 @@ const StyledNotification = styled.div<{ ntype: NotificationType }>`
 export const Notify = ({ notification }: { notification : AppNotification | null } ) => {
   
   if (notification && notification.donotify) {
-    return <StyledNotification ntype={ notification.ntype } className="padding">
+
+    return <StyledNotification ntype={ notification.ntype } className={ `padding ${ useTransition('in') }` }>
       <p>{ notification.msg }</p>
     </StyledNotification>
   }

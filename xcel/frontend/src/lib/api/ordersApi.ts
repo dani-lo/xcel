@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-import { Order } from 'lib/collections/order'
+import { Basket } from '../collections/basket'
+import { Order } from '../collections/order'
 import { Product } from '../collections/product'
 
 import { getCSRFToken } from '../util/token'
@@ -9,13 +10,13 @@ export const ORDER_STATUS = {
   DELETED: 'DELETED'
 }
 
-export const placeOrder = (p : Product, quantity: number) => {
+export const placeOrder = (p : Product, b: Basket, quantity: number) => {
 
   const csrftoken = getCSRFToken()
   const data = { 
     unit_price: 10.99,
     product: p.id,
-    instructions: '123 in in struct' ,
+    basket: b.id,
     quantity
   }
   const config = { headers: {'X-CSRFToken': csrftoken }}

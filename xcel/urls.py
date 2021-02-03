@@ -31,6 +31,8 @@ urlpatterns = [
     # path('', include(router.urls)),
     path('', include('xcel.product.urls')),
     path('', include('xcel.order.urls')),
+    path('', include('xcel.basket.urls')),
+    path('', include('xcel.account.urls')),
     path('', include('xcel.frontend.urls'))
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

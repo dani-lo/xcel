@@ -3,11 +3,14 @@ import { useEffect } from 'react'
 import { AppState, REDUCER_ACTIONS } from '../data/reducer'
 
 export const useNotification = (appstate : AppState, update: (a: {type: REDUCER_ACTIONS, payload: any}) => void) => {
-  
+
   useEffect(() => {
+    let toNotify : any
+
     if (appstate.notify?.donotify) {
 
-      const timer : any = setTimeout(() => {
+      toNotify = setTimeout(() => {
+
         update({
           type: REDUCER_ACTIONS.NOTIFY,
           payload: {
@@ -17,8 +20,8 @@ export const useNotification = (appstate : AppState, update: (a: {type: REDUCER_
           }
         })
 
-        return clearTimeout(timer)
-      }, 4000)
+      }, 2500)
     }
-  }, [])
+    return () => toNotify && clearTimeout(toNotify)
+  })
 }

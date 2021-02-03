@@ -1,11 +1,12 @@
 import { AppNotification } from "components/widget/notifiction"
+import { Basket } from "lib/collections/basket"
 import { Order } from "lib/collections/order"
 import { Product } from "lib/collections/product"
 import { User } from "lib/collections/user"
 
 export enum REDUCER_ACTIONS {
-  BASKET_ADD,
-  BASKET_REMOVE,
+  INIT_BASKET,
+  REMOVE_BASKET,
   SET_USER,
   INIT,
   NOTIFY
@@ -14,7 +15,16 @@ export enum REDUCER_ACTIONS {
 export interface AppState {
   user : User | null;
   products: Product[];
+  basket: Basket | null;
   notify: AppNotification | null;
+}
+
+
+export const initialState = {
+  user: null,
+  products: [],
+  notify: null,
+  basket: null
 }
 
 /**
@@ -36,11 +46,26 @@ const initApp = (payload: any) => {
   const user = payload.user as User | null
   const products = payload.products as Product[]
   const notify = payload.notify as AppNotification | null
+  const basket = payload.basket as Basket | null
   
   return {
     user,
     products,
+    basket,
     notify
+  }
+}
+
+/**
+ * 
+ * @param payload 
+ */
+const initBasket = (state: AppState, payload: any) => {
+  const basket = payload.basket as Basket | null
+  
+  return {
+    ...state,
+    basket
   }
 }
 
@@ -88,8 +113,8 @@ export const appReducer = (state: AppState, action: { type: REDUCER_ACTIONS, pay
     case REDUCER_ACTIONS.SET_USER: 
       return setUser(state, action.payload)
 
-    case REDUCER_ACTIONS.BASKET_REMOVE: 
-      return basketRemove(state, action.payload)
+      case REDUCER_ACTIONS.INIT_BASKET: 
+      return initBasket(state, action.payload)
 
     case REDUCER_ACTIONS.NOTIFY:
       return setNotification(state, action.payload)

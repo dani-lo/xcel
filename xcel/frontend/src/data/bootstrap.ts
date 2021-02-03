@@ -1,19 +1,40 @@
 import { getUser } from '../lib/api/userAPi'
 import { getProducts } from '../lib/api/productsApi'
+import { userBasket } from '../lib/api/basketApi'
 
 import { REDUCER_ACTIONS } from '../data/reducer'
 
+
 export const bootstrap = async (update : (data: { type: REDUCER_ACTIONS; payload: any; }) => void) => {
 
-  // TODO promise.all
   const products = await getProducts()
-  const user = await getUser()
+
+  let user, basket
+  
+  // TODO Promise.all
+  try {
+    user = await getUser()
+    basket = await userBasket()
+  } catch (err) {
+
+    user = {
+      data: {
+        user: null
+      }
+    }
+
+    basket = {
+      data: null
+    }
+  }
+  
 
   update({
     type: REDUCER_ACTIONS.INIT,
     payload: {
       products: products.data,
-      user: user.data.user
+      user: user.data.user,
+      basket: basket.data ? basket.data[0] : null
     }
   })
 }

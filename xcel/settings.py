@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'paypal.standard.ipn',
     'xcel.product',
     'xcel.frontend',
     'xcel.order',
+    'xcel.account',
+    'xcel.basket',
     'rest_framework'
 ]
 
@@ -59,9 +62,10 @@ ROOT_URLCONF = 'xcel.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS':  [os.path.join(BASE_DIR, 'xcel/templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
+            'string_if_invalid': 'INVALID',
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -88,6 +92,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'order.CustomUser'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -125,3 +131,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+PAYPAL_TEST = True
+PAYPAL_CLIENT_ID = 'AYWy2XEzEwuVuo36UxQFW0zrSLkJgB17At-X5OzUoSZIoy8cX8L3Itw41JYLGE4Plnx-73bfnfqqijcf'
+PAYPAL_SECRET = 'EDCt-dPil56crnuLr_0l6STcnuNbWuV2EAbbjZcT5rFUMC1mIZDUHBdMX-tZqftD__tZ7fseM4P4z5z8'

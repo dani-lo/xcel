@@ -1,51 +1,47 @@
-// import { Dispatch, useEffect, useState } from 'react' 
+import { useEffect, useState } from 'react' 
 
-// const TRANSITION_STATE = {
-//   ENTERING: 'entering',
-//   EXITING: 'exiting',
-//   ENTERED: 'entered',
-//   EXITED: 'exited'
-// } 
+const hideCName = 'fd fd-hide'
+const showCName = 'fd fd-show'
 
-// const useTransition = (duration = 1000) => {
+export const useTransition = (direction: 'in' | 'out') => {
 
-//   const [state, setState] = useState(TRANSITION_STATE.EXITED)
+  const [ cname, setCname ] = useState(direction === 'in' ? hideCName : showCName)
 
-//   useEffect(() => {
+  let timer : any
 
-//     let timerID : any
+  useEffect(() => {
 
-//     if (state === TRANSITION_STATE.ENTERING) {
-//       timerID = setTimeout(() => setState(TRANSITION_STATE.ENTERED), duration)
-//     } else if (state === TRANSITION_STATE.EXITING) {
-//       timerID = setTimeout(() => setState(TRANSITION_STATE.EXITED), duration)
-//     } 
+    if (cname === hideCName && direction === 'in') {
 
-//     return () => {
-//       timerID && clearTimeout(timerID)
-//     }
-//   })
-  
-//   return [state, setState as any]
-// }
+      timer = setTimeout(() => {
+        setCname(showCName)
+      }, 100)
 
-// export const useTransitionControl = (duration = 1000) => {
+    } else if (cname === showCName && direction === 'out') {
 
-//   const [state, setState] = useTransition(duration)
+      timer = setTimeout(() => {
+        setCname(hideCName)
+      }, 100)
+    }
 
-//   const enter = () => {
-//     console.log('ENTER?', state)
-//     if (state !== TRANSITION_STATE.ENTERING) {
-//       console.log('GOOOOOOOo')
-//       setState(TRANSITION_STATE.ENTERING)
-//     }
-//   }
+    return  () =>  clearTimeout(timer)
+  }, [direction])
 
-//   const exit = () => {
-//     if (state !== TRANSITION_STATE.ENTERING) {
-//       setState(TRANSITION_STATE.EXITING)
-//     }
-//   }
+  return cname
+}
 
-//   return [state, enter, exit]
-// }
+export const useFadeIn = (fadeDelay: number) => {
+
+  const [cname, setCname ] = useState('fd fd-hide')
+
+  useEffect(() => {
+
+    const toFade = setTimeout(() => {
+      setCname('fd fd-show')
+    }, fadeDelay)
+
+    return () => clearTimeout(toFade)
+  }, [])
+
+  return cname
+}

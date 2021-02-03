@@ -1,19 +1,21 @@
 :root {
   --white: #fff;
-  --txt-main: #444;
-  --highlight: rgb(45, 38, 49);
-  --highlight-light: rgb(82, 67, 90);
+  --black: #000;
+  --txt-main: #222;
+  --highlight: #586675;
+  --highlight-light: #ced5dd;
+  --highlight-light-bright: #eed6e6;
   --border: #ccc;
 
   --pad-1: 0.25rem;
   --pad-2: 0.5rem;
   --pad-3: 1rem;
   --pad-4: 1.25rem;
-   -pad-5: 1.5rem;
+  --pad-5: 1.5rem;
 
-  --font-small: 1rem;
-  --font-medium: 1.25rem;
-  --font-large: 1.5rem;
+  --font-small: 0.9rem;
+  --font-medium: 1.1rem;
+  --font-large: 1.25rem;
 
   --line-small: 1.4rem;
   --line-medium: 1.7rem;
@@ -52,15 +54,16 @@
 
 
 .fd {
-  animation: opacty 0.25 ease-in;
+  transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+}
 
-  &.fd-show {
-    opacity: 1;
-  }
+.fd-show {
+  opacity: 1;
+}
 
-  &.fd-hide {
-    opacity: 0;
-  }
+.fd-hide {
+  opacity: 0;
 }
 
 .padding-dub {

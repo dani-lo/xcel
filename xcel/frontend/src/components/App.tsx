@@ -11,16 +11,15 @@ import { ProductsPage } from '../pages/products'
 import { AccountPage } from '../pages/account'
 import { BasketPage } from '../pages/basket'
 import { Aboutpage } from '../pages/about'
+import { RegistrationPage } from '../pages/register'
 
 import { AppHeader } from './widget/header'
 
-import { User } from './user/user'
-
-import { appReducer } from '../data/reducer'
+import { appReducer, initialState } from '../data/reducer'
 
 import { bootstrap } from '../data/bootstrap'
 import { useNotification } from '../hooks/useNotification'
-import { NotificationType, Notify } from './widget/notifiction'
+import { Notify } from './widget/notifiction'
 
 const StyledPage = styled.div`
     max-width: 900px;
@@ -28,12 +27,6 @@ const StyledPage = styled.div`
 `
 
 const App = () => {
-
-    const initialState = {
-        user: null,
-        products: [],
-        notify: null
-    }
 
     const [state, dispatch] = useReducer(appReducer, initialState)
     
@@ -45,13 +38,15 @@ const App = () => {
 
     return  <Router>
         <AppContext.Provider value={{ appstate: state, update: dispatch }}>
+            <AppHeader />
             <StyledPage>
                 <Notify notification={ state.notify } />
-                <User />
-                <AppHeader />
                 <Switch>
                     <Route path="/account">
                         <AccountPage />
+                    </Route>
+                    <Route path="/register">
+                        <RegistrationPage />
                     </Route>
                     <Route path="/basket">
                         <BasketPage />

@@ -15,9 +15,11 @@ class Product(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=200)
     logo = models.ImageField(upload_to='product_logos')
+    img_a = models.ImageField(upload_to='product_images', default='placeholder.png')
+    img_b = models.ImageField(upload_to='product_images', default='placeholder.png')
     about = models.TextField()
     ingredients = models.ManyToManyField(Ingredient)
-    # owner = models.ForeignKey('auth.User', related_name='products', on_delete=models.CASCADE, blank=True, null=True)
+    price = models.DecimalField(decimal_places=2, max_digits=10, default=0)
 
     def __str__(self):
         return self.name
@@ -37,7 +39,5 @@ class Product(models.Model):
         #                           full=True, **options)
         # self.highlighted = highlight(self.code, lexer, formatter)#
         # self.logo = 'placeholder.png'
-        print('saving ....')
-        print(self.logo)
         super(Product, self).save(*args, **kwargs)
 

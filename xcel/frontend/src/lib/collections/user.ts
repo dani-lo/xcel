@@ -2,18 +2,18 @@ import { Order } from './order';
 
 export interface UserProps {
   id: number;
-  username : string;
+  email : string;
   orders: Order[];
 }
 
 export class User  {
   id: number;
-  username : string;
+  email : string;
   orders: Order[];
 
   constructor (userData : UserProps) {
     this.id = userData.id;
-    this.username = userData.username
+    this.email = userData.email
     this.orders = userData.orders
   }
 

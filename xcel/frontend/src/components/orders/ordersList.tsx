@@ -27,7 +27,7 @@ export const OrdersList = ({ orders }: { orders: Order[]}) => {
                 await deleteOrder(order)
 
                 update({
-                  type: REDUCER_ACTIONS.BASKET_REMOVE,
+                  type: REDUCER_ACTIONS.REMOVE_BASKET,
                   payload: {
                     order
                   }
