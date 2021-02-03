@@ -1,0 +1,187 @@
+:root {
+  --white: #fff;
+  --black: #000;
+  --txt-main: #222;
+  --highlight: #586675;
+  --highlight-light: #ced5dd;
+  --highlight-light-bright: #eed6e6;
+  --border: #ccc;
+
+  --pad-1: 0.25rem;
+  --pad-2: 0.5rem;
+  --pad-3: 1rem;
+  --pad-4: 1.25rem;
+  --pad-5: 1.5rem;
+
+  --font-small: 0.9rem;
+  --font-medium: 1.1rem;
+  --font-large: 1.25rem;
+
+  --line-small: 1.4rem;
+  --line-medium: 1.7rem;
+  --line-large: 2rem;
+
+  --border-rad: 0.1rem;
+
+  --z-1: 1;
+  --z-2: 11;
+  --z-3: 111;
+  --z-4: 1111;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.txt-main {
+  color: var(--txt-main);
+}
+
+.txt-small {
+  font-size: var(--font-small);
+  line-height: var(--line-small);
+}
+
+.txt-medium {
+  font-size: var(--font-medium);
+  line-height: var(--line-medium);
+}
+
+.txt-large {
+  font-size: var(--font-large);
+  line-height: var(--line-large);
+}
+
+
+.fd {
+  transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+}
+
+.fd-show {
+  opacity: 1;
+}
+
+.fd-hide {
+  opacity: 0;
+}
+
+.padding-dub {
+  padding: var(--pad-4);
+}
+
+.padding-dub-top {
+  padding-top: var(--pad-4);
+}
+
+.padding-dub-right {
+  padding-right: var(--pad-4);
+}
+
+.padding-dub-bottom {
+  padding-bottom: var(--pad-4);
+}
+
+.padding-dub-left {
+  padding-left: var(--pad-4);
+}
+
+.padding {
+  padding: var(--pad-3);
+}
+
+.padding-top {
+  padding-top: var(--pad-3);
+}
+
+.padding-left {
+  padding-left: var(--pad-3);
+}
+
+.padding-right {
+  padding-right: var(--pad-3);
+}
+
+.padding-bottom {
+  padding-bottom: var(--pad-3);
+}
+
+.padding-half {
+  padding: var(--pad-2);
+}
+
+.padding-half-top {
+  padding-top: var(--pad-2);
+}
+
+.padding-half-left {
+  padding-left:var(--pad-2);
+}
+
+.padding-half-right {
+  padding-right: var(--pad-2);
+}
+
+.padding-half-bottom {
+  padding-bottom: var(--pad-2);
+}
+
+.margin-dub {
+  margin:var(--pad-4);
+}
+
+.margin-dub-top {
+  margin-top: var(--pad-4);
+}
+
+.margin-dub-left {
+  margin-left: var(--pad-4);
+}
+
+.margin-dub-right {
+  margin-right:var(--pad-4);
+}
+
+.margin-dub-bottom {
+  margin-bottom: var(--pad-4);
+}
+
+.margin {
+  margin: var(--pad-3);
+}
+
+.margin-top {
+  margin-top: var(--pad-3);
+}
+
+.margin-left {
+  margin-left:var(--pad-3);
+}
+
+.margin-right {
+  margin-right: var(--pad-3);
+}
+
+.margin-bottom {
+  margin-bottom: var(--pad-3);
+}
+
+.margin-half {
+  margin:var(--pad-2);
+}
+
+.margin-half-top {
+  margin-top: var(--pad-2);
+}
+
+.margin-half-left {
+  margin-left: var(--pad-2);
+}
+
+.margin-half-right {
+  margin-right:var(--pad-2);
+}
+
+.margin-half-bottom {
+  margin-bottom: var(--pad-2);
+}

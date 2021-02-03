@@ -1,6 +1,8 @@
 from django.urls import path
-from . import views
+from xcel.product.views import ProductList, ProductDetail
+
 
 urlpatterns = [
-    path('api/product/', views.ProductListCreate.as_view()),
+    path('api/products/', ProductList.as_view()),
+    path('api/products/<int:pk>/', ProductDetail.as_view()),
 ]
