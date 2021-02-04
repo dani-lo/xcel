@@ -3,7 +3,6 @@
 *.pyc
 __pycache__
 db.sqlite3
-media
 materiale
 .idea
 env 
@@ -12,3 +11,6 @@ env
 .history
 **/node_modules
 **/static
+
+.t.kate-swp
+t
