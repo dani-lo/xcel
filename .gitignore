@@ -10,7 +10,6 @@ env
 .vscode
 .history
 **/node_modules
-**/static
 
 .t.kate-swp
 t
