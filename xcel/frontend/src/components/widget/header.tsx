@@ -79,8 +79,7 @@ export const AppHeader = () => {
         </ul>
     :
         <ul className="user-menu">
-          <li><Link to="/login"><span>login</span></Link></li>
-          <li><Link to="/register"><span>create account</span></Link></li>
+          <li><Link to="/account"><span>login or create account</span></Link></li>
         </ul>
     }
     </StyledHeader>
