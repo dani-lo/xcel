@@ -1,8 +1,8 @@
-import { getUser } from '../lib/api/userAPi'
-import { getProducts } from '../lib/api/productsApi'
-import { userBasket } from '../lib/api/basketApi'
+import { getUser } from 'lib/api/userAPi'
+import { getProducts } from 'lib/api/productsApi'
+import { userBasket } from 'lib/api/basketApi'
 
-import { REDUCER_ACTIONS } from '../data/reducer'
+import { REDUCER_ACTIONS } from 'data/reducer'
 
 
 export const bootstrap = async (update : (data: { type: REDUCER_ACTIONS; payload: any; }) => void) => {
@@ -15,6 +15,8 @@ export const bootstrap = async (update : (data: { type: REDUCER_ACTIONS; payload
   try {
     user = await getUser()
     basket = await userBasket()
+
+    console.log(basket)
   } catch (err) {
 
     user = {
@@ -34,7 +36,7 @@ export const bootstrap = async (update : (data: { type: REDUCER_ACTIONS; payload
     payload: {
       products: products.data,
       user: user.data.user,
-      basket: basket.data ? basket.data[0] : null
+      basket: basket.data ? basket.data : null
     }
   })
 }

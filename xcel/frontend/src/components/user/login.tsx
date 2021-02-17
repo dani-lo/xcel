@@ -1,12 +1,15 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
 
-import { login  } from '../../lib/api/userAPi'
-import { reEmail } from '../../lib/util/regex' 
+import { login  } from 'lib/api/userAPi'
+import { reEmail } from 'lib/util/regex' 
 
-import { FormError } from '../../components/widget/formError'
+import { useXcelContext } from 'data/provider'
+import { bootstrap } from 'data/bootstrap'
 
-import { XFormInputTxt, XFormInputSubmit, XSection } from '../../styles/styled'
+import { FormError } from 'components/widget/formError'
+
+import { XFormInputTxt, XFormInputSubmit } from 'styles/styled'
 
 interface Inputs {
   email: string,
@@ -21,18 +24,23 @@ export const UserLogin = () => {
     errors 
   } = useForm<Inputs>()
 
+  const { update } = useXcelContext()
+
   const onLogin = async (data : Inputs) => {
 
     try {
 
       await login(data)
+
+      bootstrap(update)
     } catch (err) {
+
     }
   }
 
   return <form onSubmit={handleSubmit(onLogin)}>
     <XFormInputTxt>
-      <label htmlFor="email">email</label>
+      <label htmlFor="email" className="txt-small">email</label>
       <input type="text" id="email" name="email" ref={register({ pattern: reEmail })} />
       <FormError 
         errKey="email" 
@@ -41,7 +49,7 @@ export const UserLogin = () => {
       />
     </XFormInputTxt>
     <XFormInputTxt>
-      <label htmlFor="password">password</label>
+      <label htmlFor="password" className="txt-small">password</label>
       <input name="password" id="password" type="password" ref={register({ required: true })} />
       <FormError 
         errKey="password" 

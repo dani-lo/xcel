@@ -9,6 +9,12 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
 
+class Feature(models.Model):
+    name = models.CharField(max_length=30)
+    description = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
     created = models.DateTimeField(default=datetime.now)
@@ -19,6 +25,7 @@ class Product(models.Model):
     img_b = models.ImageField(upload_to='product_images', default='placeholder.png')
     about = models.TextField()
     ingredients = models.ManyToManyField(Ingredient)
+    features = models.ManyToManyField(Feature)
     price = models.DecimalField(decimal_places=2, max_digits=10, default=0)
 
     def __str__(self):

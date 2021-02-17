@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Basket } from 'lib/collections/basket'
 
 
-import { getCSRFToken } from '../util/token'
+import { getCSRFToken } from 'lib/util/token'
 
 export const BASKET_STATUS = {
   OPEN: 'OPEN'

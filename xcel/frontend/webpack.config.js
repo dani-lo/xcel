@@ -1,5 +1,6 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
   watch: true,
   // webpack will take the files from ./src/index
@@ -13,7 +14,15 @@ module.exports = {
 
   // adding .ts and .tsx to resolve.extensions will help babel look for .ts and .tsx files to transpile
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      components: path.resolve(__dirname, 'src/components'),
+      lib: path.resolve(__dirname, 'src/lib'),
+      styles: path.resolve(__dirname, 'src/styles'),
+      data: path.resolve(__dirname, 'src/data'),
+      pages: path.resolve(__dirname, 'src/pages'),
+      hooks: path.resolve(__dirname, 'src/hooks'),
+    }
   },
 
   module: {

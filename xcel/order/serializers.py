@@ -24,7 +24,7 @@ class OrderReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         # list_serializer_class = FilteredListSerializer
-        fields = ('id', 'product', 'quantity', 'unit_price')
+        fields = ('id', 'product', 'quantity', 'unit_price', 'deleted')
 
 class OrderWriteSerializer(serializers.ModelSerializer):
 

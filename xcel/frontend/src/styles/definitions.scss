@@ -1,32 +1,46 @@
 :root {
+  --bg: #f0efea;
   --white: #fff;
   --black: #000;
-  --txt-main: #222;
-  --highlight: #586675;
-  --highlight-light: #ced5dd;
-  --highlight-light-bright: #eed6e6;
-  --border: #ccc;
+  --txt-main: #444;
+  --txt-sub: #25476b;
+  --highlight: #173f69;
+  --highlight-light: #b4c5d9;
+  --highlight-light-bright: #fbfafa;
+  --bg-grad: -webkit-linear-gradient(top, #f2f2f2, #f1f1f1);
+  --bg-grad-funk: -webkit-linear-gradient(top, #ccc998, #ccc495);
+
+  --bg-light: #f1f1f1;
+  --border: #c5c5c5;
 
   --pad-1: 0.25rem;
   --pad-2: 0.5rem;
   --pad-3: 1rem;
   --pad-4: 1.25rem;
   --pad-5: 1.5rem;
+  --pad-6: 3rem;
 
   --font-small: 0.9rem;
   --font-medium: 1.1rem;
-  --font-large: 1.25rem;
+  --font-large: 1.3rem;
+  --font-jumbo: 1.5rem;
 
   --line-small: 1.4rem;
   --line-medium: 1.7rem;
   --line-large: 2rem;
 
-  --border-rad: 0.1rem;
+  --border-rad: 0.5em;
 
   --z-1: 1;
   --z-2: 11;
   --z-3: 111;
   --z-4: 1111;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .txt-center {
@@ -52,6 +66,11 @@
   line-height: var(--line-large);
 }
 
+.txt-jumbo {
+  font-size: var(--font-jumbo);
+  line-height: var(--line-large);
+}
+
 
 .fd {
   transition: opacity 0.3s;
@@ -64,6 +83,11 @@
 
 .fd-hide {
   opacity: 0;
+}
+
+.content-space {
+  padding-top: var(--pad-6);
+  padding-bottom: var(--pad-6);
 }
 
 .padding-dub {
@@ -184,4 +208,8 @@
 
 .margin-half-bottom {
   margin-bottom: var(--pad-2);
+}
+
+.cap {
+  text-transform: capitalize;
 }

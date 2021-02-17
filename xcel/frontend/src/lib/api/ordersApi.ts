@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-import { Basket } from '../collections/basket'
-import { Order } from '../collections/order'
-import { Product } from '../collections/product'
+import { Basket } from 'lib/collections/basket'
+import { Order } from 'lib/collections/order'
+import { Product } from 'lib/collections/product'
 
-import { getCSRFToken } from '../util/token'
+import { getCSRFToken } from 'lib/util/token'
 
 export const ORDER_STATUS = {
   DELETED: 'DELETED'
@@ -14,7 +14,7 @@ export const placeOrder = (p : Product, b: Basket, quantity: number) => {
 
   const csrftoken = getCSRFToken()
   const data = { 
-    unit_price: 10.99,
+    unit_price: p.price,
     product: p.id,
     basket: b.id,
     quantity
@@ -28,9 +28,9 @@ export const deleteOrder = (order : Order) => {
 
   const csrftoken = getCSRFToken()
   const data = { 
-    status: ORDER_STATUS.DELETED
+    deleted: new Date().getTime()
   }
   const config = { headers: {'X-CSRFToken': csrftoken }}
 
-  return axios.patch(`/api/orders/${ order.id }/`, data, config)
+  return axios.put(`/api/orders/${ order.id }/`, data, config)
 }

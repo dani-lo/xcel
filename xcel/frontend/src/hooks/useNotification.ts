@@ -1,15 +1,18 @@
 import { useEffect } from 'react'
 
-import { AppState, REDUCER_ACTIONS } from '../data/reducer'
+import { AppState, REDUCER_ACTIONS } from 'data/reducer'
 
 export const useNotification = (appstate : AppState, update: (a: {type: REDUCER_ACTIONS, payload: any}) => void) => {
 
   useEffect(() => {
-    let toNotify : any
+    let toUnNotify : any
 
-    if (appstate.notify?.donotify) {
+    if (appstate.notify.length) {
 
-      toNotify = setTimeout(() => {
+      for (let n of appstate.notify) {
+        
+      }
+      toUnNotify = setTimeout(() => {
 
         update({
           type: REDUCER_ACTIONS.NOTIFY,
@@ -22,6 +25,6 @@ export const useNotification = (appstate : AppState, update: (a: {type: REDUCER_
 
       }, 2500)
     }
-    return () => toNotify && clearTimeout(toNotify)
+    return () => toUnNotify && clearTimeout(toUnNotify)
   })
 }

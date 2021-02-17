@@ -1,10 +1,12 @@
-import { Ingredient, IngredientProps } from './ingredient'
+import { Ingredient, IngredientProps } from 'lib/collections/ingredient'
+import { Feature, FeatureProps } from 'lib/collections/feature'
 
 export interface ProductProps {
   id: number;
   name : string;
   description: string;
   logo: string;
+  features: FeatureProps[];
   ingredients: IngredientProps[];
   img_a: string;
   img_b: string;
@@ -13,7 +15,8 @@ export interface ProductProps {
 
 export class Product  {
   id: number;
-  ingredients : Ingredient[]
+  ingredients : Ingredient[];
+  features : Feature[];
   name : string ;
   description: string;
   logo: string;
@@ -30,6 +33,7 @@ export class Product  {
     this.img_b = productData.img_b
     this.price = productData.price
     this.ingredients = productData.ingredients.map(d => new Ingredient(d))
+    this.features = productData.features.map(d => new Feature(d))
   }
 
 }

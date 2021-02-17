@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import { useXcelContext } from '../../data/provider'
+import { useXcelContext } from 'data/provider'
 
 const StyledUserWidget = styled.ul`
   list-style: none;

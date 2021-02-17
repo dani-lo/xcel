@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-import { Account } from '../collections/account'
+import { Account, AccountProps } from 'lib/collections/account'
 
-import { getCSRFToken } from '../util/token'
+import { getCSRFToken } from 'lib/util/token'
 
 /**
  * 
@@ -27,13 +27,28 @@ export const register = (data: { email: string; password: string }) => {
  * 
  * @param account 
  */
-export const addAccount = (account: Account) => {
+export const addAccount = (account: AccountProps) => {
 
   const csrftoken = getCSRFToken()
   const config = { headers: {'X-CSRFToken': csrftoken }}
 
 
   return axios.post('/api/account/', {
+    ...account
+  }, config)
+}
+
+/**
+ * 
+ * @param account 
+ */
+export const editAccount = (account: Account, accId : number) => {
+
+  const csrftoken = getCSRFToken()
+  const config = { headers: {'X-CSRFToken': csrftoken }}
+
+
+  return axios.put(`api/account/update/${ accId }`, {
     ...account.saveable(false)
   }, config)
 }
@@ -45,7 +60,9 @@ export const logout = () => {
   const csrftoken = getCSRFToken()
   const config = { headers: {'X-CSRFToken': csrftoken }}
 
-  return axios.get('/api/logout/', config)
+  const response =  axios.get('/api/logout/', config)
+
+  return response
 }
 
 /**

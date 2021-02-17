@@ -8,6 +8,7 @@ from xcel.basket.serializers import BasketSerializer
 from xcel.basket.paypal import util as paypal_util
 from xcel.basket.paypal.paypal_client import CreateOrder
 
+from xcel.order.models import Order
 
 class BasketDetail(generics.ListCreateAPIView):
     serializer_class = BasketSerializer
@@ -23,7 +24,25 @@ class BasketDetail(generics.ListCreateAPIView):
             serializer.save(user=self.request.user)
 
     def get_queryset(self, *args, **kwargs):
-        return Basket.objects.all().filter(user=self.request.user, status = 'OPEN')
+        b = Basket.objects.all().filter(user=self.request.user, status = 'OPEN')
+        b.orders = []
+        return b
+
+    def list(self, request, *args, **kwargs):
+        bkt = Basket.objects.all().filter(user=self.request.user, status = 'OPEN').values()
+
+        if (bkt[0]) :
+            bkt = bkt[0]
+
+            bkt_id = bkt.get('id')
+            orders = Order.objects.all().filter(basket_id = bkt_id, deleted = None).values()
+
+            return Response({
+                'id': bkt_id,
+                'orders': orders,
+                'total': paypal_util.basket_total(bkt_id)
+            })
+
 
 class PrepareBasket(APIView) :
 

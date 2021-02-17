@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { Product } from '../lib/collections/product'
+import { Product } from 'lib/collections/product'
 
-import { placeOrder } from '../lib/api/ordersApi'
-import { createBasket } from '../lib/api/basketApi'
+import { placeOrder } from 'lib/api/ordersApi'
+import { createBasket } from 'lib/api/basketApi'
 
-import { useXcelContext } from '../data/provider'
-import { REDUCER_ACTIONS } from '../data/reducer'
+import { useXcelContext } from 'data/provider'
+import { notifySuccess, notifyError } from 'data/shortcuts'
 
-import { NotificationType } from '../components/widget/notifiction'
-import { ProductDetail } from '../components/product/productDetail'
+import { ProductDetail } from 'components/product/productDetail'
 
-import { XSection } from '../styles/styled'
+import { XSection, XPageTitle, XScroller } from 'styles/styled'
 
 export const ProductsPage = () => {
 
@@ -21,10 +20,10 @@ export const ProductsPage = () => {
   const basket = appstate.basket
   const user = appstate.user
 
-  const buyProduct = async (p : Product) => {
+  const buyProduct = async (p : Product, quantity: number) => {
 
     if (!!basket) {
-      placeOrder(p, basket, 1) 
+      placeOrder(p, basket, quantity) 
     } else {
 
       try {
@@ -32,45 +31,30 @@ export const ProductsPage = () => {
 
         placeOrder(p, newBasket.data, 1) 
         
-        update({
-          type: REDUCER_ACTIONS.INIT_BASKET,
-          payload: {
-            basket: newBasket.data
-          }
-        })
-
-        update({
-          type: REDUCER_ACTIONS.NOTIFY,
-          payload: {
-            msg: 'Order added to your basket',
-            type: NotificationType.SUCCESS,
-            donotify: true
-          }
-        })
-        
+        notifySuccess(update, 'Order added to your basket')
       } catch (err) {
 
-        update({
-          type: REDUCER_ACTIONS.NOTIFY,
-          payload: {
-            msg: 'Order could not be added',
-            type: NotificationType.ERROR,
-            donotify: true
-          }
-        })
+        notifyError(update, 'Order could not be added')
       }
     } 
   }
 
   return <>
-  {
-    products.map((p : Product, i : number) => <XSection key={ `product-${ i }` }>
-        <ProductDetail
-          p={ p }
-          buyProduct={ buyProduct}
-          loggedIn={ !!user }
-        />
-    </XSection>)
-    }
+    <XPageTitle className="txt-jumbo margin-top margin-bottom padding-top padding-bottom padding cap">Organic Creams</XPageTitle>
+    <XSection highlight className="txt-medium margin-dub-top margin-dub-bottom padding">
+      <p className="txt-small">Our natural face creams will be sure to up your beauty routine with a mix of delicious oils and superfoods.</p>
+      <p className="txt-small">This range of natural and organic moisturisers will leave your skin feeling soft and nourished whilst protecting against elements such as UV exposure and environmental stressors.</p>
+    </XSection>
+    <XScroller>
+      {
+        products.map((p : Product, i : number) => <XSection key={ `product-${ i }` }>
+            <ProductDetail
+              p={ p }
+              buyProduct={ buyProduct}
+              loggedIn={ !!user }
+            />
+        </XSection>)
+      }
+    </XScroller>
   </>
 }

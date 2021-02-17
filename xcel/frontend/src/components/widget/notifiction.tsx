@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { useTransition } from '../../hooks/useTransition'
+import { useTransition } from 'hooks/useTransition'
 
 export enum NotificationType {
   'ERROR',
@@ -12,32 +12,48 @@ export enum NotificationType {
 
 export interface AppNotification {
   msg: string | null;
-  ntype: NotificationType;
-  donotify: boolean;
+  type: NotificationType;
+  id: number;
 }
 
-const nBorderColor = (props: { ntype: NotificationType }) => {
-  return props.ntype === NotificationType.ERROR ?  'red' : 
-    props.ntype === NotificationType.WARNING ? 'yellow' : 
+const nBorderColor = (props: { type: NotificationType }) => {
+  return props.type === NotificationType.ERROR ?  'red' : 
+    props.type === NotificationType.WARNING ? 'yellow' : 
     'green'
 }
 
-const StyledNotification = styled.div<{ ntype: NotificationType }>`
+const StyledNotification = styled.div<{ type: NotificationType }>`
   border: 2px solid ${ props => nBorderColor(props) };
+  background: var(--white);
+`
+
+const StyledNotificationContainer = styled.div`
   position: fixed;
   z-index: var(--z-3);
-  background: var(--white);
   right: 1em;
   top: 1em;
 `
 
-export const Notify = ({ notification }: { notification : AppNotification | null } ) => {
+export const Notify = ({ notifications }: { notifications : AppNotification[] } ) => {
   
-  if (notification && notification.donotify) {
+  if (notifications && notifications.length) {
 
-    return <StyledNotification ntype={ notification.ntype } className={ `padding ${ useTransition('in') }` }>
-      <p>{ notification.msg }</p>
-    </StyledNotification>
+    const cname = useTransition('in')
+
+    return <StyledNotificationContainer> 
+    {
+      notifications.map((notification, i) => {
+        return <StyledNotification 
+          key={ `notification-${ i }` } 
+          type={ notification.type } 
+          className={ `margin-top padding ${ cname }` }
+        >
+          <p>{ notification.msg }</p>
+        </StyledNotification>
+      })
+    }
+    </StyledNotificationContainer>
+    
   }
   
   return null

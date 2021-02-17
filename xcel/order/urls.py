@@ -10,7 +10,3 @@ urlpatterns = [
     path('api/logout/', UserLogout.as_view()),
     path('api/login', UserLogin.as_view()),
 ]
-
-#urlp,atterns += [path('api/users/<int:pk>/', UserProfile.as_view())]
-#urlpatterns += [path('api/user', UserProfile.as_view())]
-

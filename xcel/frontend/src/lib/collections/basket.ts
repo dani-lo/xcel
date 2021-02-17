@@ -4,6 +4,7 @@ export interface BasketProps {
   id: number;
   instructions: string;
   orders: Order[];
+  total: number;
 }
 
 export interface PaypalResponse {
@@ -18,10 +19,12 @@ export class Basket {
   id: number;
   instructions: string;
   orders: Order[];
+  total: number;
 
   constructor (doc : BasketProps) {
     this.id = doc.id
     this.instructions = doc.instructions
     this.orders = doc.orders
+    this.total = doc.total
   }
 }

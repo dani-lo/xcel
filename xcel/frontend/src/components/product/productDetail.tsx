@@ -1,34 +1,97 @@
 import React from 'react';
 
-import { Product } from '../../lib/collections/product'
-import { Ingredient } from '../../lib/collections/ingredient'
+import { Product } from 'lib/collections/product'
+import { Ingredient } from 'lib/collections/ingredient'
 
-import { useFadeIn } from '../../hooks/useTransition'
+import { CreateOrder } from 'components/orders/create'
 
-import { XButton, XProduct } from '../../styles/styled'
+import { useFadeIn } from 'hooks/useTransition'
 
-export const ProductDetail = ({ p, buyProduct, loggedIn } : { p : Product, buyProduct: (p: Product) => void, loggedIn: boolean }) => {
+import { XProduct } from 'styles/styled'
+
+import { userBasket } from 'lib/api/basketApi'
+import { Basket } from 'lib/collections/basket'
+
+import { useXcelContext } from 'data/provider'
+import { REDUCER_ACTIONS } from 'data/reducer'
+import { notifyError, notifySuccess } from 'data/shortcuts';
+
+interface Props { 
+  p : Product; 
+  buyProduct: (p: Product, q: number) => void; 
+  loggedIn: boolean;
+}
+
+export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
 
   const cname = useFadeIn(500)
 
-  return <XProduct  className={ `margin-top margin-bottom padding-top padding-bottom ${ cname }` }>
-    <div className="headshot">
-      <img src={ p.img_b } /> 
-    </div>
-    <h3  className="txt-medium padding-dub-top padding-dub-bottom">{ p.name }</h3>
-    <p className="txt-small padding-dub-bottom">{ p.description }</p> 
-    <ul>
-    {
-      p.ingredients.map((ingredient : Ingredient, i: number) => {
-        return <li key={ `ingredient-${ i }` }>
-          <h3 className="txt-small">{ ingredient.name }</h3>
-          <p  className="txt-small">{ ingredient.description }</p>
-        </li>
+  const { update } = useXcelContext()
+
+  const onBuyProduct = async (q: number) => {
+
+    try {
+      buyProduct(p, q)
+
+      const newBasketData = await userBasket()
+      const newBasket = new Basket(newBasketData.data)
+
+      update({
+        type: REDUCER_ACTIONS.INIT_BASKET,
+        payload: {
+          basket: newBasket
+        }
       })
+
+      notifySuccess(update, 'Your order was added')
+    } catch (err) {
+      notifyError(update, 'Your order could not be added')
     }
-    </ul>
-    {
-      loggedIn ? <XButton size="small" onClick={ () => buyProduct(p) }>buy</XButton> : null
-    }
+    
+  }
+
+  return <XProduct  className={ `${ cname }` }>
+   
+    <div>
+      <div className="headshot">
+        <img src={ p.img_a } /> 
+        <ul>
+          {
+            p.features.map((feature : Ingredient, i: number) => {
+              return <li key={ `feature-${ i }` }>
+                <h3 className="txt-small cap">{ feature.description }</h3>
+              </li>
+            })
+          }
+        </ul>
+        <div className="margin-dub-top padding-top">
+        {
+          loggedIn ? <CreateOrder onBuyProduct={ onBuyProduct } /> : null
+        }
+        </div>
+      </div>
+      <div className="padding-left">
+        <h3  className="txt-jumbo padding-dub-top padding-dub-bottom">{ p.name }</h3>
+        <p className="txt-jumbo price padding-top padding-bottom">&pound;{ p.price }</p>
+        <p className="txt-small margin-top">{ p.description }</p>
+        <ul className="margin-dub-top">
+          {
+            p.ingredients.slice(0, 2).map((ingredient : Ingredient, i: number) => {
+              return <li key={ `ingredient-${ i }` }>
+                <h3 className="txt-small cap">{ ingredient.name }</h3>
+                <p  className="txt-small">{ ingredient.description }</p>
+              </li>
+            })
+          }
+        </ul>
+      </div>
+    </div>
+    <div>
+      
+      <div className="padding-left">
+        
+      </div>
+    </div>
+    
   </XProduct>
 }

@@ -1,3 +1,6 @@
+from datetime import datetime
+import time
+
 from xcel.order.models import Order
 from xcel.order.serializers import OrderWriteSerializer, UserSerializer
 
@@ -18,12 +21,23 @@ class OrderList(generics.ListCreateAPIView):
         serializer.save()
 
     def get_queryset(self, *args, **kwargs):
-        return Order.objects.all()#.filter(user=self.request.user)
+        return Order.objects.filter(user=self.request.user)
 
-class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
+
+class OrderDetail(generics.UpdateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderWriteSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        timestamp = datetime.now()
+
+        instance.deleted = timestamp
+        instance.save()
+
+        return Response(status.HTTP_200_OK)
+
 
 
 class UserProfile(APIView):
@@ -40,6 +54,17 @@ class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            user_email = self.request.data['email']
+            user_password = self.request.data['password']
+
+            User.objects.create_user(user_email, user_password)
+
+            return Response(status=status.HTTP_200_OK)
 
 class UserLogin(APIView):
 

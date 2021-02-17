@@ -4,18 +4,20 @@ import styled from 'styled-components'
  * XButton
  */
 const XButton = styled.button<{size: string;}>`
-  border: 1px solid var(--border);
+  /* border: 2px solid var(--border); */
+  border: none;
   font-size: var(--font-${ props => props.size });
   padding: var(--pad-2) var(--pad-4);
   
   cursor: pointer;
-  border-radius: var(--border-rad);
-  background: var(--highlight);
-  color: var(--white);
+  border-radius: 0;
+  background: var(--white);
+  color: var(--black);
+  border: 2px solid var(--black);
+
 
   &:hover {
-    background: var(--white);
-    color:(--txt-main);
+    opacity: 0.7;
   }
 
   &:active {
@@ -37,10 +39,28 @@ XImgButton.displayName = 'XImgButton'
  * XProduct
  */
 const XProduct = styled.div`
- 
-  width: 50%;
+  
+  border-bottom: 2px dashed var(--border);
+  padding: 0 0 2em;
+
+
   img {
-    width: 300px;
+    width: 80%;
+  }
+
+  .price {
+    border-bottom: 1px solid var(--border);
+  }
+
+  > div {
+    display: flex;
+    > div {
+      flex: 1.5;
+
+      &:first-child {
+        flex: 1;
+      }
+    }
   }
 `
 
@@ -84,19 +104,22 @@ XFormInputTxt.displayName = 'XFormInputTxt'
 const XFormInputSubmit = styled.div<{ size: string}>`
   
   margin: var(--pad-5) 0;
+  display: inline-block;
+  border: none!important;
 
   input {
-    border: 1px solid var(--border);
+      /* border: 2px solid var(--border); */
     font-size: var(--font-${ props => props.size });
     padding: var(--pad-2) var(--pad-4);
+    
     cursor: pointer;
-    border-radius: var(--border-rad);
-    background: var(--highlight);
-    color: var(--white);
+    border-radius: 0x;
+    background: var(--white);
+    color: var(--black);
+    border: 2px solid var(--black);
 
     &:hover {
-      background: var(--white);
-      color:(--txt-main);
+      opacity: 0.7;
     }
 
     &:active {
@@ -108,18 +131,104 @@ const XFormInputSubmit = styled.div<{ size: string}>`
 
 XFormInputSubmit.displayName = 'XFormInputSubmit'
 
+const XPayButton = styled(XButton)`
+  a {
+    text-decoration: none;
+  }
+`
+
+
 /**
  * XSection
  */
 const XSection = styled.div<{ highlight ?: boolean }>`
   
-  padding: var(--pad-5) 0;
-  margin: var(--pad-5) 0;
-  background: ${ props => props.highlight ? 'var(--highlight-light)' : 'transparent'};
-  padding: ${ props => props.highlight ? 'var(--pad-5)' : '0'};
+  margin: var(--pad-3) 0;
+  background: ${ props => props.highlight ? 'var(--black)' : 'var(--white)'};
+  color: ${ props => props.highlight ? 'var(--white)' : 'var(--txt-main)'};
+  padding: ${ props => props.highlight ? 'var(--pad-5)' : 'var(--pad-5)'};
 `
 
 XSection.displayName = 'XSection'
+
+/**
+ * XScroller
+ */
+const XScroller = styled.div`
+  
+  padding: 0 var(--pad-5);
+  margin: var(--pad-5) 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+`
+
+XScroller.displayName = 'XScroller'
+
+const XPurchase = styled.div`
+  display: flex;
+
+  button {
+    border-radius: 0;
+  }
+  input {
+    width: 25px;
+    border-radius: 0;
+    border: 1px solid var(--border);
+    border-right: none;
+    padding-left: 1em;
+  }
+  > div {
+    display: flex;
+    flex-direction: column;
+
+    i {
+      border: 1px solid var(--border);
+      background: var(--bg-grad);
+      padding: 6px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+`
+
+XPurchase.displayName + 'XPurchase'
+
+const XPageTitle = styled.h2`
+
+  color: var(--txt-main);
+  /* border: 1px solid var(--border); */
+  text-align: center;
+  /* background: var(--white); */
+`
+
+const XOrder = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed var(--border);
+  padding: 0.5em 0;
+
+  img {
+    width: 75px;
+  }
+
+  div:last-child  {
+    flex: 2;
+    text-align: right;
+  }
+`
+
+XOrder.displayName = 'XOrder'
+
+const XContent = styled.div`
+  padding: var(--pad-6) 0;
+`
+
+XContent.displayName = 'XContent'
+
 
 export {
   XButton,
@@ -128,5 +237,11 @@ export {
   XFormError,
   XFormInputTxt,
   XFormInputSubmit,
-  XSection
+  XSection,
+  XScroller,
+  XPurchase,
+  XPageTitle,
+  XOrder,
+  XContent,
+  XPayButton
 }

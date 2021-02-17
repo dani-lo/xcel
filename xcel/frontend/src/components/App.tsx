@@ -10,21 +10,23 @@ import { HomePage } from '../pages/home'
 import { ProductsPage } from '../pages/products'
 import { AccountPage } from '../pages/account'
 import { BasketPage } from '../pages/basket'
-import { Aboutpage } from '../pages/about'
 import { RegistrationPage } from '../pages/register'
 
 import { AppHeader } from './widget/header'
 
-import { appReducer, initialState } from '../data/reducer'
+import { appReducer, APP_STATUS, initialState } from '../data/reducer'
 
 import { bootstrap } from '../data/bootstrap'
 import { useNotification } from '../hooks/useNotification'
 import { Notify } from './widget/notifiction'
+import { notifyError, notifySuccess } from 'data/shortcuts'
 
 const StyledPage = styled.div`
     max-width: 900px;
     margin: 0 auto;
 `
+
+let num = 0
 
 const App = () => {
 
@@ -34,13 +36,23 @@ const App = () => {
         bootstrap(dispatch)
     }, [])
     
-    useNotification(state, dispatch)
+    //useNotification(state, dispatch)
+
+    if (state.status === APP_STATUS.NONE) {
+        return null
+    }
 
     return  <Router>
         <AppContext.Provider value={{ appstate: state, update: dispatch }}>
             <AppHeader />
             <StyledPage>
-                <Notify notification={ state.notify } />
+                {/* <button onClick={() => {
+                    num % 2 === 0 ? 
+                        notifyError(dispatch, `this is notification ${ num++ }`) :
+                        notifySuccess(dispatch, `this is notification ${ num++ }`)
+                }}
+                >NOTFIY</button> */}
+                <Notify notifications={ state.notify } />
                 <Switch>
                     <Route path="/account">
                         <AccountPage />
@@ -53,9 +65,6 @@ const App = () => {
                     </Route>
                     <Route path="/shop">
                         <ProductsPage />
-                    </Route>
-                    <Route path="/about">
-                        <Aboutpage />
                     </Route>
                     <Route path="/">
                         <HomePage />

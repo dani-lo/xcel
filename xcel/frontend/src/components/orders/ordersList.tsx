@@ -1,62 +1,68 @@
 import React from 'react'
 
-import { Order } from '../../lib/collections/order'
-import { deleteOrder } from '../../lib/api/ordersApi'
+import { Order } from 'lib/collections/order'
+import { deleteOrder } from 'lib/api/ordersApi'
 
-import { useXcelContext } from '../../data/provider'
-import { REDUCER_ACTIONS } from '../../data/reducer'
+import { useXcelContext } from 'data/provider'
+import { REDUCER_ACTIONS } from 'data/reducer'
+import { notifySuccess, notifyError } from 'data/shortcuts'
 
-import { NotificationType } from '../widget/notifiction'
+import { useFadeIn } from 'hooks/useTransition'
 
-import { XButton } from '../../styles/styled'
+import { XButton, XOrder } from 'styles/styled'
+import { userBasket } from 'lib/api/basketApi'
+import { Basket } from 'lib/collections/basket'
 
 export const OrdersList = ({ orders }: { orders: Order[]}) => {
 
-  const { update } = useXcelContext()
+  const { update, appstate } = useXcelContext()
 
-  return <>
-      {
-      orders.map((order, i) => {
-        return <div key={ `orders-${ i }`}>
-          <h3>- { i }</h3>
-          <p>{ order.product.name } x { order.quantity }</p>
-          <p>{ order.unit_price * order.quantity }</p>
-          <XButton 
-            onClick={ async () => {
-              try {
-                await deleteOrder(order)
+  const cname = useFadeIn(500)
 
-                update({
-                  type: REDUCER_ACTIONS.REMOVE_BASKET,
-                  payload: {
-                    order
-                  }
-                })
-                update({
-                  type: REDUCER_ACTIONS.NOTIFY,
-                  payload: {
-                    msg: 'Order deleted',
-                    type: NotificationType.SUCCESS,
-                    donotify: true
-                  }
-                })
-              } catch (e) {
-                update({
-                  type: REDUCER_ACTIONS.NOTIFY,
-                  payload: {
-                    msg: 'Order could not be deleted',
-                    type: NotificationType.ERROR,
-                    donotify: true
-                  }
-                })
-              }
-            }}
-            size="small">
-              <span className="material-icons padding-half-right">clear</span>
-              <span>delete</span>
-            </XButton>
-        </div>
-      })
+  return <> { orders.map((order, i) => {
+
+      const product = appstate.products.find(p => p.id === order.product_id)
+
+      if (!product) {
+        return null
       }
-    </>
+
+      return <XOrder key={ `orders-${ i } ${ cname }`}>
+          <div className="padding-dub-right">
+            <img src={ product.img_a} />
+          </div>
+          <div className="padding-dub-left">
+            <h3 className="txt-medium">{ product.name } x { order.quantity }</h3>
+            <p  className="txt-small">{ order.unit_price * order.quantity }</p>
+          </div>
+          <div>
+            <XButton 
+              onClick={ async () => {
+                try {
+
+                  await deleteOrder(order)
+
+                  const newBasketData = await userBasket()
+                  const newBasket = new Basket(newBasketData.data)
+
+                  update({
+                    type: REDUCER_ACTIONS.INIT_BASKET,
+                    payload: {
+                      basket: newBasket
+                    }
+                  })
+
+                  notifySuccess(update, 'Order deleted successfully')
+                } catch (e) {
+                  notifyError(update, 'Order could not be deleted')
+                }
+              }}
+              size="small">
+                delete
+            </XButton>
+          </div>
+        </XOrder>
+      })
+    }
+  </>
 }

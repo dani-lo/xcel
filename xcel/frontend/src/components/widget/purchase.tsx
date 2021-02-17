@@ -6,7 +6,7 @@ interface Props {
   onBuyProduct: (q: number) => void;
 }
 
-export const CreateOrder = (props : Props) => {
+export const PurchaseWidget = (props : Props) => {
 
   const [quantity, setQuantity] = useState(1)
 
