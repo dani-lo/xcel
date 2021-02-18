@@ -201,7 +201,7 @@ const XPageTitle = styled.h2`
   color: var(--txt-main);
   /* border: 1px solid var(--border); */
   text-align: center;
-  /* background: var(--white); */
+  background: var(--bg);
 `
 
 const XOrder = styled.div`
@@ -230,6 +230,22 @@ const XContent = styled.div`
 XContent.displayName = 'XContent'
 
 
+const XViewAccount = styled.ul`
+
+  li {
+    list-style: none;
+    
+    border-bottom: 1px dotted var(--border);
+    span {
+      display: inline-block;
+      width: 250px;
+      font-weight: bold;
+    }
+  }
+`
+
+XViewAccount.displayName = 'XViewAccount'
+
 export {
   XButton,
   XImgButton,
@@ -243,5 +259,6 @@ export {
   XPageTitle,
   XOrder,
   XContent,
-  XPayButton
+  XPayButton,
+  XViewAccount
 }

@@ -16,15 +16,20 @@ export interface AppNotification {
   id: number;
 }
 
-const nBorderColor = (props: { type: NotificationType }) => {
+const nBackground = (props: { type: NotificationType }) => {
   return props.type === NotificationType.ERROR ?  'red' : 
     props.type === NotificationType.WARNING ? 'yellow' : 
     'green'
 }
 
 const StyledNotification = styled.div<{ type: NotificationType }>`
-  border: 2px solid ${ props => nBorderColor(props) };
-  background: var(--white);
+  background: ${ props => nBackground(props) };
+  border: 2px solid var(--white);
+  color: var(--white);
+
+  p {
+    font-weight: bold;
+  }
 `
 
 const StyledNotificationContainer = styled.div`
@@ -48,7 +53,7 @@ export const Notify = ({ notifications }: { notifications : AppNotification[] } 
           type={ notification.type } 
           className={ `margin-top padding ${ cname }` }
         >
-          <p>{ notification.msg }</p>
+          <p className="txt-medium">{ notification.msg }</p>
         </StyledNotification>
       })
     }

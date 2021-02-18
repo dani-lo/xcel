@@ -3,9 +3,11 @@ import { getProducts } from 'lib/api/productsApi'
 import { userBasket } from 'lib/api/basketApi'
 
 import { REDUCER_ACTIONS } from 'data/reducer'
+import { notifySuccess } from 'data/shortcuts'
 
-
-export const bootstrap = async (update : (data: { type: REDUCER_ACTIONS; payload: any; }) => void) => {
+export const bootstrap = async (
+    update : (data: { type: REDUCER_ACTIONS; payload: any; }) => void, 
+    msg ?: string) => {
 
   const products = await getProducts()
 
@@ -16,7 +18,6 @@ export const bootstrap = async (update : (data: { type: REDUCER_ACTIONS; payload
     user = await getUser()
     basket = await userBasket()
 
-    console.log(basket)
   } catch (err) {
 
     user = {
@@ -29,7 +30,12 @@ export const bootstrap = async (update : (data: { type: REDUCER_ACTIONS; payload
       data: null
     }
   }
-  
+    
+  // const notification = msg ? [{
+  //   msg,
+  //   type: NotificationType.SUCCESS,
+  //   id: new Date().getTime()
+  // }] : []
 
   update({
     type: REDUCER_ACTIONS.INIT,
@@ -39,4 +45,8 @@ export const bootstrap = async (update : (data: { type: REDUCER_ACTIONS; payload
       basket: basket.data ? basket.data : null
     }
   })
+
+  if (msg) {
+    notifySuccess(update, msg)
+  }
 }

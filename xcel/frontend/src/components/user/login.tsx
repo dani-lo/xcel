@@ -6,6 +6,7 @@ import { reEmail } from 'lib/util/regex'
 
 import { useXcelContext } from 'data/provider'
 import { bootstrap } from 'data/bootstrap'
+import { notifySuccess, notifyError } from 'data/shortcuts'
 
 import { FormError } from 'components/widget/formError'
 
@@ -31,10 +32,10 @@ export const UserLogin = () => {
     try {
 
       await login(data)
-
-      bootstrap(update)
+      
+      bootstrap(update, 'You have successfully logged in')
     } catch (err) {
-
+      notifyError(update, 'Sorry, something went wrong')
     }
   }
 

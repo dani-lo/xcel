@@ -22,7 +22,11 @@ const StyledHeader = styled.nav`
         text-decoration: none;
         color: var(--txt-main);
         font-weight: bold;
-        font-size: 0.8em;
+        font-size: 16px;
+
+        i {
+          font-size: 14px;;
+        }
       }
 
       &.link-light {

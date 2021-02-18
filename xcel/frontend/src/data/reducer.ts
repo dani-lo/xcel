@@ -70,16 +70,18 @@ const initApp = (payload: AppState) => {
   const user = payload.user as User | null
   const products = payload.products as Product[]
   const basket = payload.basket as Basket | null
+  const notify = payload.notify || []
   
   const appStatus = user === null ? APP_STATUS.LOGGED_OUT : APP_STATUS.LOGGED_IN
-
-  return {
+  const newState = {
     user,
     products,
     basket,
-    notify : [],
+    notify,
     status: appStatus
   }
+
+  return newState
 }
 
 /**

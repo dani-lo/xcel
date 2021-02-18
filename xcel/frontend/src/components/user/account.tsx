@@ -10,26 +10,13 @@ import { REDUCER_ACTIONS } from 'data/reducer'
 import { Account, AccountProps } from 'lib/collections/account'
 import { addAccount, editAccount } from 'lib/api/userAPi'
 
-import { XFormInputTxt, XFormInputSubmit, XSection, XButton } from '../../styles/styled'
+import { XFormInputTxt, XFormInputSubmit, XSection, XButton, XViewAccount } from '../../styles/styled'
 
 
 enum ACCOUNT_MODE {
   EDIT,
   VIEW
 }
-
-const StyledViewAccount = styled.ul`
-  li {
-    list-style: none;
-    
-    border-bottom: 1px dotted var(--border);
-    span {
-      display: inline-block;
-      width: 250px;
-      font-weight: bold;
-    }
-  }
-`
 
 const StyledEditAccount = styled.form`
   display: flex;
@@ -162,14 +149,14 @@ export const UserAccount = () => {
 
   if (mode === ACCOUNT_MODE.VIEW && userData?.account) {
     return <>
-      <StyledViewAccount className="margin-bottom">
+      <XViewAccount className="margin-bottom">
         <li className="txt-small padding-half-bottom padding-half-top"><span>first name</span>{ userData.account.firstname }</li>
         <li className="txt-small padding-half-bottom padding-half-top"><span>last name</span>{ userData.account.lastname }</li>
         <li className="txt-small padding-half-bottom padding-half-top"><span>address line 1</span>{ userData.account.address_line_1 }</li>
         <li className="txt-small padding-half-bottom padding-half-top"><span>address line 2</span>{ userData.account.address_line_2 }</li>
         <li className="txt-small padding-half-bottom padding-half-top"><span>postcode</span>{ userData.account.postcode }</li>
         <li className="txt-small padding-half-bottom padding-half-top"><span>country</span>{ userData.account.country }</li>
-      </StyledViewAccount>
+      </XViewAccount>
       <XButton
         size="small"
         onClick={ () => setMode(ACCOUNT_MODE.EDIT)} 
