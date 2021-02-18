@@ -40,9 +40,9 @@ XImgButton.displayName = 'XImgButton'
  */
 const XProduct = styled.div`
   
-  border-bottom: 2px dashed var(--border);
-  padding: 0 0 2em;
-
+  border-top: 2px dashed var(--border);
+  padding: 2em 0 2em;
+  margin-top: 1em;
 
   img {
     width: 80%;
@@ -144,9 +144,9 @@ const XPayButton = styled(XButton)`
 const XSection = styled.div<{ highlight ?: boolean }>`
   
   margin: var(--pad-3) 0;
-  background: ${ props => props.highlight ? 'var(--black)' : 'var(--white)'};
-  color: ${ props => props.highlight ? 'var(--white)' : 'var(--txt-main)'};
-  padding: ${ props => props.highlight ? 'var(--pad-5)' : 'var(--pad-5)'};
+  background: ${ props => props.highlight ? 'var(--white)' : 'var(--white)'};
+  color: ${ props => props.highlight ? 'var(--black)' : 'var(--txt-black)'};
+  /* padding: ${ props => props.highlight ? 'var(--pad-5)' : 'var(--pad-5)'}; */
 `
 
 XSection.displayName = 'XSection'
@@ -156,10 +156,10 @@ XSection.displayName = 'XSection'
  */
 const XScroller = styled.div`
   
-  padding: 0 var(--pad-5);
+  /* padding: 0 var(--pad-5);
   margin: var(--pad-5) 0;
   background: var(--white);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border); */
 `
 
 XScroller.displayName = 'XScroller'

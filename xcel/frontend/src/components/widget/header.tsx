@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 import { useXcelContext } from 'data/provider'
 
 const StyledHeader = styled.nav`
-  background: var(--white);
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--pad-2) 5em;
+  padding: var(--pad-3) 5em;
   margin: 0 auto;
 
   ul {
@@ -54,9 +54,11 @@ const StyledHeader = styled.nav`
 `
 
 const StyledPayoff = styled.div`
-  height: 24px;
-  background: var(--black);
-  border-bottom: 1px solid var(--border);
+  /* border-bottom: 1px solid var(--border); */
+
+  img {
+    width: 100%;
+  }
 `
 
 export const AppHeader = () => {
@@ -71,7 +73,10 @@ export const AppHeader = () => {
       <Link to="/"><img style={{ width: '70px' }} src="/media/company/xcel-logo-txt.png" /></Link>
       <ul className="main-menu">
         <li className="margin-left margin-right">
-          <Link to="/shop">Shop</Link>
+          <Link className="txt-medium" to="/">Home</Link>
+        </li>
+        <li className="margin-left margin-right">
+          <Link className="txt-medium" to="/shop">Shop</Link>
         </li>
       </ul>
 
@@ -92,6 +97,8 @@ export const AppHeader = () => {
         </ul>
     }
     </StyledHeader>
-    <StyledPayoff />
+    <StyledPayoff>
+      <img src="/media/screen.png" />
+    </StyledPayoff>
   </>
 } 

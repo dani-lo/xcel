@@ -4,29 +4,26 @@ import { BrowserRouter as Router,
         Switch,
         Route } from 'react-router-dom'
 
-import { AppContext } from '../data/provider'
+import { AppContext } from 'data/provider'
+import { appReducer, APP_STATUS, initialState } from 'data/reducer'
+import { bootstrap } from 'data/bootstrap'
 
-import { HomePage } from '../pages/home'
-import { ProductsPage } from '../pages/products'
-import { AccountPage } from '../pages/account'
-import { BasketPage } from '../pages/basket'
-import { RegistrationPage } from '../pages/register'
+import { HomePage } from 'pages/home'
+import { ProductsPage } from 'pages/products'
+import { AccountPage } from 'pages/account'
+import { BasketPage } from 'pages/basket'
+import { RegistrationPage } from 'pages/register'
 
-import { AppHeader } from './widget/header'
+import { AppFooter } from 'components/widget/footer'
+import { Notify } from 'components/widget/notifiction'
+import { AppHeader } from 'components/widget/header'
 
-import { appReducer, APP_STATUS, initialState } from '../data/reducer'
-
-import { bootstrap } from '../data/bootstrap'
-import { useNotification } from '../hooks/useNotification'
-import { Notify } from './widget/notifiction'
-import { notifyError, notifySuccess } from 'data/shortcuts'
 
 const StyledPage = styled.div`
     max-width: 900px;
     margin: 0 auto;
 `
 
-let num = 0
 
 const App = () => {
 
@@ -36,8 +33,6 @@ const App = () => {
         bootstrap(dispatch)
     }, [])
     
-    //useNotification(state, dispatch)
-
     if (state.status === APP_STATUS.NONE) {
         return null
     }
@@ -46,12 +41,6 @@ const App = () => {
         <AppContext.Provider value={{ appstate: state, update: dispatch }}>
             <AppHeader />
             <StyledPage>
-                {/* <button onClick={() => {
-                    num % 2 === 0 ? 
-                        notifyError(dispatch, `this is notification ${ num++ }`) :
-                        notifySuccess(dispatch, `this is notification ${ num++ }`)
-                }}
-                >NOTFIY</button> */}
                 <Notify notifications={ state.notify } />
                 <Switch>
                     <Route path="/account">
@@ -71,6 +60,7 @@ const App = () => {
                     </Route>
                 </Switch>
             </StyledPage>
+            <AppFooter />
         </AppContext.Provider>
   </Router>
 }
