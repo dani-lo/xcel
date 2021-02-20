@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useXcelContext } from 'data/provider'
 
 import { OrdersList } from 'components/orders/ordersList'
 import { AppModal } from 'components/widget/modal'
 
-import { XButton, XPageTitle, XPayButton, XScroller, XSection, XViewAccount } from 'styles/styled'
+import { XButton, XPageTitle, XPayButton, XScroller, XSection, XViewAccount, XContentMain } from 'styles/styled'
 
 import { PaypalResponse } from 'lib/collections/basket'
 import { basketCheckout } from 'lib/api/basketApi'
@@ -21,7 +21,7 @@ export const BasketPage = () => {
   const basket = appstate.basket
 
   if (basket) {
-    return  <>
+    return  <XContentMain>
       {
         modal ? <AppModal 
         closeModal={ () => {
@@ -30,9 +30,9 @@ export const BasketPage = () => {
         }}
       >
         <p className="margin-bottom margin-top">By clicking on the paypal checkout you will be taken to your paypal checkin page</p>
-       <p>{ 
-        payment !== '' ? <XPayButton><a href={ payment }>place your order</a></XPayButton> : <span>Please wait</span> 
-       }</p>
+        <p>{ 
+          payment !== '' ? <XPayButton size="small"><a href={ payment }>place your order</a></XPayButton> : <span>Please wait</span> 
+        }</p>
       </AppModal> : null
       }
       <XPageTitle className="txt-jumbo margin-top margin-bottom padding-top padding-bottom padding cap">your orders</XPageTitle>
@@ -46,14 +46,16 @@ export const BasketPage = () => {
         </XSection>
         <XSection>
         <h3 className="text-medium margin-dub-top margin-dub-bottom">Shipment Detail</h3>
-        <XViewAccount className="margin-bottom">
+        { userData?.account ? 
+          <XViewAccount className="margin-bottom">
           <li className="txt-small padding-half-bottom padding-half-top"><span>first name</span>{ userData.account.firstname }</li>
           <li className="txt-small padding-half-bottom padding-half-top"><span>last name</span>{ userData.account.lastname }</li>
           <li className="txt-small padding-half-bottom padding-half-top"><span>address line 1</span>{ userData.account.address_line_1 }</li>
           <li className="txt-small padding-half-bottom padding-half-top"><span>address line 2</span>{ userData.account.address_line_2 }</li>
           <li className="txt-small padding-half-bottom padding-half-top"><span>postcode</span>{ userData.account.postcode }</li>
           <li className="txt-small padding-half-bottom padding-half-top"><span>country</span>{ userData.account.country }</li>
-        </XViewAccount>
+        </XViewAccount> : null
+        }
         </XSection>
         <XSection className="flex-row">
           <h3 className="txt-medium margin-dub-top">Total &pound;{ basket.total }</h3> 
@@ -74,7 +76,7 @@ export const BasketPage = () => {
           >checkout with paypal</XButton> 
         </XSection>
       </XScroller> 
-    </>
+    </XContentMain>
   } 
 
 

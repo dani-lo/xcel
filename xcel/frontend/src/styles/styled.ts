@@ -146,10 +146,22 @@ const XSection = styled.div<{ highlight ?: boolean }>`
   margin: var(--pad-3) 0;
   background: ${ props => props.highlight ? 'var(--white)' : 'var(--white)'};
   color: ${ props => props.highlight ? 'var(--black)' : 'var(--txt-black)'};
-  /* padding: ${ props => props.highlight ? 'var(--pad-5)' : 'var(--pad-5)'}; */
+  ${ props => props.highlight ? '' : ''}  
 `
 
 XSection.displayName = 'XSection'
+
+const XSectionHighlight = styled.div`
+  padding: var(--pad-5);
+  background: var(--highlight-light);
+  display: flex;
+
+  > div {
+    flex: 1;
+  }
+`
+
+XSectionHighlight.displayName = 'XSectionHighlight'
 
 /**
  * XScroller
@@ -246,6 +258,13 @@ const XViewAccount = styled.ul`
 
 XViewAccount.displayName = 'XViewAccount'
 
+const XContentMain = styled.div`
+  max-width: 900px;
+  margin: 0 auto;
+`
+
+XContentMain.displayName = 'XContentMain'
+
 export {
   XButton,
   XImgButton,
@@ -254,11 +273,13 @@ export {
   XFormInputTxt,
   XFormInputSubmit,
   XSection,
+  XSectionHighlight,
   XScroller,
   XPurchase,
   XPageTitle,
   XOrder,
   XContent,
   XPayButton,
-  XViewAccount
+  XViewAccount,
+  XContentMain
 }

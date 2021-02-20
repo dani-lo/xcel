@@ -8,7 +8,7 @@ import { UserLogin } from '../components/user/login'
 import { UserLogout } from '../components/user/logout'
 import { UserAccount } from '../components/user/account'
 
-import { XSection, XPageTitle } from '../styles/styled'
+import { XSection, XPageTitle, XContentMain } from '../styles/styled'
 
 export const AccountPage = () => {
   
@@ -18,7 +18,7 @@ export const AccountPage = () => {
   const appStatus = appstate.status
 
   if (appStatus === APP_STATUS.LOGGED_IN && userData !== null) {
-    return <>
+    return <XContentMain>
       <XPageTitle className="txt-jumbo margin-top margin-dub-bottom padding-top padding-bottom padding cap">Your Account</XPageTitle>
       <XSection style={{ marginTop: '4em'}}>
         <h3 className="txt-medium">You are logged in as</h3>
@@ -30,10 +30,10 @@ export const AccountPage = () => {
         <p className="txt-small margin-top margin-bottom">We will need your account details for purchases on this site</p>
         <UserAccount />
       </XSection> 
-    </> 
+    </XContentMain> 
   } 
 
-  return <>
+  return <XContentMain>
     <XPageTitle className="txt-jumbo margin-top margin-bottom padding-top padding-bottom padding cap">Your Account</XPageTitle>
     <XSection style={{ marginTop: '4em'}}> 
       <h2 className="txt-medium">Register a new account</h2>
@@ -45,6 +45,6 @@ export const AccountPage = () => {
       <p className="txt-small margin-top margin-bottom" style={{ maxWidth: '400px'}}>Login with your existing username and password</p>
       <UserLogin />
     </XSection>
-  </>
+  </XContentMain>
   
 }

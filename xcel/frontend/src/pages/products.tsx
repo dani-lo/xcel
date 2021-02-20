@@ -10,7 +10,7 @@ import { notifySuccess, notifyError } from 'data/shortcuts'
 
 import { ProductDetail } from 'components/product/productDetail'
 
-import { XSection, XPageTitle, XScroller } from 'styles/styled'
+import { XSection, XPageTitle, XScroller, XContentMain } from 'styles/styled'
 
 export const ProductsPage = () => {
 
@@ -39,7 +39,7 @@ export const ProductsPage = () => {
     } 
   }
 
-  return <>
+  return <XContentMain>
     <XPageTitle className="txt-jumbo margin-top margin-bottom padding-top padding-bottom cap">Organic Creams</XPageTitle>
     <XSection highlight className="txt-medium margin-dub-top margin-dub-bottom padding-bottom padding-top">
       <p className="txt-small padding-bottom">Our natural face creams will be sure to up your beauty routine with a mix of delicious oils and superfoods.</p>
@@ -56,5 +56,5 @@ export const ProductsPage = () => {
         </XSection>)
       }
     </XScroller>
-  </>
+  </XContentMain>
 }

@@ -1,17 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { useXcelContext } from 'data/provider'
 
-const StyledHeader = styled.nav`
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--pad-3) 5em;
-  margin: 0 auto;
+import { useWindowEvent } from 'hooks/useWindowEvent'
 
+const StyledHeader = styled.nav`
+  position: fixed;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  animation: top 2s ease-in;
+
+  .header-content {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--pad-3) 0;
+    margin: 0 auto;
+    width: 800px;
+  }
+
+  &.sticky {
+    top: 0;
+  }
+
+  &.sticky-hide {
+    top: -50px;
+  }
+
+  &.non-sticky {
+    position: absolute;
+    top: 0;
+  }
+
+  .orders-indicator {
+    position: relative;
+    left: -10px;
+    top: -4px;
+    color: var(--txt-main);
+    font-size: 12px;
+  }
   ul {
     text-align: right;
     li {
@@ -22,10 +53,27 @@ const StyledHeader = styled.nav`
         text-decoration: none;
         color: var(--txt-main);
         font-weight: bold;
-        font-size: 16px;
+        padding: var(--pad-1) var(--pad-3);
 
         i {
-          font-size: 14px;;
+          font-size: 14px;
+        }
+
+        &.textual {
+          border: 1px solid var(--bg);
+          padding: var(--pad-1) var(--pad-4);
+          border-radius: 4px;
+        }
+      }
+
+      &.active {
+        a {
+          background: var(--black);
+          color: var(--white);
+          border: none;
+        }
+        .orders-indicator {
+          color: var(--white);
         }
       }
 
@@ -35,23 +83,9 @@ const StyledHeader = styled.nav`
         }
       }
     }
-  }
-  ul.user-menu {
-    li {
-      padding-left: var(--pad-2);
-      position: relative;
-
-      &:first-child {
-        padding-right: var(--pad-2);
+    &.user-menu.loggedin {
+      li:first-child {
         border-right: 1px solid var(--border);
-      }
-
-      span.orders-indicator {
-        position: absolute;
-        right: -10px;
-        top: -3px;
-        font-size: 11px;
-        font-weight: bold;
       }
     }
   }
@@ -68,38 +102,60 @@ const StyledPayoff = styled.div`
 export const AppHeader = () => {
 
   const { appstate } = useXcelContext()
+  const [headerclass, setHeaderclass] = useState('non-sticky')
+
   const userData = appstate.user
 
   const ordersNum = appstate.basket?.orders.length || 0
+  const location = useLocation()
+
+  useWindowEvent('scroll', () => {
+    if (window.pageYOffset > 100 && headerclass === 'non-sticky') {
+      setHeaderclass('sticky-hide')
+
+      setTimeout(() => {
+        setHeaderclass('sticky')
+      }, 100)
+    } else if (window.pageYOffset < 20 && headerclass !== 'non-sticky') {
+      //setHeaderclass('sticky-hide')
+
+      //setTimeout(() => {
+      setHeaderclass('non-sticky')
+      //}, 100)
+    }
+  })
 
   return <>
-    <StyledHeader>
-      <Link to="/"><img style={{ width: '70px' }} src="/media/company/xcel-logo-txt.png" /></Link>
-      <ul className="main-menu">
-        <li className="margin-left margin-right">
-          <Link className="txt-medium" to="/">Home</Link>
-        </li>
-        <li className="margin-left margin-right">
-          <Link className="txt-medium" to="/shop">Shop</Link>
-        </li>
-      </ul>
-
-    { userData !== null ? 
-        <ul className="user-menu">
-          <li><Link to="/account"><i className="fas fa-user"></i></Link></li>
-          <li>
-            <Link to="/basket"><span><i className="fas fa-shopping-cart"></i></span></Link>
-            { ordersNum ? 
-              <span className="orders-indicator">{ ordersNum }</span>
-              : null 
-            }
+    <StyledHeader className={ headerclass }>
+      <div className="header-content">
+        <Link to="/"><img style={{ width: '70px' }} src="/media/company/xcel-logo-txt.png" /></Link>
+        <ul className="main-menu">
+          <li className={ ` ${ location.pathname === '/' ? 'active' : '' }` }>
+            <Link to="/">Home</Link>
+          </li>
+          <li className={ `${ location.pathname === '/shop' ? 'active' : '' }` }>
+            <Link to="/shop">Shop</Link>
           </li>
         </ul>
-    :
-        <ul className="user-menu padding-dub-left">
-          <li className="link-light"><Link to="/account"><span>login or create account</span></Link></li>
-        </ul>
-    }
+        { userData !== null ? 
+            <ul className="user-menu loggedin">
+              <li className={ `${ location.pathname === '/account' ? 'active' : '' }` }>
+                <Link to="/account"><i className="fas fa-user"></i></Link>
+              </li>
+              <li className={ `${ location.pathname === '/basket' ? 'active' : '' }` }>
+                <Link to="/basket" ><span><i className="fas fa-shopping-cart"></i></span></Link>
+                { ordersNum ? 
+                  <span className="orders-indicator">{ ordersNum }</span>
+                  : null 
+                }
+              </li>
+            </ul>
+        :
+            <ul className="user-menu">
+              <li className=""><Link to="/account"><i className="fas fa-user"></i></Link></li>
+            </ul>
+        }
+    </div>
     </StyledHeader>
     <StyledPayoff>
       <img src="/media/screen.png" />
