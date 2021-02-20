@@ -13,7 +13,6 @@ const StyledPhotosComp = styled.div`
 
 export const HomePage = () => {
 
-	
 	return <>
     <XContentMain>
       <XPageTitle className="txt-large margin padding-dub txt-center">IXCEL nature</XPageTitle>
@@ -36,6 +35,9 @@ export const HomePage = () => {
     </XContentMain>
     <XSectionHighlight className="margin-dub-top">
       <div>
+        <img width="400" src="/media/company/dani.png" />
+      </div>
+      <div className="padding-dub-left padding-dub-right">
         <h3 className="txt-jumbo margin-dub-bottom">meet the cream maker</h3>
         <p className="text-small margin-dub-top">Lorem ipso dolor sit amet etiam vouptitinmo non adepilor sit amet eo dolor sit amet etiam vouptitinmo non adepilor sit amet eo dolor sit amet etiam vouptitinmo non adepilor sit amet eo dolor sit amet etiam vouptitinmo non adepilor sit amet eo dolor sit amet etiam vouptitinmo non adepilor sit amet e</p>
       </div>
@@ -51,12 +53,6 @@ export const HomePage = () => {
           </StyledPhotosComp>
       </XSection>
     </XContentMain>
-		{/* <XButton
-      size="small "
-      onClick={ () => {
-        createBasket()
-      }}
-    >create basket</XButton> */}
 	</>
 	
 }

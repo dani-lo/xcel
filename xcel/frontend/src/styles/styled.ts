@@ -84,8 +84,6 @@ XFormError.displayName = 'XFormError'
  */
 const XFormInputTxt = styled.div`
   
-  margin: var(--pad-5) 0;
-
   label {
     display: block;
     margin: var(--pad-1) 0;
@@ -103,7 +101,6 @@ XFormInputTxt.displayName = 'XFormInputTxt'
  */
 const XFormInputSubmit = styled.div<{ size: string}>`
   
-  margin: var(--pad-5) 0;
   display: inline-block;
   border: none!important;
 

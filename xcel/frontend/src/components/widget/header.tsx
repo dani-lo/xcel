@@ -92,8 +92,6 @@ const StyledHeader = styled.nav`
 `
 
 const StyledPayoff = styled.div`
-  /* border-bottom: 1px solid var(--border); */
-
   img {
     width: 100%;
   }

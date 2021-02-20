@@ -26,8 +26,8 @@ export const AccountPage = () => {
         <UserLogout / >
         </XSection>
         <XSection style={{ marginTop: '4em'}}>
-        <h3 className="txt-medium">Your account data</h3>
-        <p className="txt-small margin-top margin-bottom">We will need your account details for purchases on this site</p>
+          <h3 className="txt-medium">Your account data</h3>
+          <p className="txt-small margin-top margin-bottom">We will need your account details for purchases on this site</p>
         <UserAccount />
       </XSection> 
     </XContentMain> 

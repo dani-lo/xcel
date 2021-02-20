@@ -33,7 +33,7 @@ export const OrdersList = ({ orders }: { orders: Order[]}) => {
           </div>
           <div className="padding-dub-left">
             <h3 className="txt-medium">{ product.name } x { order.quantity }</h3>
-            <p  className="txt-small">{ order.unit_price * order.quantity }</p>
+            <p  className="txt-small note">&pound;{ order.unit_price * order.quantity }</p>
           </div>
           <div>
             <XButton 
