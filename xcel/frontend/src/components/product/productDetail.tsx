@@ -7,7 +7,7 @@ import { CreateOrder } from 'components/orders/create'
 
 import { useFadeIn } from 'hooks/useTransition'
 
-import { XProduct } from 'styles/styled'
+import { XButton, XProduct } from 'styles/styled'
 
 import { userBasket } from 'lib/api/basketApi'
 import { Basket } from 'lib/collections/basket'
@@ -51,7 +51,6 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
   }
 
   return <XProduct  className={ `${ cname }` }>
-   
     <div>
       <div className="headshot">
         <img src={ p.img_a } /> 
@@ -71,18 +70,22 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
         </div>
       </div>
       <div className="padding-left">
-        <h3  className="txt-jumbo padding-dub-top padding-dub-bottom">{ p.name }</h3>
-        <p className="txt-jumbo price padding-top padding-bottom">&pound;{ p.price }</p>
+        <h3  className="txt-jumbo padding-dub-top padding-bottom">{ p.name }</h3>
+        <p className="txt-jumbo price padding-bottom">&pound;{ p.price }</p>
         <p className="txt-small margin-top">{ p.description }</p>
         <ul className="margin-dub-top">
           {
             p.ingredients.slice(0, 2).map((ingredient : Ingredient, i: number) => {
-              return <li key={ `ingredient-${ i }` }>
+              return <li key={ `ingredient-${ i }` } className="padding-bottom">
                 <h3 className="txt-small cap">{ ingredient.name }</h3>
                 <p  className="txt-small">{ ingredient.description }</p>
               </li>
             })
           }
+          <XButton
+            size="small"
+            onClick={ () => void 0 }
+          >View All Ingredients</XButton>
         </ul>
       </div>
     </div>

@@ -40,7 +40,7 @@ XImgButton.displayName = 'XImgButton'
  */
 const XProduct = styled.div`
   
-  border-top: 2px dashed var(--border);
+  border-top: 2px solid var(--bg);
   padding: 2em 0 2em;
   margin-top: 1em;
 
@@ -150,8 +150,13 @@ XSection.displayName = 'XSection'
 
 const XSectionHighlight = styled.div`
   padding: var(--pad-5);
-  background: var(--highlight-light);
-  display: flex;
+  background: var(--bg);
+  color: var(--black);
+  .highlight-content {
+    width: 1200px;
+    display: flex;
+    margin: auto;
+  }
 
   > div {
     flex: 1;
