@@ -15,7 +15,7 @@ const StyledPhotoBG = styled.div`
   /* position: fixed; */
   width: 100%;
   height: 100%;
-  background-image: url(/media/company/big-ingredients.png);
+  /* background-image: url(/media/company/big-ingredients.png); */
   background-repeat: no-repeat;
   margin-top: 4em;
   /* img {
@@ -25,9 +25,10 @@ const StyledPhotoBG = styled.div`
   p {
     span {
       color: var(--black);
-      background: var(--white);
-      line-height: 3em;
-      padding: 0.5em;
+      /* background: var(--white);
+      line-height: 1em;
+      padding: 0.5em; */
+      line-height: 1.4em;
     }
   }
 `
