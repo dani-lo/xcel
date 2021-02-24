@@ -19,7 +19,7 @@ def build_checkout_request_body (b_id, b_total):
             "landing_page": "BILLING",
             "shipping_preference": "SET_PROVIDED_ADDRESS",
             "user_action": "PAY_NOW",
-            "return_url": "http://18.236.204.125/checkout/return",
+            "return_url": "http://ixcel-nature.co.uk/payment_return",
         },
         "purchase_units": [
             {

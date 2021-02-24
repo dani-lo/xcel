@@ -1,3 +1,7 @@
+from django.http import HttpResponse
+from django.views.generic import  View
+from django.shortcuts import render
+
 from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -79,3 +83,6 @@ class PrepareBasket(APIView) :
 
         return Response(checkout_data)
 
+def payment_return(request):
+    print(request)
+    return render(request, 'payment_return.html')
