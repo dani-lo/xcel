@@ -1,4 +1,5 @@
 from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
+from paypalcheckoutsdk.orders import OrdersCaptureRequest, OrdersCreateRequest
 
 from django.conf import settings
 
@@ -42,15 +43,12 @@ class PayPalClient:
             for item in json_array:
                 result.append(self.object_to_json(item) if  not self.is_primittive(item) \
                               else self.array_to_json_array(item) if isinstance(item, list) else item)
-        return result;
+        return result
 
     def is_primittive(self, data):
         return isinstance(data, str) or isinstance(data, int)
 
-from paypalcheckoutsdk.orders import OrdersCreateRequest
-
-
-class CreateOrder(PayPalClient):
+class OrderClient(PayPalClient):
 
   #2. Set up your server to receive a call from the client
   """ This is the sample function to create an order. It uses the
@@ -74,3 +72,19 @@ class CreateOrder(PayPalClient):
                          response.result.purchase_units[0].amount.value))
 
     return response
+
+
+  def capture_order(self, token, debug=False):
+    request = OrdersCaptureRequest(token)
+
+    try :
+        response = self.client.execute(request)
+        order_id = response.result.id
+
+        return order_id
+
+    except IOError as ioe:
+
+      return 0
+
+

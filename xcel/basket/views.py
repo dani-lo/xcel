@@ -10,7 +10,7 @@ from xcel.basket.models import Basket
 from xcel.basket.serializers import BasketSerializer
 
 from xcel.basket.paypal import util as paypal_util
-from xcel.basket.paypal.paypal_client import CreateOrder
+from xcel.basket.paypal.paypal_client import OrderClient
 
 from xcel.order.models import Order
 
@@ -59,7 +59,7 @@ class PrepareBasket(APIView) :
         total = paypal_util.basket_total(pk)
         order_body = paypal_util.build_checkout_request_body(pk, total)
 
-        order = CreateOrder()
+        order = OrderClient()
 
         paypal_response = order.create_order(order_body, debug=True)
 
@@ -85,4 +85,14 @@ class PrepareBasket(APIView) :
 
 def payment_return(request):
     print(request)
-    return render(request, 'payment_return.html')
+    token = request.GET['TOKEN_ID']
+    order = OrderClient()
+
+    order_id = order.capture_order(token)
+
+    if order_id != 0:
+        # save the order ID to the basket and set basket status to PAID
+
+        return render(request, f'payment_return.html?success=great&orderid={ order_id }')
+
+    return
