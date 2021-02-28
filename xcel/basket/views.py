@@ -85,11 +85,11 @@ class PrepareBasket(APIView) :
 
 def payment_return(request):
     print(request)
-    token = request.GET['TOKEN_ID']
+    token = request.GET['token']
     order = OrderClient()
 
     order_id = order.capture_order(token)
-
+    print('orderid::', order_id)
     if order_id != 0:
         # save the order ID to the basket and set basket status to PAID
 
