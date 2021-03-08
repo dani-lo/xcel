@@ -17,6 +17,8 @@ class Basket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     instructions = models.CharField(max_length=200, blank=True, default='')
     status = models.CharField(max_length=20, choices=STATUS, default=OPEN)
+    token = models.CharField(max_length=24, blank=True, default='')
+    poid = models.CharField(max_length=24, blank=True, default='')
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='baskets', on_delete=models.CASCADE, blank=False,
                               null=False, default=None)

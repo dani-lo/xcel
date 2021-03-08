@@ -13,6 +13,7 @@ import { basketCheckout } from 'lib/api/basketApi'
 export const BasketPage = () => {
   
   const [payment, setPayment] = useState('')
+  const [err, setErr] = useState('')
   const [modal, setModal] = useState(false)
 
   const { appstate } = useXcelContext()
@@ -30,9 +31,17 @@ export const BasketPage = () => {
         }}
       >
         <p className="margin-bottom margin-top">By clicking on the paypal checkout you will be taken to your paypal checkin page</p>
-        <p>{ 
-          payment !== '' ? <XPayButton size="small"><a href={ payment }>place your order</a></XPayButton> : <span>Please wait</span> 
-        }</p>
+        <p>
+        { 
+          payment !== '' ? <XPayButton size="small"><a href={ payment }>place your order</a></XPayButton> : null 
+        }
+        {
+          err !== '' ? <span className="txt-small">{ err }</span>  : null
+        }
+        {
+          err === '' && payment === '' ? <span>Please wait</span> : null
+        }
+        </p>
       </AppModal> : null
       }
       <XPageTitle className="txt-jumbo margin-top margin-bottom padding-top padding-bottom padding cap">your orders</XPageTitle>
@@ -53,7 +62,7 @@ export const BasketPage = () => {
           <li className="txt-small padding-half-bottom padding-half-top"><span>address line 1</span>{ userData.account.address_line_1 }</li>
           <li className="txt-small padding-half-bottom padding-half-top"><span>address line 2</span>{ userData.account.address_line_2 }</li>
           <li className="txt-small padding-half-bottom padding-half-top"><span>postcode</span>{ userData.account.postcode }</li>
-          <li className="txt-small padding-half-bottom padding-half-top"><span>country</span>{ userData.account.country }</li>
+          <li className="txt-small padding-half-bottom padding-half-top"><span>country</span>{ userData.account.city }</li>
         </XViewAccount> : null
         }
         </XSection>
@@ -67,11 +76,19 @@ export const BasketPage = () => {
 
               const paypalResponse  = await basketCheckout(basket)
               const responseData : PaypalResponse = paypalResponse.data
-              const approveLink = responseData.links.find(l => l.rel === "approve")
+
+              if (responseData.error) {
+                setErr(responseData.error)
+              } else {
+                const approveLink = responseData.links.find(l => l.rel === "approve")
               
-              if (approveLink) {
-                setPayment(approveLink.href)
+                if (approveLink) {
+                  setPayment(approveLink.href)
+                } else {
+                  setErr('something went wrong')
+                }
               }
+              
             }}
           >checkout with paypal</XButton> 
         </XSection>

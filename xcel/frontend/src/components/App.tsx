@@ -11,6 +11,7 @@ import { HomePage } from 'pages/home'
 import { ProductsPage } from 'pages/products'
 import { AccountPage } from 'pages/account'
 import { BasketPage } from 'pages/basket'
+import { PaymentConfirmPage } from 'pages/confirmation'
 
 import { AppFooter } from 'components/widget/footer'
 import { Notify } from 'components/widget/notifiction'
@@ -34,6 +35,9 @@ const App = () => {
             <AppHeader />
             <Notify notifications={ state.notify } />
             <Switch>
+                <Route path="/payment_confirm/:poid">
+                    <PaymentConfirmPage />
+                </Route>
                 <Route path="/account">
                     <AccountPage />
                 </Route>

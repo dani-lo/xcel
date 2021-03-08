@@ -39,5 +39,14 @@ export const basketCheckout = (basket : Basket) => {
   return axios.put(`/api/checkout/${ basket.id }`, {}, config)
 }
 
+export const basketCaptureConfirm = (poid : string) => {
+  const csrftoken = getCSRFToken()
+  const config = { headers: {'X-CSRFToken': csrftoken }}
+
+
+
+  return axios.put(`/api/basket/`, { poid }, config)
+}
+
 
 export const setupPayment = () => {}

@@ -9,6 +9,7 @@ class Account(models.Model):
     address_line_1 = models.CharField(max_length=200, blank=False, default='')
     address_line_2 = models.CharField(max_length=200, blank=True, default='')
     country = models.CharField(max_length=200, blank=False, default='')
+    city = models.CharField(max_length=200, blank=False, default='')
     postcode = models.CharField(max_length=200, blank=False, default='')
 
     class Meta:

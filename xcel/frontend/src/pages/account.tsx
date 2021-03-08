@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import { useParams } from "react-router-dom"
 
 import { useXcelContext } from '../data/provider'
 import { APP_STATUS } from '../data/reducer'
@@ -12,6 +13,10 @@ import { XSection, XPageTitle, XContentMain } from '../styles/styled'
 
 export const AccountPage = () => {
   
+  let params = useParams()
+
+  console.log(params)
+
   const { appstate } = useXcelContext()
 
   const userData = appstate.user

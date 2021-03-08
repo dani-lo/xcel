@@ -5,7 +5,7 @@ export interface AccountProps {
   lastname: string;
   address_line_1: string;
   address_line_2: string;
-  country: string;
+  city: string;
   postcode: string;
 }
 
@@ -15,7 +15,7 @@ export class Account  {
   lastname: string;
   address_line_1: string;
   address_line_2: string;
-  country: string;
+  city: string;
   postcode: string;
 
   constructor (accountData : AccountProps) {
@@ -24,7 +24,7 @@ export class Account  {
     this.lastname = accountData.lastname
     this.address_line_1 = accountData.address_line_1
     this.address_line_2 = accountData.address_line_2
-    this.country = accountData.country
+    this.city = accountData.city
     this.postcode = accountData.postcode
   }
 
@@ -34,7 +34,7 @@ export class Account  {
       lastname: this.lastname,
       address_line_1: this.address_line_1,
       address_line_2: this.address_line_2,
-      country: this.country,
+      city: this.city,
       postcode: this.postcode
     }
 

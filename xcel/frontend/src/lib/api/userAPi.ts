@@ -12,7 +12,7 @@ export const getUser = () => {
   const csrftoken = getCSRFToken()
   const config = { headers: {'X-CSRFToken': csrftoken }}
 
-  return axios.get('/api/user', config)
+  return axios.get('/api/user/', config)
 }
 
 /**
@@ -20,7 +20,7 @@ export const getUser = () => {
  * @param data 
  */
 export const register = (data: { email: string; password: string }) => {
-  return axios.post('/api/register', data)
+  return axios.post('/api/register/', data)
 }
 
 /**
@@ -48,7 +48,7 @@ export const editAccount = (account: Account, accId : number) => {
   const config = { headers: {'X-CSRFToken': csrftoken }}
 
 
-  return axios.put(`api/account/update/${ accId }`, {
+  return axios.put(`api/account/update/${ accId }/`, {
     ...account.saveable(false)
   }, config)
 }
@@ -70,6 +70,5 @@ export const logout = () => {
  * @param data 
  */
 export const login = (data: {email: string; password: string}) => {
-  
-  return axios.post('/api/login', data)
+  return axios.post('/api/login/', data)
 }

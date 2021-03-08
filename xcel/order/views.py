@@ -67,10 +67,12 @@ class UserCreate(generics.CreateAPIView):
             return Response(status=status.HTTP_200_OK)
 
 class UserLogin(APIView):
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request, format=None):
         data = request.data
 
+        print(data)
         email = data.get('email', None)
         password = data.get('password', None)
 

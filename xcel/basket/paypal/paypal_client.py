@@ -84,7 +84,6 @@ class OrderClient(PayPalClient):
         return order_id
 
     except IOError as ioe:
-
-      return 0
+        return 0
 
 

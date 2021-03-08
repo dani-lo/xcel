@@ -8,6 +8,7 @@ export interface BasketProps {
 }
 
 export interface PaypalResponse {
+  error ?: string;
   links: {
     href: string;
     rel: string;

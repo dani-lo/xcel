@@ -1,4 +1,5 @@
 from xcel.order.models import Order
+from xcel.basket.models import Basket
 
 def basket_total (bid):
     b_tot = 0
@@ -11,7 +12,45 @@ def basket_total (bid):
 
     return str(b_tot)
 
-def build_checkout_request_body (b_id, b_total):
+def set_basket_token (bid, token):
+
+    try :
+        basket = Basket.objects.get(id = bid)
+        print(basket.id)
+        print(basket.status)
+        basket.token = token
+
+        basket.save()
+
+        return 1
+    except :
+        return 0
+
+def set_basket_paid (poid):
+
+    try :
+        basket = Basket.objects.get(poid = poid)
+        basket.status = Basket.PAID
+
+        basket.save()
+
+        return basket
+    except :
+        return 0
+
+def set_basket_paypal_order (token, poid):
+
+    try :
+        basket = Basket.objects.get(token = token)
+        basket.poid = poid
+
+        basket.save()
+
+        return basket
+    except :
+        return 0
+
+def build_checkout_request_body (b_id, b_total, user_detail):
     return {
         "intent": "CAPTURE",
         "application_context": {
@@ -35,14 +74,15 @@ def build_checkout_request_body (b_id, b_total):
                     "method": "Royal mail",
                     "address": {
                         "name": {
-                            "full_name": "Foobar",
-                            "surname": "Footsy"
+                            "full_name": user_detail.firstname,
+                            "surname": user_detail.lastname
                         },
-                        "address_line_1": "123 Townsend St",
-                        "admin_area_2": "London",
-                        "admin_area_1": "London",
-                        "postal_code": "N77HR",
-                        "country_code": "GB"
+                        "address_line_1": user_detail.address_line_1,
+                        "address_line_2": user_detail.address_line_2,
+                        "postal_code": user_detail.postcode,
+                        "admin_area_1": user_detail.city,
+                        "admin_area_2": user_detail.city,
+                        "country_code": 'GB'
                     }
                 }
             }

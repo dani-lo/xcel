@@ -21,7 +21,7 @@ class BasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Basket
         # list_serializer_class = FilteredListSerializer
-        fields = ('id', 'status', 'user', 'instructions','orders')
+        fields = ('id', 'status', 'user', 'instructions','orders', 'token', 'poid')
 
     # def create (self, validated_data):
     #     user = self.request.user

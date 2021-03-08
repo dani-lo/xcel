@@ -59,7 +59,7 @@ export const UserAccount = () => {
       address_line_1: userData?.account?.address_line_1 || '',
       address_line_2: userData?.account?.address_line_2 || '',
       postcode: userData?.account?.postcode || '',
-      country: userData?.account?.country || '',
+      city: userData?.account?.city || '',
     }
   })
 
@@ -137,10 +137,10 @@ export const UserAccount = () => {
       />
     </XFormInputTxt>
     <XFormInputTxt>
-      <label htmlFor="country" className="txt-small">country</label>
-      <input type="text" name="country" id="country" ref={register({ required: true })} />
+      <label htmlFor="city" className="txt-small">city</label>
+      <input type="text" name="city" id="city" ref={register({ required: true })} />
       <FormError 
-        errKey="country" 
+        errKey="city" 
         errors={ errors } 
         msg="This field is required" 
       />
@@ -155,7 +155,7 @@ export const UserAccount = () => {
         <li className="txt-small padding-half-bottom padding-half-top"><span>address line 1</span>{ userData.account.address_line_1 }</li>
         <li className="txt-small padding-half-bottom padding-half-top"><span>address line 2</span>{ userData.account.address_line_2 }</li>
         <li className="txt-small padding-half-bottom padding-half-top"><span>postcode</span>{ userData.account.postcode }</li>
-        <li className="txt-small padding-half-bottom padding-half-top"><span>country</span>{ userData.account.country }</li>
+        <li className="txt-small padding-half-bottom padding-half-top"><span>city</span>{ userData.account.city }</li>
       </XViewAccount>
       <XButton
         size="small"
