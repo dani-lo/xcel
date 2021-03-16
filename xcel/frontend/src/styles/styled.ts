@@ -43,6 +43,13 @@ const XProduct = styled.div`
   border-top: 2px solid var(--bg);
   padding: 2em 0 2em;
   margin-top: 1em;
+  
+  h3 {
+    background: var(--black);
+    color: var(--white);
+    padding: var(--pad-2);
+    text-align: center;
+  }
 
   img {
     width: 80%;
@@ -140,7 +147,7 @@ const XPayButton = styled(XButton)`
  */
 const XSection = styled.div<{ highlight ?: boolean }>`
   
-  margin: var(--pad-3) 0;
+  margin: var(--pad-5) 0;
   background: ${ props => props.highlight ? 'var(--white)' : 'var(--white)'};
   color: ${ props => props.highlight ? 'var(--black)' : 'var(--txt-black)'};
   ${ props => props.highlight ? '' : ''}  
@@ -219,20 +226,30 @@ const XPageTitle = styled.h2`
 `
 
 const XOrder = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
   border-bottom: 1px dashed var(--border);
-  padding: 0.5em 0;
 
-  img {
-    width: 75px;
-  }
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    padding: 0.5em 0;
 
-  div:last-child  {
-    flex: 2;
-    text-align: right;
+    @media only screen and (max-width: 800px) {
+      justify-content: flex-start;
+    }
+
+    img {
+      width: 75px;
+    }
+
+    div:last-child  {
+      flex: 2;
+      text-align: right;
+    }
   }
+ 
 `
 
 XOrder.displayName = 'XOrder'
@@ -248,7 +265,6 @@ const XViewAccount = styled.ul`
 
   li {
     list-style: none;
-    
     border-bottom: 1px dotted var(--border);
     span {
       display: inline-block;

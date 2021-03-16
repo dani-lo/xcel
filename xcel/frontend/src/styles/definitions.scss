@@ -16,9 +16,9 @@
   --pad-1: 0.25rem;
   --pad-2: 0.5rem;
   --pad-3: 1rem;
-  --pad-4: 2rem;
-  --pad-5: 3rem;
-  --pad-6: 4rem;
+  --pad-4: 1.25rem;
+  --pad-5: 2rem;
+  --pad-6: 3rem;
 
   --font-small: 0.9rem;
   --font-medium: 1.1rem;
@@ -216,4 +216,35 @@
 
 .note {
   font-weight: bold;
+}
+
+.fullwidth {
+  width: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+  .hide-responsive-small {
+      display: none!important;
+    
+  }
+  
+  .block-responsive-small {
+      display: block!important;
+    }
+}
+
+.fw {
+  display: block;
+}
+.rw {
+  display: none!important;
+}
+
+@media only screen and (max-width: 800px) {
+  .fw {
+    display: none!important;
+  }
+  .rw {
+    display: block!important;
+  }
 }

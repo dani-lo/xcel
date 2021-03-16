@@ -1,11 +1,6 @@
-import React, { useState, useEffect, useReducer } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
 
-
-import { appReducer, APP_STATUS, initialState } from 'data/reducer'
-import { bootstrap } from 'data/bootstrap'
-import { useXcelContext } from '../data/provider'
 
 import { basketCaptureConfirm } from 'lib/api/basketApi'
 
@@ -25,9 +20,7 @@ export const PaymentConfirmPage = () => {
   const [success, setSuccess] = useState('init')
 
   const capture = async () => {
-    console.log('HJERERE', poid)
     if (poid && poid.length > 1) {
-      console.log('GO')
       try {
         const result : any = await basketCaptureConfirm(poid)
 
@@ -39,6 +32,8 @@ export const PaymentConfirmPage = () => {
       } catch (err) {
         setSuccess('failed')
       }
+    } else if (poid && poid.length === 1) {
+      setSuccess('failed')
     }
   }
 
@@ -46,40 +41,40 @@ export const PaymentConfirmPage = () => {
     capture()
   }, [poid])
 
-  const paid = poid && poid != '0' && success === 'paid'
-  const failed = poid && poid != '0' && success === 'failed'
-  const awaiting = poid && poid != '0' && success === 'init'
+  const paid = poid && success === 'paid'
+  const failed = poid &&  success === 'failed'
+  const awaiting = success === 'init'
 
   return <XContentMain>
-    <XPageTitle className="txt-jumbo margin-top margin-dub-bottom padding-top padding-bottom padding cap">Your Order</XPageTitle>
+    <XPageTitle className="cap">Your Order</XPageTitle>
     <XSection style={{ marginTop: '4em'}}>
       {
         paid ? <>
-          <h3 className="txt-medium">Thank you for your order</h3>
-          <p className="txt-small margin-top margin-bottom">Your order was successful</p>
+          <h3>Thank you for your order</h3>
+          <p>Your order was successful</p>
         </> : null
       }
       {
         failed ? <>
-          <h3 className="txt-medium">There was something wrong with your order</h3>
-          <p className="txt-small margin-top margin-bottom">Please get in touch with us</p>
+          <h3>There was something wrong with your order</h3>
+          <p>Please get in touch with us</p>
         </> : null
       }
       {
         awaiting ? <>
-          <h3 className="txt-medium">&nbsp;</h3>
-          <p className="txt-small margin-top margin-bottom">&nbsp;</p>
+          <h3>&nbsp;</h3>
+          <p>&nbsp;</p>
         </> : null
       }
     </XSection>
       
       
       <XSection style={{ marginTop: '4em'}}>
-        <h3 className="txt-medium margin-top margin-bottom">IXcel Nature</h3>
-        <ul className="margin-top margin-bottom">
-          <li className="padding-half-top padding-half-bottom txt-small">Orders are delivered tipically within 4 or 5 working days to the address you provided</li>
-          <li className="padding-half-top padding-half-bottom txt-small">We will always use the address you specified within your account section. Only on e active address is allowed per account</li>
-          <li className="padding-half-top padding-half-bottom txt-small">Contact us on 07947 937 915 or at hello@ixcel-nature.co.uk</li>
+        <h3>IXcel Nature</h3>
+        <ul>
+          <li>Orders are delivered tipically within 4 or 5 working days to the address you provided</li>
+          <li>We will always use the address you specified within your account section. Only on e active address is allowed per account</li>
+          <li>Contact us on 07947 937 915 or at hello@ixcel-nature.co.uk</li>
         </ul>
       </XSection> 
   </XContentMain> 

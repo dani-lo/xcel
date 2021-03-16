@@ -30,13 +30,13 @@ export const BasketPage = () => {
           setPayment('')
         }}
       >
-        <p className="margin-bottom margin-top">By clicking on the paypal checkout you will be taken to your paypal checkin page</p>
+        <p>By clicking on the paypal checkout you will be taken to your paypal checkin page</p>
         <p>
         { 
           payment !== '' ? <XPayButton size="small"><a href={ payment }>place your order</a></XPayButton> : null 
         }
         {
-          err !== '' ? <span className="txt-small">{ err }</span>  : null
+          err !== '' ? <span>{ err }</span>  : null
         }
         {
           err === '' && payment === '' ? <span>Please wait</span> : null
@@ -44,30 +44,30 @@ export const BasketPage = () => {
         </p>
       </AppModal> : null
       }
-      <XPageTitle className="txt-jumbo margin-top margin-bottom padding-top padding-bottom padding cap">your orders</XPageTitle>
-      <XSection highlight className="txt-medium margin-dub-top margin-dub-bottom padding">
-        <p className="txt-small margin-bottom">For yus to be baleto deliver your orders we will need your full address details</p>
-        <p className="txt-small margin-bottom">When you are happy with your orders plese make sure you have already added your address details in your account, then proceed to a secure checkout via Paypal</p>
+      <XPageTitle className="cap">your orders</XPageTitle>
+      <XSection highlight>
+        <p>For yus to be baleto deliver your orders we will need your full address details</p>
+        <p>When you are happy with your orders plese make sure you have already added your address details in your account, then proceed to a secure checkout via Paypal</p>
       </XSection>
       <XScroller>
         <XSection>
           <OrdersList orders={ basket.orders } /> 
         </XSection>
         <XSection>
-        <h3 className="text-medium margin-dub-top margin-dub-bottom">Shipment Detail</h3>
+        <h3>Shipment Detail</h3>
         { userData?.account ? 
-          <XViewAccount className="margin-bottom">
-          <li className="txt-small padding-half-bottom padding-half-top"><span>first name</span>{ userData.account.firstname }</li>
-          <li className="txt-small padding-half-bottom padding-half-top"><span>last name</span>{ userData.account.lastname }</li>
-          <li className="txt-small padding-half-bottom padding-half-top"><span>address line 1</span>{ userData.account.address_line_1 }</li>
-          <li className="txt-small padding-half-bottom padding-half-top"><span>address line 2</span>{ userData.account.address_line_2 }</li>
-          <li className="txt-small padding-half-bottom padding-half-top"><span>postcode</span>{ userData.account.postcode }</li>
-          <li className="txt-small padding-half-bottom padding-half-top"><span>country</span>{ userData.account.city }</li>
+          <XViewAccount>
+            <li className="padding-half-bottom padding-half-top"><span>first name</span>{ userData.account.firstname }</li>
+            <li className="padding-half-bottom padding-half-top"><span>last name</span>{ userData.account.lastname }</li>
+            <li className="padding-half-bottom padding-half-top"><span>address line 1</span>{ userData.account.address_line_1 }</li>
+            <li className="padding-half-bottom padding-half-top"><span>address line 2</span>{ userData.account.address_line_2 }</li>
+            <li className="padding-half-bottom padding-half-top"><span>postcode</span>{ userData.account.postcode }</li>
+            <li className="padding-half-bottom padding-half-top"><span>country</span>{ userData.account.city }</li>
         </XViewAccount> : null
         }
         </XSection>
         <XSection className="flex-row">
-          <h3 className="txt-medium margin-dub-top">Total &pound;{ basket.total }</h3> 
+          <h3>Total &pound;{ basket.total }</h3> 
           <XButton
             size="small"
             onClick={ async () => {

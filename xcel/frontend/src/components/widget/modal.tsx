@@ -44,8 +44,8 @@ export const AppModal = (props : Props) => {
   return <StyledModal>
     <div className="modal-bg"></div>
     
-    <XSection className="modal-body padding-dub">
-      <div className="modal-header padding-bottom">
+    <XSection className="modal-body">
+      <div className="modal-header">
         <XButton size="small" onClick={ props.closeModal }>
           close
           </XButton>

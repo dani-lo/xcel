@@ -9,7 +9,7 @@ import { notifySuccess, notifyError } from 'data/shortcuts'
 
 import { FormError } from 'components/widget/formError'
 
-import { XFormInputTxt, XFormInputSubmit, XSection } from 'styles/styled'
+import { XFormInputTxt, XFormInputSubmit } from 'styles/styled'
 
 interface Inputs {
   email: string,
@@ -41,7 +41,7 @@ export const UserRegistration = () => {
 
   return <form onSubmit={handleSubmit(onRegister)}>
       <XFormInputTxt>
-        <label htmlFor="email" className="txt-small">email</label>
+        <label htmlFor="email">email</label>
         <input type="text" id="email" name="email" ref={register({ pattern: reEmail })} />
         <FormError 
           errKey="email" 
@@ -50,7 +50,7 @@ export const UserRegistration = () => {
         />
       </XFormInputTxt>
       <XFormInputTxt>
-        <label htmlFor="password" className="txt-small">password</label>
+        <label htmlFor="password">password</label>
         <input type="password" name="password" id="password" ref={register({ required: true })} />
         <FormError 
           errKey="email" 
@@ -58,7 +58,7 @@ export const UserRegistration = () => {
           msg="This field is required" 
         />
       </XFormInputTxt>
-      <XFormInputSubmit size="small" className="margin-top">
+      <XFormInputSubmit size="small">
         <input type="submit" value="register" />
       </XFormInputSubmit>
     </form>

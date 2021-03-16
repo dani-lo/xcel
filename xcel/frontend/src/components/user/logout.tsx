@@ -16,6 +16,7 @@ export const UserLogout = () => {
   
   return userData ? <XButton
         size="small"
+        className="margin-top"
         onClick={async () => {
           try {
             await logout()

@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react'
 import { BrowserRouter as Router,
         Switch,
         Route } from 'react-router-dom'
+import styled from 'styled-components'
 
 import { AppContext } from 'data/provider'
 import { appReducer, APP_STATUS, initialState } from 'data/reducer'
@@ -17,6 +18,16 @@ import { AppFooter } from 'components/widget/footer'
 import { Notify } from 'components/widget/notifiction'
 import { AppHeader } from 'components/widget/header'
 
+const AppWrapper = styled.div`
+    background: var(--white);
+    padding-top: 3em;
+    padding-bottom: 3em;
+
+    @media only screen and (max-width: 800px) {
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+`
 
 const App = () => {
 
@@ -34,23 +45,25 @@ const App = () => {
         <AppContext.Provider value={{ appstate: state, update: dispatch }}>
             <AppHeader />
             <Notify notifications={ state.notify } />
-            <Switch>
-                <Route path="/payment_confirm/:poid">
-                    <PaymentConfirmPage />
-                </Route>
-                <Route path="/account">
-                    <AccountPage />
-                </Route>
-                <Route path="/basket">
-                    <BasketPage />
-                </Route>
-                <Route path="/shop">
-                    <ProductsPage />
-                </Route>
-                <Route path="/">
-                    <HomePage />
-                </Route>
-            </Switch>
+            <AppWrapper>
+                <Switch>
+                    <Route path="/payment_confirm/:poid">
+                        <PaymentConfirmPage />
+                    </Route>
+                    <Route path="/account">
+                        <AccountPage />
+                    </Route>
+                    <Route path="/basket">
+                        <BasketPage />
+                    </Route>
+                    <Route path="/shop">
+                        <ProductsPage />
+                    </Route>
+                    <Route path="/">
+                        <HomePage />
+                    </Route>
+                </Switch>
+            </AppWrapper>
             <AppFooter />
         </AppContext.Provider>
   </Router>

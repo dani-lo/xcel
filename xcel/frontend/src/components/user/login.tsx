@@ -41,7 +41,7 @@ export const UserLogin = () => {
 
   return <form onSubmit={handleSubmit(onLogin)}>
     <XFormInputTxt>
-      <label htmlFor="email" className="txt-small">email</label>
+      <label htmlFor="email">email</label>
       <input type="text" id="email" name="email" ref={register({ pattern: reEmail })} />
       <FormError 
         errKey="email" 
@@ -50,7 +50,7 @@ export const UserLogin = () => {
       />
     </XFormInputTxt>
     <XFormInputTxt>
-      <label htmlFor="password" className="txt-small">password</label>
+      <label htmlFor="password">password</label>
       <input name="password" id="password" type="password" ref={register({ required: true })} />
       <FormError 
         errKey="password" 
@@ -58,7 +58,7 @@ export const UserLogin = () => {
         msg="This field is required" 
       />
     </XFormInputTxt>
-    <XFormInputSubmit size="small" className="margin-top">
+    <XFormInputSubmit size="small">
       <input type="submit" value="login" />
     </XFormInputSubmit>
   </form>

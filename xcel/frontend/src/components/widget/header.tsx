@@ -9,7 +9,6 @@ import { useWindowEvent } from 'hooks/useWindowEvent'
 const StyledHeader = styled.nav`
   position: fixed;
   width: 100%;
-  border-bottom: 1px solid var(--border);
   background: var(--bg);
   animation: top 2s ease-in;
 
@@ -21,6 +20,15 @@ const StyledHeader = styled.nav`
     padding: var(--pad-3) 0;
     margin: 0 auto;
     width: 800px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .header-content {
+      padding: var(--pad-3);
+      margin: 0 auto;
+      width: auto;
+    }
+    
   }
 
   &.sticky {
@@ -150,7 +158,7 @@ export const AppHeader = () => {
             </ul>
         :
             <ul className="user-menu">
-              <li className=""><Link to="/account"><i className="fas fa-user"></i></Link></li>
+              <li><Link to="/account"><i className="fas fa-user"></i></Link></li>
             </ul>
         }
     </div>

@@ -23,45 +23,53 @@ export const OrdersList = ({ orders }: { orders: Order[]}) => {
 
       const product = appstate.products.find(p => p.id === order.product_id)
 
+      const onBuy = async () => {
+        try {
+
+          await deleteOrder(order)
+
+          const newBasketData = await userBasket()
+          const newBasket = new Basket(newBasketData.data)
+
+          update({
+            type: REDUCER_ACTIONS.INIT_BASKET,
+            payload: {
+              basket: newBasket
+            }
+          })
+
+          notifySuccess(update, 'Order deleted successfully')
+        } catch (e) {
+          notifyError(update, 'Order could not be deleted')
+        }
+      }
+
       if (!product) {
         return null
       }
 
-      return <XOrder key={ `orders-${ i } ${ cname }`}>
-          <div className="padding-dub-right">
-            <img src={ product.img_a} />
-          </div>
-          <div className="padding-dub-left">
-            <h3 className="txt-medium">{ product.name } x { order.quantity }</h3>
-            <p  className="txt-small note">&pound;{ order.unit_price * order.quantity }</p>
-          </div>
+      return <>
+        <XOrder key={ `orders-${ i } ${ cname }`}>
           <div>
-            <XButton 
-              onClick={ async () => {
-                try {
-
-                  await deleteOrder(order)
-
-                  const newBasketData = await userBasket()
-                  const newBasket = new Basket(newBasketData.data)
-
-                  update({
-                    type: REDUCER_ACTIONS.INIT_BASKET,
-                    payload: {
-                      basket: newBasket
-                    }
-                  })
-
-                  notifySuccess(update, 'Order deleted successfully')
-                } catch (e) {
-                  notifyError(update, 'Order could not be deleted')
-                }
-              }}
-              size="small">
-                delete
-            </XButton>
+            <div className="padding-dub-right">
+              <img src={ product.img_a} />
+            </div>
+            <div>
+              <h3 className="txt-medium">{ product.name } (x { order.quantity })</h3>
+              <p  className="txt-small note">price &pound;{ order.unit_price * order.quantity }</p>
+            </div>
+            <div>
+              <XButton 
+                onClick={ onBuy }
+                size="small">
+                  delete
+              </XButton>
+            </div>
           </div>
+          
         </XOrder>
+        
+        </>
       })
     }
   </>

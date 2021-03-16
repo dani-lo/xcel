@@ -1,7 +1,7 @@
 body {
-    background: var(--white);
+    background: var(--black);
     color: var(--txt-main);
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 html, body, h1, h2, h3, p, ul, li {
@@ -9,11 +9,25 @@ html, body, h1, h2, h3, p, ul, li {
     padding: 0;
 }
 
+#app {
+    padding-top: 24px;
+}
+
+h2, h3 {
+    padding: var(--pad-2) 0;
+    font-size: var(--font-medium);
+}
+ul {
+    padding: var(--pad-2) 0;
+}
 ul li {
+    padding: var(--pad-1) 0;
+    font-size: var(--font-small);
     list-style: none;
     list-style-position: inside;
 }
 
-#app {
-    padding-top: 24px;
+p {
+    font-size: var(--font-small);
+    padding: var(--pad-2) 0;
 }

@@ -40,10 +40,10 @@ export const ProductsPage = () => {
   }
 
   return <XContentMain>
-    <XPageTitle className="txt-jumbo margin-top margin-bottom padding-top padding-bottom cap">Organic Creams</XPageTitle>
-    <XSection highlight className="txt-medium margin-dub-top margin-dub-bottom padding-bottom padding-top">
-      <p className="txt-small padding-bottom">Our natural face creams will be sure to up your beauty routine with a mix of delicious oils and superfoods.</p>
-      <p className="txt-small padding-bottom">This range of natural and organic moisturisers will leave your skin feeling soft and nourished whilst protecting against elements such as UV exposure and environmental stressors.</p>
+    <XPageTitle className="cap">Organic Creams</XPageTitle>
+    <XSection highlight>
+      <p>Our natural face creams will be sure to up your beauty routine with a mix of delicious oils and superfoods.</p>
+      <p>This range of natural and organic moisturisers will leave your skin feeling soft and nourished whilst protecting against elements such as UV exposure and environmental stressors.</p>
     </XSection>
     <XScroller>
       {

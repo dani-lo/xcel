@@ -97,7 +97,7 @@ export const UserAccount = () => {
 
   const accountForm = <>
     <XFormInputTxt>
-      <label htmlFor="firstname" className="txt-small">first name</label>
+      <label htmlFor="firstname">first name</label>
       <input type="text" id="firstname" name="firstname" ref={register({ required: true })} />
       <FormError 
         errKey="firstname" 
@@ -106,7 +106,7 @@ export const UserAccount = () => {
       />
     </XFormInputTxt>
     <XFormInputTxt>
-      <label htmlFor="lastname" className="txt-small">last name</label>
+      <label htmlFor="lastname">last name</label>
       <input type="text" name="lastname" id="lastname" ref={register({ required: true })} />
       <FormError 
         errKey="lastname" 
@@ -115,7 +115,7 @@ export const UserAccount = () => {
       />
     </XFormInputTxt>
     <XFormInputTxt>
-      <label htmlFor="address_line_1" className="txt-small">address line 1</label>
+      <label htmlFor="address_line_1">address line 1</label>
       <input type="text" name="address_line_1" id="address_line_1" ref={register({ required: true })} />
       <FormError 
         errKey="address_line_1" 
@@ -124,11 +124,11 @@ export const UserAccount = () => {
       />
     </XFormInputTxt>
     <XFormInputTxt>
-      <label htmlFor="address_line_2" className="txt-small">address line 2</label>
+      <label htmlFor="address_line_2">address line 2</label>
       <input type="text" name="address_line_2" id="address_line_2" ref={register({ required: true })} />
     </XFormInputTxt>
     <XFormInputTxt>
-      <label htmlFor="postcode" className="txt-small">postcode</label>
+      <label htmlFor="postcode">postcode</label>
       <input type="text" name="postcode" id="postcode" ref={register({ required: true })} />
       <FormError 
         errKey="postcode" 
@@ -137,7 +137,7 @@ export const UserAccount = () => {
       />
     </XFormInputTxt>
     <XFormInputTxt>
-      <label htmlFor="city" className="txt-small">city</label>
+      <label htmlFor="city">city</label>
       <input type="text" name="city" id="city" ref={register({ required: true })} />
       <FormError 
         errKey="city" 
@@ -149,15 +149,16 @@ export const UserAccount = () => {
 
   if (mode === ACCOUNT_MODE.VIEW && userData?.account) {
     return <>
-      <XViewAccount className="margin-bottom">
-        <li className="txt-small padding-half-bottom padding-half-top"><span>first name</span>{ userData.account.firstname }</li>
-        <li className="txt-small padding-half-bottom padding-half-top"><span>last name</span>{ userData.account.lastname }</li>
-        <li className="txt-small padding-half-bottom padding-half-top"><span>address line 1</span>{ userData.account.address_line_1 }</li>
-        <li className="txt-small padding-half-bottom padding-half-top"><span>address line 2</span>{ userData.account.address_line_2 }</li>
-        <li className="txt-small padding-half-bottom padding-half-top"><span>postcode</span>{ userData.account.postcode }</li>
-        <li className="txt-small padding-half-bottom padding-half-top"><span>city</span>{ userData.account.city }</li>
+      <XViewAccount>
+        <li className="padding-half-top padding-half-bottom"><span>first name</span>{ userData.account.firstname }</li>
+        <li className="padding-half-top padding-half-bottom"><span>last name</span>{ userData.account.lastname }</li>
+        <li className="padding-half-top padding-half-bottom"><span>address line 1</span>{ userData.account.address_line_1 }</li>
+        <li className="padding-half-top padding-half-bottom"><span>address line 2</span>{ userData.account.address_line_2 }</li>
+        <li className="padding-half-top padding-half-bottom"><span>postcode</span>{ userData.account.postcode }</li>
+        <li className="padding-half-top padding-half-bottom"><span>city</span>{ userData.account.city }</li>
       </XViewAccount>
       <XButton
+        className="margin-top"
         size="small"
         onClick={ () => setMode(ACCOUNT_MODE.EDIT)} 
       >Edit account</XButton>
@@ -169,7 +170,7 @@ export const UserAccount = () => {
           accountForm
         }
         <div className="form-subitter">
-        <XButton onClick={() => setMode(ACCOUNT_MODE.VIEW)} size="small" className="margin-right">cancel</XButton>
+        <XButton onClick={() => setMode(ACCOUNT_MODE.VIEW)} size="small">cancel</XButton>
         <XFormInputSubmit size="small">
           <input type="submit" value="save account data" />
         </XFormInputSubmit>

@@ -51,50 +51,52 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
   }
 
   return <XProduct  className={ `${ cname }` }>
-    <div>
+    <div className="fw">
       <div className="headshot">
         <img src={ p.img_a } /> 
         <ul>
           {
             p.features.map((feature : Ingredient, i: number) => {
               return <li key={ `feature-${ i }` }>
-                <h3 className="txt-small cap">{ feature.description }</h3>
+                { feature.description }
               </li>
             })
           }
         </ul>
-        <div className="margin-dub-top padding-top">
+        <div>
         {
           loggedIn ? <CreateOrder onBuyProduct={ onBuyProduct } /> : null
         }
         </div>
       </div>
-      <div className="padding-left">
-        <h3  className="txt-jumbo padding-dub-top padding-bottom">{ p.name }</h3>
-        <p className="txt-jumbo price padding-bottom">&pound;{ p.price }</p>
-        <p className="txt-small margin-top">{ p.description }</p>
-        <ul className="margin-dub-top">
-          {
-            p.ingredients.slice(0, 2).map((ingredient : Ingredient, i: number) => {
-              return <li key={ `ingredient-${ i }` } className="padding-bottom">
-                <h3 className="txt-small cap">{ ingredient.name }</h3>
-                <p  className="txt-small">{ ingredient.description }</p>
-              </li>
-            })
-          }
-          <XButton
+      <div>
+        <h3>{ p.name }</h3>
+        <p className="margin-dub-bottom margin-dub-top txt-jumbo">&pound;{ p.price }</p>
+        <p>{ p.description }</p>
+        <XButton
             size="small"
             onClick={ () => void 0 }
           >View All Ingredients</XButton>
-        </ul>
       </div>
     </div>
-    <div>
-      
-      <div className="padding-left">
-        
+    <div className="rw">
+      <h3>{ p.name }</h3>
+      <div className="flex-row padding-top" style={{ justifyContent: 'center' }}>
+        <img src={ p.img_a } /> 
+      </div>
+      <p className="flex-row padding-bottom">{ p.description }</p>
+      <XButton
+            size="small"
+            onClick={ () => void 0 }
+          >View All Ingredients</XButton>
+      <div className="margin-dub-top padding-dub-top">
+        <p className="txt-jumbo">&pound;{ p.price }</p>
+        {
+          loggedIn ? <CreateOrder onBuyProduct={ onBuyProduct } /> : null
+        }
       </div>
     </div>
+    
     
   </XProduct>
 }
