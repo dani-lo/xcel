@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import { XButton, XContentMain, XPageTitle, XSection, XSectionHighlight } from '../styles/styled'
+import { useXcelContext } from 'data/provider'
+
+import { XButton, XContentMain, XPageTitle, XSection, XSectionHighlight } from 'styles/styled'
+
+import { Ingredient } from 'lib/collections/ingredient'
+import { Product } from 'lib/collections/product'
+
+import { IngredientsModal } from 'components/widget/ingredients'
 
 const StyledPhotoBG = styled.div`
   width: 100%;
@@ -26,6 +33,23 @@ const StyledMainLogo = styled.img`
 
 export const HomePage = () => {
 
+  const { appstate } = useXcelContext()
+
+  const [ingredients, setIngredients] = useState(false)
+  
+  const products = appstate.products || []
+
+  const allIngredients = products.reduce((acc : Ingredient[], product : Product) => {
+    product.ingredients.forEach(productIngredient => {
+      if (!acc.find(accIngredient => accIngredient.name === productIngredient.name)) {
+        acc.push(productIngredient)
+      }
+    })
+    return acc
+  }, [])
+
+  console.log(ingredients)
+
 	return <>
     <XContentMain>
       <XPageTitle className="cap">IXCEL nature</XPageTitle>
@@ -47,7 +71,7 @@ export const HomePage = () => {
         <h2>Ingredients!</h2>
         <h3>(it is all about the ingredients)</h3>
         <p>Pipso dolor sit amet etiam vo or sit amet etiam vo or sit amet etiam voor sit amet etiam voor sit amet etiam vo or sit amet etiam vouptitinmo non adepilor sit amet etiam vouptitinmo non adepilor sit amet etiam vouptitinmo on adepilor sit amet etiam vouptitinmo non adepilor sit amet etiam vouptitinmo on adepilor sit amet etiam vouptitinmo non adepilor sit amet etiam vouptitinmo on adepilor sit amet etiam vouptitinmo non adepilor sit amet etiam vouptitinmo</p>
-        <XButton size="small" onClick={ () => void 0 } className="margin-dub-top">View All Our Ingredients</XButton>
+        <XButton size="small" onClick={ () => setIngredients(true) } className="margin-dub-top">View All Our Ingredients</XButton>
       </XSection>
     </XContentMain>
     <XSectionHighlight  className="rw">
@@ -87,8 +111,13 @@ export const HomePage = () => {
       </StyledPhotoBG>
 
     </XSection>
-      
     </XContentMain>
+    {
+      ingredients ? <IngredientsModal
+        ingredients={ allIngredients }
+        closeModal={ () => setIngredients(false) }
+      /> : null
+    }
 	</>
 	
 }

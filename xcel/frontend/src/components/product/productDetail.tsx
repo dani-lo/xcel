@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Product } from 'lib/collections/product'
 import { Ingredient } from 'lib/collections/ingredient'
@@ -6,6 +6,8 @@ import { Ingredient } from 'lib/collections/ingredient'
 import { CreateOrder } from 'components/orders/create'
 
 import { useFadeIn } from 'hooks/useTransition'
+
+import { IngredientsModal } from 'components/widget/ingredients'
 
 import { XButton, XProduct } from 'styles/styled'
 
@@ -26,8 +28,12 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
 
   const cname = useFadeIn(500)
 
+  const [ingredients, setIngredients] = useState<Ingredient[]>([])
+
   const { update } = useXcelContext()
 
+  console.log(p.ingredients)
+  
   const onBuyProduct = async (q: number) => {
 
     try {
@@ -75,7 +81,7 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
         <p>{ p.description }</p>
         <XButton
             size="small"
-            onClick={ () => void 0 }
+            onClick={ () => setIngredients(p.ingredients) }
           >View All Ingredients</XButton>
       </div>
     </div>
@@ -86,9 +92,11 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
       </div>
       <p className="flex-row padding-bottom">{ p.description }</p>
       <XButton
-            size="small"
-            onClick={ () => void 0 }
-          >View All Ingredients</XButton>
+        size="small"
+        onClick={ () => setIngredients(p.ingredients) }
+      >
+        View All Ingredients
+      </XButton>
       <div className="margin-dub-top padding-dub-top">
         <p className="txt-jumbo">&pound;{ p.price }</p>
         {
@@ -96,7 +104,12 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
         }
       </div>
     </div>
-    
+    {
+      ingredients.length ? <IngredientsModal
+        ingredients={ ingredients }
+        closeModal={ () => setIngredients([])}
+      /> : null
+    }
     
   </XProduct>
 }

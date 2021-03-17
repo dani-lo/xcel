@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom' 
 import styled from 'styled-components'
 import { XButton, XSection } from 'styles/styled'
 
@@ -30,7 +31,14 @@ const StyledModal = styled.div`
     z-index: var(--z-1);
     width: 500px;
     margin: 2em auto;
+    border: 2px solid var(--black);
+
+    @media only screen and (max-width: 800px) {
+      width: 90%;
+    }
+    
   }
+
 `
 
 interface Props {
@@ -39,21 +47,39 @@ interface Props {
 
 }
 
+const Portal = ({ children } : { children: any }) => {
+  const [container] = useState(document.createElement('div'))
+
+  useEffect(() => {
+    document.body.appendChild(container)
+    return () => {
+      document.body.removeChild(container)
+    }
+  }, [])
+
+  return createPortal(children, container)
+}
+
+
+
 export const AppModal = (props : Props) => {
 
-  return <StyledModal>
-    <div className="modal-bg"></div>
-    
-    <XSection className="modal-body">
-      <div className="modal-header">
-        <XButton size="small" onClick={ props.closeModal }>
-          close
-          </XButton>
-      </div>
-      { 
-        props.children
-      }
-    </XSection>
-  </StyledModal>
+  return <Portal>
+    <StyledModal>
+      <div className="modal-bg"></div>
+      <XSection className="modal-body">
+        <div className="modal-header padding">
+          <XButton size="small" onClick={ props.closeModal }>
+            close
+            </XButton>
+        </div>
+        <div className="padding-dub">
+          { 
+            props.children
+          }
+        </div>
+      </XSection>
+    </StyledModal>
+  </Portal>
 
 }

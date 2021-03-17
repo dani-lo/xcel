@@ -107,7 +107,7 @@ const StyledPayoff = styled.div`
   @media only screen and (max-width: 800px) {
     height: 200px;
   }
-}
+
 `
 
 export const AppHeader = () => {

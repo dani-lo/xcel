@@ -51,9 +51,9 @@ export const Notify = ({ notifications }: { notifications : AppNotification[] } 
         return <StyledNotification 
           key={ `notification-${ i }` } 
           type={ notification.type } 
-          className={ `${ cname }` }
+          className={ `${ cname } padding` }
         >
-          <p className="txt-medium">{ notification.msg }</p>
+          <p>{ notification.msg }</p>
         </StyledNotification>
       })
     }
