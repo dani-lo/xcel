@@ -58,7 +58,7 @@ export const UserRegistration = () => {
           msg="This field is required" 
         />
       </XFormInputTxt>
-      <XFormInputSubmit size="small">
+      <XFormInputSubmit size="small" className="margin-top">
         <input type="submit" value="register" />
       </XFormInputSubmit>
     </form>

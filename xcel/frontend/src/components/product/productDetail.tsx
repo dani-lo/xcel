@@ -76,9 +76,19 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
         </div>
       </div>
       <div>
-        <h3>{ p.name }</h3>
+        <h3 className="prod-title">{ p.name }</h3>
         <p className="margin-dub-bottom margin-dub-top txt-jumbo">&pound;{ p.price }</p>
         <p>{ p.description }</p>
+        <ul>
+          {
+            p.ingredients.slice(0, 2).map((ingredient : Ingredient, i: number) => {
+              return <li key={ `ingredient-${ i }` }>
+                <h3 className="txt-small cap">{ ingredient.name }</h3>
+                <p>{ ingredient.description }</p>
+              </li>
+            })
+          }
+        </ul>
         <XButton
             size="small"
             onClick={ () => setIngredients(p.ingredients) }
@@ -86,7 +96,7 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
       </div>
     </div>
     <div className="rw">
-      <h3>{ p.name }</h3>
+      <h3 className="prod-title">{ p.name }</h3>
       <div className="flex-row padding-top" style={{ justifyContent: 'center' }}>
         <img src={ p.img_a } /> 
       </div>

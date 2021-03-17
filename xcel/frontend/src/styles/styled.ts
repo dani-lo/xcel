@@ -45,10 +45,14 @@ const XProduct = styled.div`
   margin-top: 1em;
   
   h3 {
-    background: var(--black);
-    color: var(--white);
-    padding: var(--pad-2);
-    text-align: center;
+    
+
+    &.prod-title {
+      background: var(--black);
+      color: var(--white);
+      padding: var(--pad-2);
+      text-align: center;
+    }
   }
 
   img {
