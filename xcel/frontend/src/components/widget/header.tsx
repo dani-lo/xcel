@@ -100,9 +100,14 @@ const StyledHeader = styled.nav`
 `
 
 const StyledPayoff = styled.div`
-  img {
-    width: 100%;
+  background-image: url(/media/screen.png);
+  height: 300px;
+  background-size: cover;
+
+  @media only screen and (max-width: 800px) {
+    height: 200px;
   }
+}
 `
 
 export const AppHeader = () => {
@@ -134,7 +139,9 @@ export const AppHeader = () => {
   return <>
     <StyledHeader className={ headerclass }>
       <div className="header-content">
-        <Link to="/"><img style={{ width: '70px' }} src="/media/company/xcel-logo-txt.png" /></Link>
+        <Link to="/">
+          <img style={{ width: '70px' }} src="/media/company/xcel-logo-txt.png" />
+        </Link>
         <ul className="main-menu">
           <li className={ ` ${ location.pathname === '/' ? 'active' : '' }` }>
             <Link to="/">Home</Link>
@@ -164,7 +171,6 @@ export const AppHeader = () => {
     </div>
     </StyledHeader>
     <StyledPayoff>
-      <img src="/media/screen.png" />
     </StyledPayoff>
   </>
 } 
