@@ -1,9 +1,12 @@
 from xcel.order.models import Order
 from xcel.basket.models import Basket
 
+def basket_orders (bid):
+    return Order.objects.filter(basket_id = bid, deleted = None)
+
 def basket_total (bid):
     b_tot = 0
-    b_orders = Order.objects.filter(basket_id = bid, deleted = None)
+    b_orders = basket_orders(bid)
 
     for order in b_orders:
         order_tot = order.unit_price * order.quantity

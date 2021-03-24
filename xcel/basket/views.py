@@ -132,24 +132,21 @@ class PrepareBasket(APIView) :
         #     return Response({'error': 'Chekout URl could not be prepared'})
 
 def payment_return(request):
-
+    print('-------------------- return --------------------')
     token = request.GET['token']
 
     order = OrderClient()
     order_id = order.capture_order(token)
 
-    #order_id = 123456
 
-    print('orderid::', order_id)
 
     if order_id != 0:
         paypal_util.set_basket_paypal_order(token, order_id)
 
-        response = redirect(f'/payment_confirm/{ order_id }')
-        return response
+        return redirect(f'/payment_confirm/{ order_id }')
 
     else :
-        response = redirect(f'/payment_confirm/0')
+        return redirect(f'/payment_confirm/0')
 
 
 def payment_confirm (request, pid):
