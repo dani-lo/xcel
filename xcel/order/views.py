@@ -14,7 +14,7 @@ User = get_user_model()
 
 class OrderList(generics.ListCreateAPIView):
     serializer_class = OrderWriteSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         print(serializer.validated_data)
@@ -27,7 +27,7 @@ class OrderList(generics.ListCreateAPIView):
 class OrderDetail(generics.UpdateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderWriteSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -42,7 +42,7 @@ class OrderDetail(generics.UpdateAPIView):
 
 class UserProfile(APIView):
 
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
@@ -53,7 +53,7 @@ class UserProfile(APIView):
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.AllowAny]
+    #permission_classes = [permissions.AllowAny]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -67,7 +67,7 @@ class UserCreate(generics.CreateAPIView):
             return Response(status=status.HTTP_200_OK)
 
 class UserLogin(APIView):
-    permission_classes = [permissions.AllowAny]
+    #permission_classes = [permissions.AllowAny]
 
     def post(self, request, format=None):
         data = request.data
@@ -90,7 +90,7 @@ class UserLogin(APIView):
 
 
 class UserLogout(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         logout(request)

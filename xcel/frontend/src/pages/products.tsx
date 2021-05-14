@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Product } from 'lib/collections/product'
 
-import { placeOrder } from 'lib/api/ordersApi'
+import { placeOrder, placeLocalOrder } from 'lib/api/ordersApi'
 import { createBasket } from 'lib/api/basketApi'
 
 import { useXcelContext } from 'data/provider'
@@ -21,6 +21,25 @@ export const ProductsPage = () => {
   const user = appstate.user
 
   const buyProduct = async (p : Product, quantity: number) => {
+
+    if (!!basket) {
+      placeOrder(p, basket, quantity) 
+    } else {
+
+      try {
+        const newBasket = await createBasket()
+
+        placeOrder(p, newBasket.data, 1) 
+        
+        notifySuccess(update, 'Order added to your basket')
+      } catch (err) {
+
+        notifyError(update, 'Order could not be added')
+      }
+    } 
+  }
+
+  const buyLocalProduct = async (p : Product, quantity: number) => {
 
     if (!!basket) {
       placeOrder(p, basket, quantity) 

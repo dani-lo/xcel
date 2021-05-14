@@ -31,8 +31,6 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
 
   const { update } = useXcelContext()
-
-  console.log(p.ingredients)
   
   const onBuyProduct = async (q: number) => {
 
@@ -70,9 +68,10 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
           }
         </ul>
         <div>
-        {
+        {/* {
           loggedIn ? <CreateOrder onBuyProduct={ onBuyProduct } /> : null
-        }
+        } */}
+          <CreateOrder onBuyProduct={ onBuyProduct } />
         </div>
       </div>
       <div>

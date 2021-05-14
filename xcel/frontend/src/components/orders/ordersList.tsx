@@ -23,7 +23,7 @@ export const OrdersList = ({ orders }: { orders: Order[]}) => {
 
       const product = appstate.products.find(p => p.id === order.product_id)
 
-      const onBuy = async () => {
+      const onDeleteOrder = async () => {
         try {
 
           await deleteOrder(order)
@@ -60,7 +60,7 @@ export const OrdersList = ({ orders }: { orders: Order[]}) => {
             </div>
             <div>
               <XButton 
-                onClick={ onBuy }
+                onClick={ onDeleteOrder }
                 size="small">
                   delete
               </XButton>
