@@ -34,23 +34,26 @@ export const ProductDetail = ({ p, buyProduct, loggedIn } : Props) => {
   
   const onBuyProduct = async (q: number) => {
 
-    try {
-      buyProduct(p, q)
+    buyProduct(p, q)
 
-      const newBasketData = await userBasket()
-      const newBasket = new Basket(newBasketData.data)
+    // try {
+    //   buyProduct(p, q)
 
-      update({
-        type: REDUCER_ACTIONS.INIT_BASKET,
-        payload: {
-          basket: newBasket
-        }
-      })
+    //   const newBasketData = await userBasket()
+    //   const newBasket = new Basket(newBasketData.data)
 
-      notifySuccess(update, 'Your order was added')
-    } catch (err) {
-      notifyError(update, 'Your order could not be added')
-    }
+    //   update({
+    //     type: REDUCER_ACTIONS.INIT_BASKET,
+    //     payload: {
+    //       basket: newBasket
+    //     }
+    //   })
+
+    //   notifySuccess(update, 'Your order was added')
+    // } catch (err) {
+    //   console.log(err)
+    //   notifyError(update, 'Your order could not be added')
+    // }
     
   }
 

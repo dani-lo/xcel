@@ -11,25 +11,25 @@ export const bootstrap = async (
 
   const products = await getProducts()
 
-  let user, basket
+  // let user, basket
   
-  // TODO Promise.all
-  try {
-    user = await getUser()
-    basket = await userBasket()
+  // // TODO Promise.all
+  // try {
+  //   user = await getUser()
+  //   basket = await userBasket()
 
-  } catch (err) {
+  // } catch (err) {
 
-    user = {
-      data: {
-        user: null
-      }
-    }
+  //   user = {
+  //     data: {
+  //       user: null
+  //     }
+  //   }
 
-    basket = {
-      data: null
-    }
-  }
+  //   basket = {
+  //     data: null
+  //   }
+  // }
     
   // const notification = msg ? [{
   //   msg,
@@ -41,8 +41,8 @@ export const bootstrap = async (
     type: REDUCER_ACTIONS.INIT,
     payload: {
       products: products.data,
-      user: user.data.user,
-      basket: basket.data ? basket.data : null
+      // user: user.data.user,
+      // basket: basket.data ? basket.data : null
     }
   })
 

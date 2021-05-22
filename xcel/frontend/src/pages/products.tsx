@@ -2,8 +2,10 @@ import React from 'react';
 
 import { Product } from 'lib/collections/product'
 
-import { placeOrder, placeLocalOrder } from 'lib/api/ordersApi'
+import { placeOrder } from 'lib/api/ordersApi'
 import { createBasket } from 'lib/api/basketApi'
+
+import { placeLocalOrder } from 'lib/util/localOrders'
 
 import { useXcelContext } from 'data/provider'
 import { notifySuccess, notifyError } from 'data/shortcuts'
@@ -20,42 +22,30 @@ export const ProductsPage = () => {
   const basket = appstate.basket
   const user = appstate.user
 
-  const buyProduct = async (p : Product, quantity: number) => {
+  // const buyProduct = async (p : Product, quantity: number) => {
 
-    if (!!basket) {
-      placeOrder(p, basket, quantity) 
-    } else {
+  //   if (!!basket) {
+  //     placeOrder(p, basket, quantity) 
+  //   } else {
 
-      try {
-        const newBasket = await createBasket()
+  //     try {
+  //       const newBasket = await createBasket()
 
-        placeOrder(p, newBasket.data, 1) 
+  //       placeOrder(p, newBasket.data, 1) 
         
-        notifySuccess(update, 'Order added to your basket')
-      } catch (err) {
+  //       notifySuccess(update, 'Order added to your basket')
+  //     } catch (err) {
 
-        notifyError(update, 'Order could not be added')
-      }
-    } 
-  }
+  //       notifyError(update, 'Order could not be added')
+  //     }
+  //   } 
+  // }
 
   const buyLocalProduct = async (p : Product, quantity: number) => {
 
-    if (!!basket) {
-      placeOrder(p, basket, quantity) 
-    } else {
-
-      try {
-        const newBasket = await createBasket()
-
-        placeOrder(p, newBasket.data, 1) 
-        
-        notifySuccess(update, 'Order added to your basket')
-      } catch (err) {
-
-        notifyError(update, 'Order could not be added')
-      }
-    } 
+    placeLocalOrder(p, quantity)
+    
+    notifySuccess(update, 'Order added to your basket')
   }
 
   return <XContentMain>
@@ -69,7 +59,7 @@ export const ProductsPage = () => {
         products.map((p : Product, i : number) => <XSection key={ `product-${ i }` }>
             <ProductDetail
               p={ p }
-              buyProduct={ buyProduct}
+              buyProduct={ buyLocalProduct }
               loggedIn={ !!user }
             />
         </XSection>)

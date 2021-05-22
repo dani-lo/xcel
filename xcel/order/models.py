@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 
 from xcel.account.models import Account
-from xcel.basket.models import Basket
+from xcel.basket.models import Basket, LocalBasketPayment
 from xcel.product.models import Product
 
 
@@ -21,6 +21,34 @@ class Order(models.Model):
     class Meta:
         ordering = ['created']
 
+class LocalOrder(models.Model):
+
+    PAID = "PAID"
+    DECLINED = "DECLINED"
+    OPEN = "OPEN"
+    STALE = "STALE"
+
+    STATUS = [
+        (PAID, 'PAID'),
+        (OPEN, 'OPEN'),
+        (STALE, 'STALE'),
+        (DECLINED, "DECLINED")
+    ]
+    
+
+    user_email = models.CharField(max_length=255, blank=True, default='')
+    status = models.CharField(max_length=20, choices=STATUS, default=OPEN)
+    created = models.DateTimeField(auto_now_add=True)
+    deleted = models.DateTimeField(blank=True, null=True)
+    unit_price = models.DecimalField(decimal_places=2,max_digits=10, default=0)
+    quantity = models.PositiveSmallIntegerField(default=0)
+    token = models.CharField(max_length=24, blank=True, default='')
+    poid = models.CharField(max_length=24, blank=True, default='')
+    xcelid = models.CharField(max_length=24, default=0)
+    product = models.ForeignKey(Product, related_name="+", on_delete=models.CASCADE, blank=False, null=False, default=None)
+    totalcheckout = models.CharField(max_length=24, default=0)
+    class Meta:
+        ordering = ['created']
 
 class CustomUserManager(BaseUserManager):
 

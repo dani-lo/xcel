@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Order } from 'lib/collections/order'
 import { deleteOrder } from 'lib/api/ordersApi'
+import { deleteLocalOrder } from 'lib/util/localOrders'
 
 import { useXcelContext } from 'data/provider'
 import { REDUCER_ACTIONS } from 'data/reducer'
@@ -23,53 +24,56 @@ export const OrdersList = ({ orders }: { orders: Order[]}) => {
 
       const product = appstate.products.find(p => p.id === order.product_id)
 
-      const onDeleteOrder = async () => {
-        try {
+      // const onDeleteOrder = async () => {
+      //   try {
 
-          await deleteOrder(order)
+      //     await deleteOrder(order)
 
-          const newBasketData = await userBasket()
-          const newBasket = new Basket(newBasketData.data)
+      //     const newBasketData = await userBasket()
+      //     const newBasket = new Basket(newBasketData.data)
 
-          update({
-            type: REDUCER_ACTIONS.INIT_BASKET,
-            payload: {
-              basket: newBasket
-            }
-          })
+      //     update({
+      //       type: REDUCER_ACTIONS.INIT_BASKET,
+      //       payload: {
+      //         basket: newBasket
+      //       }
+      //     })
 
-          notifySuccess(update, 'Order deleted successfully')
-        } catch (e) {
-          notifyError(update, 'Order could not be deleted')
-        }
+      //     notifySuccess(update, 'Order deleted successfully')
+      //   } catch (e) {
+      //     notifyError(update, 'Order could not be deleted')
+      //   }
+      // }
+
+      const onDeleteLocalOrder =  () => {
+        
+        deleteLocalOrder(order.id)
+        notifySuccess(update, 'Order deleted successfully')
+
       }
 
       if (!product) {
         return null
       }
 
-      return <>
-        <XOrder key={ `orders-${ i } ${ cname }`}>
+      return <XOrder key={ `orders-${ i }-${ cname }`}>
           <div>
             <div className="padding-dub-right">
               <img src={ product.img_a} />
             </div>
             <div>
               <h3 className="txt-medium">{ product.name } (x { order.quantity })</h3>
-              <p  className="txt-small note">price &pound;{ order.unit_price * order.quantity }</p>
+              <p  className="txt-small note">price &pound;{ parseFloat(order.unit_price) * order.quantity }</p>
             </div>
             <div>
               <XButton 
-                onClick={ onDeleteOrder }
+                onClick={ onDeleteLocalOrder }
                 size="small">
                   delete
               </XButton>
             </div>
           </div>
-          
         </XOrder>
-        
-        </>
       })
     }
   </>

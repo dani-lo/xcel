@@ -28,3 +28,30 @@ class Basket(models.Model):
     #     if not self.pk:
     #
     #     super(MyModel, self).save(*args, **kwargs)
+
+
+class LocalBasketPayment(models.Model):
+  PAID = "PAID"
+  DECLINED = "DECLINED"
+  OPEN = "OPEN"
+  STALE = "STALE"
+
+  STATUS = [
+      (PAID, 'PAID'),
+      (OPEN, 'OPEN'),
+      (STALE, 'STALE'),
+      (DECLINED, "DECLINED")
+  ]
+
+  created = models.DateTimeField(auto_now_add=True)
+  status = models.CharField(max_length=20, choices=STATUS, default=OPEN)
+  token = models.CharField(max_length=24, blank=True, default='')
+  poid = models.CharField(max_length=24, blank=True, default='')
+  user_email = models.CharField(max_length=255, blank=True, default='')
+  
+
+
+  # def save(self, *args, **kwargs):
+  #     if not self.pk:
+  #
+  #     super(MyModel, self).save(*args, **kwargs)

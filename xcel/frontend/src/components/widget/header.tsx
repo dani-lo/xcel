@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useXcelContext } from 'data/provider'
 
 import { useWindowEvent } from 'hooks/useWindowEvent'
+import { getLocalOrders } from 'lib/util/localOrders'
 
 const StyledHeader = styled.nav`
   position: fixed;
@@ -92,9 +93,9 @@ const StyledHeader = styled.nav`
       }
     }
     &.user-menu.loggedin {
-      li:first-child {
+      /* li:first-child {
         border-right: 1px solid var(--border);
-      }
+      } */
     }
   }
 `
@@ -117,8 +118,12 @@ export const AppHeader = () => {
 
   const userData = appstate.user
 
-  const ordersNum = appstate.basket?.orders.length || 0
+  //const ordersNum = appstate.basket?.orders.length || 0
+  
   const location = useLocation()
+
+  const orders = getLocalOrders() || []
+  const ordersNum = orders.length
 
   useWindowEvent('scroll', () => {
     if (window.pageYOffset > 100 && headerclass === 'non-sticky') {
@@ -150,7 +155,16 @@ export const AppHeader = () => {
             <Link to="/shop">Shop</Link>
           </li>
         </ul>
-        { userData !== null ? 
+        <ul className="user-menu loggedin">
+          <li className={ `${ location.pathname === '/basket' ? 'active' : '' }` }>
+            <Link to="/basket" ><span><i className="fas fa-shopping-cart"></i></span></Link>
+            { ordersNum ? 
+              <span className="orders-indicator">{ ordersNum }</span>
+              : null 
+            }
+          </li>
+        </ul>
+        {/* { userData !== null ? 
             <ul className="user-menu loggedin">
               <li className={ `${ location.pathname === '/account' ? 'active' : '' }` }>
                 <Link to="/account"><i className="fas fa-user"></i></Link>
@@ -167,7 +181,7 @@ export const AppHeader = () => {
             <ul className="user-menu">
               <li><Link to="/account"><i className="fas fa-user"></i></Link></li>
             </ul>
-        }
+        } */}
     </div>
     </StyledHeader>
     <StyledPayoff>

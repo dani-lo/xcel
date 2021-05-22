@@ -35,6 +35,10 @@
   --z-2: 11;
   --z-3: 111;
   --z-4: 1111;
+
+  --error: #b42a2a;
+  --warning: #e15225;
+  --success: #2cb32c;
 }
 
 .flex-row {
@@ -238,6 +242,14 @@
 }
 .rw {
   display: none!important;
+}
+
+.error {
+  color: var(--error);
+}
+
+.warning {
+  color: var(--warning);
 }
 
 @media only screen and (max-width: 800px) {

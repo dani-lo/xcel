@@ -1,5 +1,9 @@
-from xcel.order.models import Order
+from xcel.order.models import Order, LocalOrder
+from xcel.product.models import Product
 from xcel.basket.models import Basket
+
+def set_local_basket_payment_token () :
+  return
 
 def basket_orders (bid):
     return Order.objects.filter(basket_id = bid, deleted = None)
@@ -85,6 +89,80 @@ def build_checkout_request_body (b_id, b_total, user_detail):
                         "postal_code": user_detail.postcode,
                         "admin_area_1": user_detail.city,
                         "admin_area_2": user_detail.city,
+                        "country_code": 'GB'
+                    }
+                }
+            }
+        ]
+    }
+
+###################### LOCAL #############
+
+
+def create_local_orders (xcelid, p_token, orders, user_email, checkout_total) :
+
+  for order in orders:
+
+    order_product = Product.objects.get(id = int(order['product_id']))
+
+    LocalOrder.objects.create(
+      xcelid = xcelid,
+      user_email= user_email,
+      unit_price =  order['unit_price'],
+      quantity = order['quantity'],
+      product = order_product,
+      token = p_token,
+      totalcheckout = checkout_total
+    )
+
+def set_local_orders_paid (p_token) :
+  orders = LocalOrder.objects.filter(token = p_token)
+
+  for order in orders :
+    order.status = LocalOrder.PAID
+    order.save()
+
+def set_local_orders_paypal_oid (paypal_token, oid) :
+  orders = LocalOrder.objects.filter(oid = paypal_token)
+
+  for order in orders :
+    order.oid = oid
+    order.save()
+
+
+def build_local_checkout_request_body (xcelid, b_total, ship_detail) :
+
+  return {
+        "intent": "CAPTURE",
+        "application_context": {
+            "brand_name": "Xcel Organic Creams",
+            "landing_page": "BILLING",
+            "shipping_preference": "SET_PROVIDED_ADDRESS",
+            "user_action": "PAY_NOW",
+            "return_url": "http://ixcel-nature.co.uk/payment_return",
+        },
+        "purchase_units": [
+            {
+                "reference_id": "XCEL_BASKET_%s" % xcelid,
+                "description": "Xcel",
+                "custom_id": "CUST-HighFashions",
+                "soft_descriptor": "Organic Creams",
+                "amount": {
+                    "currency_code": "GBP",
+                    "value": b_total,
+                },
+                "shipping": {
+                    "method": "Royal mail",
+                    "address": {
+                        "name": {
+                            "full_name": ship_detail['firstname'],
+                            "surname": ship_detail['lastname']
+                        },
+                        "address_line_1": ship_detail['address_line_1'],
+                        "address_line_2": ship_detail['address_line_2'],
+                        "postal_code": ship_detail['postcode'],
+                        "admin_area_1": ship_detail['city'],
+                        "admin_area_2": ship_detail['city'],
                         "country_code": 'GB'
                     }
                 }

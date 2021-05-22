@@ -1,6 +1,7 @@
 
 export interface AccountProps {
   id ?: number;
+  email: string;
   firstname : string;
   lastname: string;
   address_line_1: string;
@@ -11,6 +12,7 @@ export interface AccountProps {
 
 export class Account  {
   id ?: number;
+  email: string;
   firstname : string;
   lastname: string;
   address_line_1: string;
@@ -20,6 +22,7 @@ export class Account  {
 
   constructor (accountData : AccountProps) {
     this.id = accountData.id
+    this.email = accountData.email
     this.firstname = accountData.firstname
     this.lastname = accountData.lastname
     this.address_line_1 = accountData.address_line_1
@@ -30,6 +33,7 @@ export class Account  {
 
   saveable (updating : boolean) {
     const saveableData : Partial<Account> = {
+      email: this.email,
       firstname: this.firstname,
       lastname: this.lastname,
       address_line_1: this.address_line_1,

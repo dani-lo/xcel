@@ -19,6 +19,7 @@ export enum REDUCER_ACTIONS {
   LOGIN_USER,
   LOGOUT_USER,
   INIT,
+  PING,
   NOTIFY,
   UNNOTIFY,
   ADD_ACCOUNT,
@@ -198,11 +199,15 @@ const addAccount = (state: AppState, payload: { account : Account }) => {
   return state
 }
 
+
 export const appReducer = (state: AppState, action: { type: REDUCER_ACTIONS, payload : any}): AppState => {
   switch (action.type) {
     
     case REDUCER_ACTIONS.INIT:
       return initApp(action.payload)
+
+    case REDUCER_ACTIONS.PING:
+      return {...state}
 
     case REDUCER_ACTIONS.LOGIN_USER: 
       return setUser(state, action.payload)

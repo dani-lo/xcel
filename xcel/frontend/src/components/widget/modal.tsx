@@ -19,6 +19,7 @@ const StyledModal = styled.div`
     height: 100%;
   }
 
+
   div.modal-header {
     position: relative;
     z-index: var(--z-1);
@@ -60,7 +61,7 @@ const Portal = ({ children } : { children: any }) => {
   return createPortal(children, container)
 }
 
-
+console.log('M')
 
 export const AppModal = (props : Props) => {
 

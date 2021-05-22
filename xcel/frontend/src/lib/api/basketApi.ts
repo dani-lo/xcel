@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { Basket } from 'lib/collections/basket'
+import { Order } from 'lib/collections/order'
+import { Account } from 'lib/collections/account'
 
 
 import { getCSRFToken } from 'lib/util/token'
@@ -37,6 +39,13 @@ export const basketCheckout = (basket : Basket) => {
 
 
   return axios.put(`/api/checkout/${ basket.id }`, {}, config)
+}
+
+export const localBasketCheckout = (shipDetail: Account, orders : Order[], total: number) => {
+  // const csrftoken = getCSRFToken()
+  // const config = { headers: {'X-CSRFToken': csrftoken }}
+
+  return axios.post(`/api/l-checkout`, { shipDetail, orders, total })
 }
 
 export const basketCaptureConfirm = (poid : string) => {

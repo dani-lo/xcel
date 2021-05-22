@@ -14,7 +14,7 @@ const XButton = styled.button<{size: string;}>`
   background: var(--white);
   color: var(--black);
   border: 2px solid var(--black);
-
+  ${ props => props.disabled ? 'opacity: 0.5; pointer-events: none;' : '' }
 
   &:hover {
     opacity: 0.7;
@@ -110,13 +110,14 @@ XFormInputTxt.displayName = 'XFormInputTxt'
 /**
  * const XFormInputTxt = styled.div`
  */
-const XFormInputSubmit = styled.div<{ size: string}>`
+const XFormInputSubmit = styled.div<{ size: string; disabled ?: boolean}>`
   
   display: inline-block;
   border: none!important;
 
   input {
       /* border: 2px solid var(--border); */
+    ${ props => props.disabled ? 'opacity: 0.6; pointer-events: none;' : '' }
     font-size: var(--font-${ props => props.size });
     padding: var(--pad-2) var(--pad-4);
     

@@ -10,7 +10,7 @@ export interface ProductProps {
   ingredients: IngredientProps[];
   img_a: string;
   img_b: string;
-  price: number;
+  price: string;
 }
 
 export class Product  {
@@ -22,7 +22,7 @@ export class Product  {
   logo: string;
   img_a: string;
   img_b: string;
-  price: number;
+  price: string;
 
   constructor (productData : ProductProps) {
     this.id = productData.id;

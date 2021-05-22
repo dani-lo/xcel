@@ -17,9 +17,9 @@ export interface AppNotification {
 }
 
 const nBackground = (props: { type: NotificationType }) => {
-  return props.type === NotificationType.ERROR ?  'red' : 
-    props.type === NotificationType.WARNING ? 'yellow' : 
-    'green'
+  return props.type === NotificationType.ERROR ?  'var(--error)' : 
+    props.type === NotificationType.WARNING ? 'var(--warning)' : 
+    'var(--success)'
 }
 
 const StyledNotification = styled.div<{ type: NotificationType }>`

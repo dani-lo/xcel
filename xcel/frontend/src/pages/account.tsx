@@ -27,7 +27,7 @@ export const AccountPage = () => {
       <XPageTitle className="cap">Your Account</XPageTitle>
       <XSection>
         <h3>You are logged in as</h3>
-        <p>{ userData.email }</p>
+        {/* <p>{ userData.email }</p> */}
         <UserLogout / >
         </XSection>
         <XSection>

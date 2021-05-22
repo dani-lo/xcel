@@ -2,7 +2,7 @@ export interface OrderProps {
   id: number;
   status : string;
   product_id: number;
-  unit_price: number;
+  unit_price: string;
   quantity: number;
 }
 
@@ -10,7 +10,7 @@ export class Order  {
   id: number;
   status : string;
   product_id: number;
-  unit_price: number;
+  unit_price: string;
   quantity: number;
 
   constructor (orderData : OrderProps) {

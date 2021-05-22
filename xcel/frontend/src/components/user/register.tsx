@@ -11,6 +11,8 @@ import { FormError } from 'components/widget/formError'
 
 import { XFormInputTxt, XFormInputSubmit } from 'styles/styled'
 
+import { setLocalUser } from 'lib/util/localUser'
+
 interface Inputs {
   email: string,
   password: string,
@@ -27,19 +29,30 @@ export const UserRegistration = () => {
     errors 
   } = useForm<Inputs>()
 
-  const onRegister = async (data : Inputs) => {
+  // const onRegister = async (data : Inputs) => {
 
-    try {
-      await apiRegister(data)
+  //   try {
+  //     await apiRegister(data)
             
-      notifySuccess(update, 'your registration was successful, you can now login')
-    } catch (err) {
+  //     notifySuccess(update, 'your registration was successful, you can now login')
+  //   } catch (err) {
 
-      notifyError(update, 'sorry, your registration was unsuccessful')
-    }
+  //     notifyError(update, 'sorry, your registration was unsuccessful')
+  //   }
+  // }
+
+  const onLocalRegister = async (data : Inputs) => {
+    
+    // setLocalUser({
+    //   id: new Date().getTime(),
+    //   email: data.email,
+    //   account: null
+    // })
+    
+    notifySuccess(update, 'success')
   }
 
-  return <form onSubmit={handleSubmit(onRegister)}>
+  return <form onSubmit={handleSubmit(onLocalRegister)}>
       <XFormInputTxt>
         <label htmlFor="email">email</label>
         <input type="text" id="email" name="email" ref={register({ pattern: reEmail })} />

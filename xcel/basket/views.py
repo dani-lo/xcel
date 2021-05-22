@@ -1,3 +1,5 @@
+import time
+
 from pprint import pprint as pp
 
 from django.shortcuts import render, redirect
@@ -83,7 +85,7 @@ class PrepareBasket(APIView) :
     permission_classes = [permissions.IsAuthenticated]
 
     def put(self, request, *args, **kwargs):
-
+        
         user = user=self.request.user
         pk = kwargs.get('pk')
 
@@ -131,6 +133,60 @@ class PrepareBasket(APIView) :
         # except :
         #     return Response({'error': 'Chekout URl could not be prepared'})
 
+class LocalCheckout(APIView) :
+
+    def post(self, request, *args, **kwargs):
+      print('--------- 222 --------------')
+      print(request.data)
+
+      ship_detail=request.data['shipDetail']
+      total = request.data['total']
+      orders = request.data['orders']
+
+      ts =  "%s" % time.time()
+      xcelid = ts.replace('.', '')
+      # pk = kwargs.get('pk')
+
+      # total = paypal_util.basket_total(pk)
+      order_body = paypal_util.build_local_checkout_request_body(xcelid, total, ship_detail)
+
+      # # try :
+
+      order = OrderClient()
+
+      paypal_response = order.create_order(order_body, debug=True)
+
+      print('------------------------ GOT RESPONSE! ---------------------------')
+      print(paypal_response.status_code)
+      print(paypal_response.result.status)
+      print(paypal_response.result.id)
+      print(paypal_response.result.intent)
+
+      checkout_data = {}
+
+      checkout_data['status_code'] = paypal_response.status_code
+      checkout_data['result_status'] = paypal_response.result.status
+      checkout_data['result_id'] = paypal_response.result.id
+      checkout_data['result_intent'] = paypal_response.result.intent
+      checkout_data['links'] = []
+
+      for link in paypal_response.result.links:
+          checkout_data['links'].append({
+              'rel': link.rel,
+              'href': link.href,
+              'method': link.method
+          })
+
+      checkout_data['currency_code'] = paypal_response.result.purchase_units[0].amount.currency_code
+      checkout_data['amount'] = paypal_response.result.purchase_units[0].amount.value
+
+      token = paypal_response.result.id
+
+      print(paypal_response.result.id)
+      paypal_util.create_local_orders(xcelid, token, orders, ship_detail['email'], total)
+            
+      return Response(checkout_data)
+
 def payment_return(request):
     print('-------------------- return --------------------')
     token = request.GET['token']
@@ -138,10 +194,8 @@ def payment_return(request):
     order = OrderClient()
     order_id = order.capture_order(token)
 
-
-
     if order_id != 0:
-        paypal_util.set_basket_paypal_order(token, order_id)
+        paypal_util.set_local_orders_paypal_oid(token, order_id)
 
         return redirect(f'/payment_confirm/{ order_id }')
 
