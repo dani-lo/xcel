@@ -5,14 +5,13 @@ from rest_framework import status
 from xcel.product.models import Product
 from xcel.product.serializers import ProductSerializer
 
-
 class ProductList(APIView):
 
     def get(self, request, format=None):
 
-        products = Product.objects.all()
-        serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data)
+      products = Product.objects.all()
+      serializer = ProductSerializer(products, many=True)
+      return Response(serializer.data)
 
     # def post(self, request, format=None):
     #
