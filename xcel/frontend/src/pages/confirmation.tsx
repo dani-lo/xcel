@@ -17,6 +17,10 @@ export const PaymentConfirmPage = () => {
 
   const poid = params.poid
 
+  console.log('PAYMENT CONFIRM PAGE LOADED')
+
+  console.log('poid', poid)
+
   const [success, setSuccess] = useState('init')
 
   const capture = async () => {
@@ -52,6 +56,7 @@ export const PaymentConfirmPage = () => {
         paid ? <>
           <h3>Thank you for your order</h3>
           <p>Your order was successful</p>
+          <p>You should have recived an email from us with details for your order. Please make sure you check your spam folder too</p>
         </> : null
       }
       {

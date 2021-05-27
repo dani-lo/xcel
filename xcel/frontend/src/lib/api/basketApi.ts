@@ -54,7 +54,7 @@ export const basketCaptureConfirm = (poid : string) => {
 
 
 
-  return axios.put(`/api/basket/`, { poid }, config)
+  return axios.put(`/api/l-basket/`, { poid }, config)
 }
 
 

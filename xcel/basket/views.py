@@ -140,22 +140,34 @@ class LocalBasketDetail(generics.ListCreateAPIView):
     serializer_class = BasketSerializer
 
     def put(self, request, *args, **kwargs):
+
+        print('========= LocalBasketDetail :: PUT')
+
         poid = request.data.get('poid', 0)
 
         orders = LocalOrder.objects.filter(poid = poid)
         account = LocalAccount.objects.get(poid = poid)
         total = orders[0]['total']
 
-        print('=========')
-        print('poid', poid)
+        print('>>>>>> account')
+        print(account)
+        print('>>>>>> orders')
+        print(orders)
+        print('>>>>>> total')
+        print(total)
+        print('>>>>>> poid', poid)
         
+        print('NOW:: set_local_orders_paid')
         paypal_util.set_local_orders_paid(poid)
+        print('NOW:: send_confirmation_basket_payment')
         paypal_confirm.send_confirmation_basket_payment(account, orders, total)
         # print(basket)
         # if basket == 0 :
 
         #     return Response({})
-
+        
+        print ('RETURN RESPONSE')
+        
         return Response({
             'id': account.xcelid,
             'status': 'PAID',
