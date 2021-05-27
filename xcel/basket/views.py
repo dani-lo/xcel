@@ -1,6 +1,7 @@
 import time
 
 from pprint import pprint as pp
+from django.db import models
 
 from django.shortcuts import render, redirect
 
@@ -13,9 +14,11 @@ from xcel.basket.serializers import BasketSerializer
 
 from xcel.basket.paypal import util as paypal_util
 from xcel.basket.paypal.paypal_client import OrderClient
-# from xcel.account
+from xcel.basket.paypal import confirm as paypal_confirm
 
-from xcel.order.models import Order
+from xcel.account.models import LocalAccount
+
+from xcel.order.models import CustomUser, LocalOrder, Order
 
 class BasketDetail(generics.ListCreateAPIView):
     serializer_class = BasketSerializer
@@ -133,6 +136,35 @@ class PrepareBasket(APIView) :
         # except :
         #     return Response({'error': 'Chekout URl could not be prepared'})
 
+class LocalBasketDetail(generics.ListCreateAPIView):
+    serializer_class = BasketSerializer
+
+    def put(self, request, *args, **kwargs):
+        poid = request.data.get('poid', 0)
+
+        orders = LocalOrder.objects.filter(poid = poid)
+        account = LocalAccount.objects.get(poid = poid)
+        total = orders[0]['total']
+
+        print('=========')
+        print('poid', poid)
+        
+        paypal_util.set_local_orders_paid(poid)
+        paypal_confirm.send_confirmation_basket_payment(account, orders, total)
+        # print(basket)
+        # if basket == 0 :
+
+        #     return Response({})
+
+        return Response({
+            'id': account.xcelid,
+            'status': 'PAID',
+            'token': account.token,
+            'poid': account.poid
+        })
+
+
+
 class LocalCheckout(APIView) :
 
     def post(self, request, *args, **kwargs):
@@ -143,10 +175,13 @@ class LocalCheckout(APIView) :
       total = request.data['total']
       orders = request.data['orders']
 
+
+
       ts =  "%s" % time.time()
       xcelid = ts.replace('.', '')
       # pk = kwargs.get('pk')
 
+      
       # total = paypal_util.basket_total(pk)
       order_body = paypal_util.build_local_checkout_request_body(xcelid, total, ship_detail)
 
@@ -184,7 +219,22 @@ class LocalCheckout(APIView) :
 
       print(paypal_response.result.id)
       paypal_util.create_local_orders(xcelid, token, orders, ship_detail['email'], total)
-            
+      
+      LocalAccount.objects.create(
+        email=ship_detail['email'],
+        xcelid = xcelid,
+        firstname = ship_detail['firstname'],
+        lastname = ship_detail['lastname'],
+        address_line_1 = ship_detail['address_line_1'],
+        address_line_2 = ship_detail['address_line_2'],
+        city = ship_detail['city'],
+        postcode = ship_detail['postcode'],
+        poid = "",
+        token=token
+      )
+
+      # paypal_confirm.send_confirmation_basket_payment(ship_detail, orders, total)
+
       return Response(checkout_data)
 
 def payment_return(request):
@@ -195,12 +245,15 @@ def payment_return(request):
     order_id = order.capture_order(token)
 
     if order_id != 0:
-        paypal_util.set_local_orders_paypal_oid(token, order_id)
+        paypal_util.set_local_orders_poid(token, order_id)
+        paypal_util.set_local_account_poid(token, order_id)
+
+       
 
         return redirect(f'/payment_confirm/{ order_id }')
 
     else :
-        return redirect(f'/payment_confirm/0')
+        return redirect('/payment_confirm/0')
 
 
 def payment_confirm (request, pid):
