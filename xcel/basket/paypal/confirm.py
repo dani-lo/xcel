@@ -6,8 +6,47 @@ from botocore.exceptions import ClientError
 
 from xcel.order.models import Order, LocalOrder
 
+from xcel.product.models import Product
 
 def build_html_body (user_data, orders, total, for_client) :
+
+  if for_client:
+
+    html_head = "<html><head></head><body><h1>Ixcel Nature confirmation</h1><p>We received you order and will deliver it to you soon: please see the details provided for the order</p>"
+  else :
+    html_head = "<html><head></head><body><h1>Ixcel Nature confirmation</h1><p>An order was placed on the website: see details</p>"
+
+  if for_client:
+
+    html_user = ['<div><h2>Your Details</h2>']
+  else :
+    html_user = ['<div><h2>User Details</h2>']
+
+
+  html_user = ['<div><h2>User Details</h2>']
+  html_user.append('<p>%s</p>' %user_data.firstname)
+  html_user.append('<p>%s</p>' %user_data.lastname)
+  html_user.append('<p>%s</p>' %user_data.address_line_1)
+  html_user.append('<p>%s</p>' %user_data.address_line_2)
+  html_user.append('<p>%s</p>' %user_data.city)
+  html_user.append('<p>%s</p>' %user_data.postcode)
+  html_user.append('</div>')
+
+  html_orders = ['<div><h2>Products Ordered</h2>']
+
+  for order in orders :
+    product = Product.objects.get(id = order.product_id)    
+    html_orders.append('<p>%s (%s)</p>' %(product.name, order.quantity))
+  html_orders.append('</div>')
+
+  html_total = '<h3>Total %s</h3>' %total
+
+  html_foot = "</body></html>"
+
+  return html_head + ''.join(html_user) + ''.join(html_orders) + html_total + html_foot
+
+
+def build_html_body_dev (user_data, orders, total, for_client) :
 
   if for_client:
 
@@ -34,8 +73,8 @@ def build_html_body (user_data, orders, total, for_client) :
   html_orders = ['<div><h2>Products Ordered</h2>']
 
   for order in orders :
-    product = LocalOrder.objects.get(id = order.product_id)    
-    html_orders.append('<p>%s (%s)</p>' %(product['name'], order['quantity']))
+    product = Product.objects.get(id = order['product_id'])    
+    html_orders.append('<p>%s (%s)</p>' %(product.name, order['quantity']))
   html_orders.append('</div>')
 
   html_total = '<h3>Total %s</h3>' %total
@@ -44,8 +83,6 @@ def build_html_body (user_data, orders, total, for_client) :
 
   return html_head + ''.join(html_user) + ''.join(html_orders) + html_total + html_foot
 
-def build_html_orders_body (orders) :
-  pass
 
 def send_confirmation_basket_payment (user_data, orders, total) :
 

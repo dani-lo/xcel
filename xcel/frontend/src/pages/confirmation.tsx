@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 import { basketCaptureConfirm } from 'lib/api/basketApi'
 
 import { XSection, XPageTitle, XContentMain } from '../styles/styled'
+import { deleteLocalOrder, getLocalOrders } from 'lib/util/localOrders'
 
 
 interface Params {
@@ -30,6 +31,12 @@ export const PaymentConfirmPage = () => {
 
         if (result && result.data && result.data.poid === poid) {
           setSuccess('paid')
+          // delete local orders
+          const localOrders = getLocalOrders()
+
+          for (const localorder of localOrders) {
+            deleteLocalOrder(localorder.id)
+          }
         } else {
           setSuccess('failed')
         }
