@@ -68,7 +68,9 @@ class OrderClient(PayPalClient):
     print(request)
     request.prefer('return=representation')
     #3. Call PayPal to set up a transaction
+    print('11111')
     request.request_body(order_body)
+    print('222222')
     response = self.client.execute(request)
     print('HERE')
     if debug:
