@@ -180,14 +180,12 @@ class LocalBasketDetail(generics.ListCreateAPIView):
 class LocalCheckout(APIView) :
 
     def post(self, request, *args, **kwargs):
-      print('--------- 222 --------------')
+      print('--------- LocalCheckout ::: Post, start journey .. --------------')
       print(request.data)
 
       ship_detail=request.data['shipDetail']
       total = request.data['total']
       orders = request.data['orders']
-
-
 
       ts =  "%s" % time.time()
       xcelid = ts.replace('.', '')
@@ -229,7 +227,8 @@ class LocalCheckout(APIView) :
 
       token = paypal_response.result.id
 
-      print(paypal_response.result.id)
+      print('token is (paypal_response.result.id)', paypal_response.result.id)
+
       paypal_util.create_local_orders(xcelid, token, orders, ship_detail['email'], total)
       
       LocalAccount.objects.create(
@@ -245,6 +244,7 @@ class LocalCheckout(APIView) :
         token=token
       )
 
+      print('Created Local Account')
       # paypal_confirm.send_confirmation_basket_payment(ship_detail, orders, total)
 
       return Response(checkout_data)
@@ -259,8 +259,6 @@ def payment_return(request):
     if order_id != 0:
         paypal_util.set_local_orders_poid(token, order_id)
         paypal_util.set_local_account_poid(token, order_id)
-
-       
 
         return redirect(f'/payment_confirm/{ order_id }')
 
