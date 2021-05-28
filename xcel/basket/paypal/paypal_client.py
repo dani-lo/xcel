@@ -63,11 +63,14 @@ class OrderClient(PayPalClient):
     JSON body returned by buildRequestBody() to create an order."""
 
   def create_order(self, order_body, debug=False):
+    print('CREATE ORDER')
     request = OrdersCreateRequest()
+    print(request)
     request.prefer('return=representation')
     #3. Call PayPal to set up a transaction
     request.request_body(order_body)
     response = self.client.execute(request)
+    print('HERE')
     if debug:
       print('Status Code: ', response.status_code)
       print( 'Status: ', response.result.status)
