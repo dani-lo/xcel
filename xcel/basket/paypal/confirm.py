@@ -98,7 +98,7 @@ def send_confirmation_basket_payment (user_data, orders, total) :
 
   # Replace recipient@example.com with a "To" address. If your account 
   # is still in the sandbox, this address must be verified.
-  RECIPIENT = 'resina00@gmail.com' #user_data['email']
+  RECIPIENT = user_data.email
 
   # If necessary, replace us-west-2 with the AWS Region you're using for Amazon SES.
   

@@ -194,6 +194,7 @@ export const UserAccount = () => {
   if (mode === ACCOUNT_MODE.VIEW && userData?.account) {
     return <>
       <XViewAccount>
+        <li className="padding-half-top padding-half-bottom"><span>email</span>{ userData.account.email }</li>
         <li className="padding-half-top padding-half-bottom"><span>first name</span>{ userData.account.firstname }</li>
         <li className="padding-half-top padding-half-bottom"><span>last name</span>{ userData.account.lastname }</li>
         <li className="padding-half-top padding-half-bottom"><span>address line 1</span>{ userData.account.address_line_1 }</li>
