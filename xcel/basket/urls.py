@@ -8,5 +8,5 @@ urlpatterns = [
     path('api/l-checkout', LocalCheckout.as_view()),
     path('payment_return', payment_return),
     path('payment_confirm/<slug:pid>', payment_confirm),
-    path('api/l-basket', LocalBasketDetail.as_view())
+    path('api/l-basket/', LocalBasketDetail.as_view())
 ]
