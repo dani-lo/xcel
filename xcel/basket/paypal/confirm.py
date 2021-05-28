@@ -32,7 +32,7 @@ def build_html_body (user_data, orders, total, for_client) :
   html_user.append('</div>')
 
   html_orders = ['<div><h2>Products Ordered</h2>']
-  
+
   for order in orders :
     product = LocalOrder.objects.get(id = order.product_id)    
     html_orders.append('<p>%s (%s)</p>' %(product['name'], order['quantity']))
@@ -76,7 +76,7 @@ def send_confirmation_basket_payment (user_data, orders, total) :
   #             )
   BODY_TEXT = "Ixcel Nature order confirmation"
 
-  BODY_HTML = build_html_body(user_data, orders, total)          
+  BODY_HTML = build_html_body(user_data, orders, total, True)          
 
   # The character encoding for the email.
   CHARSET = "UTF-8"
@@ -147,7 +147,7 @@ def send_confirmation_new_order (user_data, orders, total) :
   #             )
   BODY_TEXT = "Ixcel Nature order confirmation"
 
-  BODY_HTML = build_html_body(user_data, orders, total)          
+  BODY_HTML = build_html_body(user_data, orders, total, False)          
 
   # The character encoding for the email.
   CHARSET = "UTF-8"
