@@ -198,19 +198,13 @@ class LocalCheckout(APIView) :
       # pk = kwargs.get('pk')
 
       
-      b = paypal_confirm.build_html_body(ship_detail, orders, total, True)
-
-      print(b)
-
-      return Response()
-
       # total = paypal_util.basket_total(pk)
       order_body = paypal_util.build_local_checkout_request_body(xcelid, total, ship_detail)
 
       # # try :
 
       order = OrderClient()
-
+      
       paypal_response = order.create_order(order_body, debug=True)
 
       print('------------------------ GOT RESPONSE! ---------------------------')
