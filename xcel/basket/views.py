@@ -152,7 +152,7 @@ class LocalBasketDetail(generics.ListCreateAPIView):
 
         # for o in orders :
         #   total = o
-        total = orders[0].total
+        total = orders[0].totalcheckout
 
         print('>>>>>> account')
         print(account)
