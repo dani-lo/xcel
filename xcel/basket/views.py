@@ -147,7 +147,12 @@ class LocalBasketDetail(generics.ListCreateAPIView):
 
         orders = LocalOrder.objects.filter(poid = poid)
         account = LocalAccount.objects.get(poid = poid)
-        total = orders[0]['total']
+
+        print(orders)
+
+        # for o in orders :
+        #   total = o
+        total = orders[0].total
 
         print('>>>>>> account')
         print(account)
