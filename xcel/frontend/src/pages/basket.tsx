@@ -107,5 +107,5 @@ export const BasketPage = () => {
   } 
 
 
-  return <p>You have nothing in your basket</p>
+  return <XContentMain><XSection><p>You have nothing in your basket</p></XSection></XContentMain>
 }

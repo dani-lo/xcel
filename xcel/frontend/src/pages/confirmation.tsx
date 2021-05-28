@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
 
-
 import { basketCaptureConfirm } from 'lib/api/basketApi'
+
+import { REDUCER_ACTIONS } from 'data/reducer'
+import { useXcelContext } from 'data/provider'
 
 import { XSection, XPageTitle, XContentMain } from '../styles/styled'
 import { deleteLocalOrder, getLocalOrders } from 'lib/util/localOrders'
@@ -14,6 +16,8 @@ interface Params {
 
 export const PaymentConfirmPage = () => {
   
+  const { update } = useXcelContext()
+
   const params = useParams<Params>() 
 
   const poid = params.poid
@@ -24,19 +28,25 @@ export const PaymentConfirmPage = () => {
 
   const [success, setSuccess] = useState('init')
 
+
   const capture = async () => {
+    
     if (poid && poid.length > 1) {
       try {
         const result : any = await basketCaptureConfirm(poid)
 
         if (result && result.data && result.data.poid === poid) {
-          setSuccess('paid')
+          
           // delete local orders
           const localOrders = getLocalOrders()
 
           for (const localorder of localOrders) {
             deleteLocalOrder(localorder.id)
           }
+
+          setSuccess('paid')
+          
+          update({type: REDUCER_ACTIONS.PING, payload: null})
         } else {
           setSuccess('failed')
         }
