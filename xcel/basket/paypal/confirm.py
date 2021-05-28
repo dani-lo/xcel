@@ -84,7 +84,7 @@ def build_html_body_dev (user_data, orders, total, for_client) :
   return html_head + ''.join(html_user) + ''.join(html_orders) + html_total + html_foot
 
 
-def send_confirmation_basket_payment (user_data, orders, total) :
+def send_user_confirmation_basket_payment (user_data, orders, total) :
 
   ACCESS_KEY = os.environ.get('AWS_KEY_ID')
   SECRET_KEY = os.environ.get('AWS_KEY_SECRET')
@@ -155,7 +155,7 @@ def send_confirmation_basket_payment (user_data, orders, total) :
       print(response['MessageId'])
 
 
-def send_confirmation_new_order (user_data, orders, total) :
+def send_company_confirmation_new_order (user_data, orders, total) :
 
   ACCESS_KEY = os.environ.get('AWS_KEY_ID')
   SECRET_KEY = os.environ.get('AWS_KEY_SECRET')

@@ -166,7 +166,8 @@ class LocalBasketDetail(generics.ListCreateAPIView):
         print('NOW:: set_local_orders_paid')
         paypal_util.set_local_orders_paid(poid)
         print('NOW:: send_confirmation_basket_payment')
-        paypal_confirm.send_confirmation_basket_payment(account, orders, total)
+        paypal_confirm.send_user_confirmation_basket_payment(account, orders, total)
+        paypal_confirm.send_company_confirmation_new_order(account, orders, total)
         # print(basket)
         # if basket == 0 :
 
