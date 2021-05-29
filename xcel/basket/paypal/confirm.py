@@ -16,6 +16,9 @@ def build_html_body (user_data, orders, total, for_client) :
   else :
     html_head = "<html><head></head><body><h1>Ixcel Nature confirmation</h1><p>An order was placed on the website: see details</p>"
 
+  html_head = html_head + "<h3>Our reference: %s</h3>" %orders[0].xcelid
+  html_head = html_head + "<h3>Payment reference: %s</h3>" %orders[0].poid
+
   if for_client:
 
     html_user = ['<div><h2>Your Details</h2>']
