@@ -162,25 +162,35 @@ class LocalBasketDetail(generics.ListCreateAPIView):
         print(total)
         print('>>>>>> poid', poid)
         
-        
         print('NOW:: set_local_orders_paid')
-        paypal_util.set_local_orders_paid(poid)
-        print('NOW:: send_confirmation_basket_payment')
-        paypal_confirm.send_user_confirmation_basket_payment(account, orders, total)
-        paypal_confirm.send_company_confirmation_new_order(account, orders, total)
-        # print(basket)
-        # if basket == 0 :
+        paid_result = paypal_util.set_local_orders_paid(poid)
 
-        #     return Response({})
-        
-        print ('RETURN RESPONSE')
+        if paid_result == 1 :
+          print('NOW:: send_confirmation_basket_payment')
+          paypal_confirm.send_user_confirmation_basket_payment(account, orders, total)
+          paypal_confirm.send_company_confirmation_new_order(account, orders, total)
+          # print(basket)
+          # if basket == 0 :
+
+          #     return Response({})
+          
+          print ('RETURN RESPONSE')
+          
+          return Response({
+              'id': account.xcelid,
+              'status': 'PAID',
+              'token': account.token,
+              'poid': account.poid
+          })
         
         return Response({
-            'id': account.xcelid,
-            'status': 'PAID',
-            'token': account.token,
-            'poid': account.poid
-        })
+          'id': account.xcelid,
+              'status': LocalOrder.STALE,
+              'token': account.token,
+              'poid': account.poid
+          })
+        
+        
 
 
 

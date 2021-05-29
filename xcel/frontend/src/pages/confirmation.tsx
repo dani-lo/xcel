@@ -35,8 +35,8 @@ export const PaymentConfirmPage = () => {
       try {
         const result : any = await basketCaptureConfirm(poid)
 
-        if (result && result.data && result.data.poid === poid) {
-          
+        if (result && result.data && result.data.poid === poid && result.data.status !== 'STALE') {
+          console.log(1)
           // delete local orders
           const localOrders = getLocalOrders()
 
@@ -45,8 +45,12 @@ export const PaymentConfirmPage = () => {
           }
 
           setSuccess('paid')
-          
+
           update({type: REDUCER_ACTIONS.PING, payload: null})
+        } else if (result && result.data && result.data.poid === poid && result.data.status === 'STALE') {
+          console.log(2)
+          setSuccess('stale')
+
         } else {
           setSuccess('failed')
         }
@@ -65,6 +69,7 @@ export const PaymentConfirmPage = () => {
   const paid = poid && success === 'paid'
   const failed = poid &&  success === 'failed'
   const awaiting = success === 'init'
+  const stale = poid && success === 'stale'
 
   return <XContentMain>
     <XPageTitle className="cap">Your Order</XPageTitle>
@@ -74,6 +79,13 @@ export const PaymentConfirmPage = () => {
           <h3>Thank you for your order</h3>
           <p>Your order was successful</p>
           <p>You should have recived an email from us with details for your order. Please make sure you check your spam folder too</p>
+        </> : null
+      }
+      {
+        stale ? <>
+          <h3>There was something wrong with your order</h3>
+          <p>It looks like the order was already processed: did you just refresh this page?</p>
+          <p>Please get in touch with us</p>
         </> : null
       }
       {

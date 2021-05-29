@@ -119,9 +119,19 @@ def create_local_orders (xcelid, p_token, orders, user_email, checkout_total) :
 def set_local_orders_paid (poid) :
   orders = LocalOrder.objects.filter(poid = poid)
 
+  already_paid = False
+
   for order in orders :
-    order.status = LocalOrder.PAID
-    order.save()
+    if order.status == LocalOrder.PAID :
+      already_paid = True
+    else :
+      order.status = LocalOrder.PAID
+      order.save()
+
+  if already_paid :
+    return 0
+
+  return 1
 
 def set_local_account_poid (paypal_token, poid) :
   account = LocalAccount.objects.get(token = paypal_token)
