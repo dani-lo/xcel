@@ -139,6 +139,8 @@ class PrepareBasket(APIView) :
 class LocalBasketDetail(generics.ListCreateAPIView):
     serializer_class = BasketSerializer
 
+    permission_classes = []
+
     def put(self, request, *args, **kwargs):
 
         print('========= LocalBasketDetail :: PUT')
