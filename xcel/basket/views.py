@@ -5,6 +5,8 @@ from django.db import models
 
 from django.shortcuts import render, redirect
 
+from django.views.decorators.csrf import csrf_exempt
+
 from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -136,10 +138,10 @@ class PrepareBasket(APIView) :
         # except :
         #     return Response({'error': 'Chekout URl could not be prepared'})
 
+@csrf_exempt
 class LocalBasketDetail(generics.ListCreateAPIView):
     serializer_class = BasketSerializer
 
-    permission_classes = []
 
     def put(self, request, *args, **kwargs):
 
