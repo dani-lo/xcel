@@ -138,11 +138,11 @@ class PrepareBasket(APIView) :
         # except :
         #     return Response({'error': 'Chekout URl could not be prepared'})
 
-@csrf_exempt
+
 class LocalBasketDetail(generics.ListCreateAPIView):
     serializer_class = BasketSerializer
 
-
+    @csrf_exempt
     def put(self, request, *args, **kwargs):
 
         print('========= LocalBasketDetail :: PUT')
