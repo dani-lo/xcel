@@ -206,7 +206,7 @@ export const UserAccount = () => {
         className="margin-top"
         size="small"
         onClick={ () => setMode(ACCOUNT_MODE.EDIT)} 
-      >Edit account</XButton>
+      >Edit delivery data</XButton>
     </>
   } else if (mode === ACCOUNT_MODE.EDIT && userData?.account) {
 
@@ -222,7 +222,7 @@ export const UserAccount = () => {
             cancel
           </XButton>
         <XFormInputSubmit size="small">
-          <input type="submit" value="save account data" />
+          <input type="submit" value="save deliery data" />
         </XFormInputSubmit>
         </div>
       </StyledEditAccount>
@@ -234,7 +234,7 @@ export const UserAccount = () => {
         }
         <div className="form-subitter">
         <XFormInputSubmit size="small">
-          <input type="submit" value="add account data" />
+          <input type="submit" value="add delivery data" />
         </XFormInputSubmit>
         </div>
       </StyledEditAccount>

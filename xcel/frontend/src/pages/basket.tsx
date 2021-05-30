@@ -67,7 +67,7 @@ export const BasketPage = () => {
         <UserAccount />
         {
           !userData?.account ?
-          <p className="txt-small warning">Please add your account data to be able to checkout</p> :
+          <p className="txt-small warning">Please add your delivery details to be able to checkout</p> :
           null
         }
         </XSection>
