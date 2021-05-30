@@ -42,10 +42,10 @@ export const basketCheckout = (basket : Basket) => {
 }
 
 export const localBasketCheckout = (shipDetail: Account, orders : Order[], total: number) => {
-  // const csrftoken = getCSRFToken()
-  // const config = { headers: {'X-CSRFToken': csrftoken }}
+  const csrftoken = getCSRFToken()
+  const config = { headers: {'X-CSRFToken': csrftoken }}
 
-  return axios.post(`/api/l-checkout`, { shipDetail, orders, total })
+  return axios.post(`/api/l-checkout`, { shipDetail, orders, total }, config)
 }
 
 export const basketCaptureConfirm = (poid : string) => {
