@@ -1,0 +1,22 @@
+{% extends "admin/change_form.html" %}
+
+{% block form_top %}
+    <div class="form_row">
+        <h3>Orders in Basket</h3>
+        <table style="margin: 2em 0;border-left: 1px solid #d7d5d5;">
+            <tr>
+                <th>Product name</th>
+                <th>Order quantity</th>
+                <th>Unit Price</th>
+            </tr>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.product.name }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.unit_price }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        <p style="margin-top: 2em">Basket total <strong>{{ total }}</strong></p>
+    </div>
+{% endblock %}
