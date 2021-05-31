@@ -16,3 +16,4 @@ t
 bundle.js
 xcel-run.sh
 .env
+*.sqlite3
