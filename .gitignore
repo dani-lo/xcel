@@ -2,7 +2,7 @@
 *.pot
 *.pyc
 __pycache__
-#db.sqlite3
+*.sqlite3
 materiale
 .idea
 env 
@@ -16,4 +16,4 @@ t
 bundle.js
 xcel-run.sh
 .env
-*.sqlite3
+**/static
