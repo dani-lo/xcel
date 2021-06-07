@@ -15,5 +15,5 @@ env
 t
 xcel-run.sh
 .env
-**/static
+
 wsgi_params
