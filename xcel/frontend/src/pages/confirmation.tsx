@@ -22,10 +22,9 @@ export const PaymentConfirmPage = () => {
 
   const poid = params.poid
 
-  console.log('PAYMENT CONFIRM PAGE LOADED')
 
-  console.log('poid', poid)
-
+  console.log('p')
+  
   const [success, setSuccess] = useState('init')
 
 

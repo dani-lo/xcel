@@ -21,10 +21,6 @@ export const LocalOrdersPage = () => {
 
   const xcelid = params.xcelid
 
-  console.log('PAYMENT CONFIRM PAGE LOADED')
-
-  console.log('xcelid', xcelid)
-
   const [remoteorders, setRemoteorders] = useState([])
 
 
