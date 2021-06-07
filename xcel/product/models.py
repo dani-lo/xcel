@@ -4,22 +4,22 @@ from datetime import datetime
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=30)
-    description = models.CharField(max_length=200)
+    description = models.TextField()
 
     def __str__(self):
         return self.name
 
 class Feature(models.Model):
     name = models.CharField(max_length=30)
-    description = models.CharField(max_length=200)
+    description = models.TextField()
 
     def __str__(self):
         return self.name
 
 class Product(models.Model):
     created = models.DateTimeField(default=datetime.now)
-    name = models.CharField(max_length=30)
-    description = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
+    description = models.TextField()
     logo = models.ImageField(upload_to='product_logos')
     img_a = models.ImageField(upload_to='product_images', default='placeholder.png')
     img_b = models.ImageField(upload_to='product_images', default='placeholder.png')

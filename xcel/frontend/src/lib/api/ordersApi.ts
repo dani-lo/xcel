@@ -3,7 +3,6 @@ import axios from 'axios'
 import { Basket } from 'lib/collections/basket'
 import { Order } from 'lib/collections/order'
 import { Product } from 'lib/collections/product'
-import { getLocalOrders } from 'lib/util/localOrders'
 
 import { getCSRFToken } from 'lib/util/token'
 
@@ -34,4 +33,9 @@ export const deleteOrder = (order : Order) => {
   const config = { headers: {'X-CSRFToken': csrftoken }}
 
   return axios.put(`/api/orders/${ order.id }/`, data, config)
+}
+
+export const allRemoteOrders = (xcelid : string) => {
+
+  return axios.get(`/api/l-orders/${ xcelid }`)
 }

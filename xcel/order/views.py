@@ -1,7 +1,8 @@
 from datetime import datetime
 import time
+from xcel.account.models import LocalAccount
 
-from xcel.order.models import Order
+from xcel.order.models import LocalOrder, Order
 from xcel.order.serializers import OrderWriteSerializer, UserSerializer
 
 from rest_framework import generics, permissions, status
@@ -9,6 +10,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from django.contrib.auth import login, logout, authenticate, get_user_model
+from django.shortcuts import render
+from django.forms.models import model_to_dict
 
 User = get_user_model()
 
@@ -104,3 +107,32 @@ class UserLogout(APIView):
 #         login(request)
 #
 #         return Response(status=status.HTTP_200_OK)
+
+
+class LocalOrdersList(APIView):
+
+    def get(self, request, format=None):
+
+      orders = LocalOrder.objects.all()
+
+      arr_orders = []
+
+      for order in orders:
+
+        obj_order = model_to_dict(order)
+        print('>>>>>>>>>>>>>>>>>')
+        print(order.xcelid)
+        try:
+          order_account = model_to_dict(LocalAccount.objects.get(xcelid = order.xcelid))
+        except :
+          order_account = {}
+        
+        obj_order['account'] = order_account
+        
+        arr_orders.append(obj_order)
+        
+      return Response(arr_orders)
+
+
+def local_orders (request):
+    return render(request, f'payment_confirm.html')

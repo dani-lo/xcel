@@ -36,7 +36,6 @@ export const PaymentConfirmPage = () => {
         const result : any = await basketCaptureConfirm(poid)
 
         if (result && result.data && result.data.poid === poid && result.data.status !== 'STALE') {
-          console.log(1)
           // delete local orders
           const localOrders = getLocalOrders()
 
@@ -48,7 +47,6 @@ export const PaymentConfirmPage = () => {
 
           update({type: REDUCER_ACTIONS.PING, payload: null})
         } else if (result && result.data && result.data.poid === poid && result.data.status === 'STALE') {
-          console.log(2)
           setSuccess('stale')
 
         } else {
