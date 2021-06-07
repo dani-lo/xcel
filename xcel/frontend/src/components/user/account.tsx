@@ -67,7 +67,6 @@ export const UserAccount = () => {
     defaultValues: account
   })
 
-  console.log(userData)
   // const onEditAccount = (data: AccountProps) => {
 
   //   if (userData?.account?.id) {
