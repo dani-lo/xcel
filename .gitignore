@@ -13,7 +13,6 @@ env
 
 .t.kate-swp
 t
-bundle.js
 xcel-run.sh
 .env
 **/static
