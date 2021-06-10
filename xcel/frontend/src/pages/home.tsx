@@ -35,6 +35,7 @@ export const HomePage = () => {
 
   const { appstate } = useXcelContext()
 
+  
   const [ingredients, setIngredients] = useState(false)
   
   const products = appstate.products || []
@@ -48,12 +49,10 @@ export const HomePage = () => {
     return acc
   }, [])
 
-  console.log(ingredients)
-
 	return <>
-    <XContentMain>
-      <XPageTitle className="cap">IXCEL nature</XPageTitle>
-      <XSection>
+  <XPageTitle className="cap">IXCEL nature</XPageTitle>
+  <XContentMain>
+    <XSection>
         <div className="flex-row block-responsive-small">
           <StyledMainLogo src="/media/company/xcel-logo.png" className="logo-main" />
           <div>
@@ -63,6 +62,31 @@ export const HomePage = () => {
           </div>
         </div>
       </XSection>
+  </XContentMain>
+    <XSectionHighlight className="fw"> 
+        <div className="highlight-content">
+          
+          {
+            products.map((product, i) => {
+              
+              const cname = i % 2 === 0 ? "hero" : "hero padding-dub-left padding-dub-right"
+              const bgImg = `url("${ product.img_a }")`
+
+              return <div key={ `prod-${ i }` } className={ cname }>
+                
+                <div className="product" style={{ backgroundImage: bgImg }}></div>
+                <h3 className="txt-small padding-half-top margin-half-top">{ product.name}</h3>
+                {/* <p>{ product.description.substring(0, 50) }...</p> */}
+                <XButton size="small">more</XButton>
+              </div>
+            })
+          }
+        </div>
+    </XSectionHighlight>
+    <XContentMain>
+      
+      
+      
       <XSection className="flex-row block-responsive-small">
         <img src="/media/product_images/ingredients/b.png" className="margin-half-right fullwidth" />
         <img src="/media/product_images/ingredients/b.png" className="margin-half-left hide-responsive-small fullwidth" />

@@ -168,10 +168,27 @@ const XSectionHighlight = styled.div`
     width: 1200px;
     display: flex;
     margin: auto;
+    justify-content: space-around;
+
+    .hero {
+      padding: 2rem;
+      background: var(--white);
+      border-bottom: 1px solid var(--black);
+      h3 {
+        
+      }
+    }
   }
 
   > div {
     flex: 1;
+  }
+
+  div.product {
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    border: 1px solid var(--border);
   }
 `
 
