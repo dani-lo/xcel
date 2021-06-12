@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
+import {useHistory} from 'react-router-dom';
 
 import { useXcelContext } from 'data/provider'
 
@@ -35,7 +36,6 @@ export const HomePage = () => {
 
   const { appstate } = useXcelContext()
 
-  
   const [ingredients, setIngredients] = useState(false)
   
   const products = appstate.products || []
@@ -48,6 +48,9 @@ export const HomePage = () => {
     })
     return acc
   }, [])
+
+  const history = useHistory();
+  const gotoShop = useCallback((i) => history.push(`/shop#product-${ i }`), [history]);
 
 	return <>
   <XPageTitle className="cap">IXCEL nature</XPageTitle>
@@ -77,16 +80,13 @@ export const HomePage = () => {
                 <div className="product" style={{ backgroundImage: bgImg }}></div>
                 <h3 className="txt-small padding-half-top margin-half-top">{ product.name}</h3>
                 {/* <p>{ product.description.substring(0, 50) }...</p> */}
-                <XButton size="small">more</XButton>
+                <XButton size="small" onClick={ () => gotoShop(i) }>more</XButton>
               </div>
             })
           }
         </div>
     </XSectionHighlight>
-    <XContentMain>
-      
-      
-      
+    <XContentMain className="padding-dub-top">
       <XSection className="flex-row block-responsive-small">
         <img src="/media/product_images/ingredients/b.png" className="margin-half-right fullwidth" />
         <img src="/media/product_images/ingredients/b.png" className="margin-half-left hide-responsive-small fullwidth" />
@@ -123,7 +123,6 @@ export const HomePage = () => {
       </div>
     </XSectionHighlight>
     <XContentMain>
-    
     <XSection style={{ position: 'relative' }}>
       <StyledPhotoBG>
         <p className="note">
@@ -133,7 +132,6 @@ export const HomePage = () => {
           <span>Lorem ipso dolor sit amet etiam vouptitinmo non adepilor sit amet  titinmo non adepilor sit amet titinmo non adepilor sit amet titinmo non adepilor sit amet titinmo non adepilor sit amet  titinmo non adepilor sit amet eo dolor sit amet etiam vouptitinmo non adepilo</span>
         </p>
       </StyledPhotoBG>
-
     </XSection>
     </XContentMain>
     {
@@ -143,5 +141,4 @@ export const HomePage = () => {
       /> : null
     }
 	</>
-	
 }

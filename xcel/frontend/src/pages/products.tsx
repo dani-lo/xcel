@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import { Product } from 'lib/collections/product'
 
-import { placeOrder } from 'lib/api/ordersApi'
-import { createBasket } from 'lib/api/basketApi'
+// import { placeOrder } from 'lib/api/ordersApi'
+// import { createBasket } from 'lib/api/basketApi'
 
 import { placeLocalOrder } from 'lib/util/localOrders'
 
@@ -14,7 +15,7 @@ import { ProductDetail } from 'components/product/productDetail'
 
 import { XSection, XPageTitle, XScroller, XContentMain } from 'styles/styled'
 
-export const ProductsPage = () => {
+export const ProductsPage = withRouter((props : any) => {
 
   const { appstate, update } = useXcelContext()
   
@@ -22,6 +23,19 @@ export const ProductsPage = () => {
   const basket = appstate.basket
   const user = appstate.user
 
+  const refs : any[] = []
+
+  const prodFocusIdx = props.location?.hash?.replace('#product-', '') || null
+
+  useEffect(() => {
+    if (prodFocusIdx && prodFocusIdx.length) {
+      const ref = refs[prodFocusIdx]
+
+      if (ref && ref.current) {
+        ref.current.scrollIntoView()
+      }
+    }
+  }, [prodFocusIdx])
   // const buyProduct = async (p : Product, quantity: number) => {
 
   //   if (!!basket) {
@@ -56,14 +70,23 @@ export const ProductsPage = () => {
     </XSection>
     <XScroller>
       {
-        products.map((p : Product, i : number) => <XSection key={ `product-${ i }` }>
-            <ProductDetail
-              p={ p }
-              buyProduct={ buyLocalProduct }
-              loggedIn={ !!user }
-            />
-        </XSection>)
+        products.map((p : Product, i : number) => {
+
+          const ref = useRef(null)
+
+          refs.push(ref)
+
+          return <XSection key={ `product-${ i }` } ref={ ref }>
+            <div id={`product-${ i }`} className="padding-top">
+              <ProductDetail
+                p={ p }
+                buyProduct={ buyLocalProduct }
+                loggedIn={ !!user }
+              />
+            </div>
+          </XSection>
+        })
       }
     </XScroller>
   </XContentMain>
-}
+})
