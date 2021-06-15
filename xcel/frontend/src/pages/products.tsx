@@ -25,7 +25,7 @@ export const ProductsPage = withRouter((props : any) => {
 
   const refs : any[] = []
 
-  const prodFocusIdx = props.location?.hash?.replace('#product-', '') || null
+  const prodFocusIdx = props.location?.hash?.replace('#p-', '') || null
 
   useEffect(() => {
     if (prodFocusIdx && prodFocusIdx.length) {

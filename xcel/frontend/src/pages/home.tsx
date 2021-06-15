@@ -50,7 +50,7 @@ export const HomePage = () => {
   }, [])
 
   const history = useHistory();
-  const gotoShop = useCallback((i) => history.push(`/shop#product-${ i }`), [history]);
+  const gotoShop = useCallback((i) => history.push(`/shop#p-${ i }`), [history]);
 
 	return <>
   <XPageTitle className="cap">IXCEL nature</XPageTitle>
