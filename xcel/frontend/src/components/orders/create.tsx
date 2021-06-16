@@ -12,6 +12,7 @@ export const CreateOrder = (props : Props) => {
 
   return <XPurchase>
     <XButton 
+      style={{boxShadow: 'none' }}
       onClick={ () => props.onBuyProduct(quantity) }
       size="small">place order</XButton>
     <input value={ quantity } />

@@ -11,9 +11,10 @@ const XButton = styled.button<{size: string;}>`
   
   cursor: pointer;
   border-radius: 0;
-  background: var(--white);
-  color: var(--black);
-  border: 2px solid var(--black);
+  background: var(--primary);
+  color: var(--white);
+  /* border: 2px solid var(--black); */
+  /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
   ${ props => props.disabled ? 'opacity: 0.5; pointer-events: none;' : '' }
 
   &:hover {
@@ -41,7 +42,7 @@ XImgButton.displayName = 'XImgButton'
 const XProduct = styled.div`
   
   border-top: 2px solid var(--bg);
-  padding: 2em 0 2em;
+  padding: 0 0 1em;
   margin-top: 1em;
   
   h3 {
@@ -123,9 +124,10 @@ const XFormInputSubmit = styled.div<{ size: string; disabled ?: boolean}>`
     
     cursor: pointer;
     border-radius: 0x;
-    background: var(--white);
-    color: var(--black);
-    border: 2px solid var(--black);
+    background: var(--primary);
+    color: var(--white);
+    /* border: 2px solid var(--black); */
+    /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
 
     &:hover {
       opacity: 0.7;
@@ -162,8 +164,8 @@ XSection.displayName = 'XSection'
 
 const XSectionHighlight = styled.div`
   padding: var(--pad-5);
-  background: var(--bg);
-  color: var(--black);
+  background: var(--black);
+  color: var(--white);
   .highlight-content {
     width: 1200px;
     display: flex;
@@ -171,11 +173,13 @@ const XSectionHighlight = styled.div`
     justify-content: space-around;
 
     .hero {
+      max-width: 200px;
       padding: 2rem;
       background: var(--white);
       border-bottom: 1px solid var(--black);
-      h3 {
-        
+
+      p {
+        color: var(--txt-main);
       }
     }
   }
@@ -225,10 +229,10 @@ const XPurchase = styled.div`
     flex-direction: column;
 
     i {
-      border: 1px solid var(--border);
-      background: var(--bg-grad);
+      background: var(--black);
       padding: 6px;
       cursor: pointer;
+      color: var(--primary);
 
       &:hover {
         opacity: 0.7;
@@ -244,7 +248,8 @@ const XPageTitle = styled.h2`
   color: var(--txt-main);
   /* border: 1px solid var(--border); */
   text-align: center;
-  background: var(--bg);
+  /* background: var(--bg); */
+  border: 2px solid var(--secondary);
 `
 
 const XOrder = styled.div`

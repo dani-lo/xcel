@@ -11,6 +11,7 @@ const StyledHeader = styled.nav`
   position: fixed;
   width: 100%;
   background: var(--bg);
+  border-bottom: 1px solid var(--black);
   animation: top 2s ease-in;
 
   .header-content {
@@ -62,7 +63,7 @@ const StyledHeader = styled.nav`
         text-decoration: none;
         color: var(--txt-main);
         font-weight: bold;
-        padding: var(--pad-1) var(--pad-3);
+        padding: var(--pad-2) var(--pad-4);
 
         i {
           font-size: 14px;
@@ -101,7 +102,7 @@ const StyledHeader = styled.nav`
 `
 
 const StyledPayoff = styled.div`
-  background-image: url(/media/screen.png);
+  background-image: url(/media/screen3.jpg);
   height: 300px;
   background-size: cover;
 

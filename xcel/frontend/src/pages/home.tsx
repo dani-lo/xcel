@@ -53,9 +53,35 @@ export const HomePage = () => {
   const gotoShop = useCallback((i) => history.push(`/shop#p-${ i }`), [history]);
 
 	return <>
-  <XPageTitle className="cap">IXCEL nature</XPageTitle>
-  <XContentMain>
-    <XSection>
+  
+    <XContentMain  className="margin-dub-bottom">
+      <XPageTitle className="cap">IXCEL nature</XPageTitle>
+      <p className="txt-small padding-top padding-bottom">We’ve missed you! We've re-opened even more of our shops as well as our indoor seating, so dust off those coffee subscriptions and reunite with a freshly made favourite (or two!).</p>
+
+      <p className="txt-small padding-top padding-bottom">Our teams can’t wait to safely welcome you back for freshly made breakfast, lunch, organic coffees and more.  </p>
+      </XContentMain>
+    <XSectionHighlight className="fw" style={{ marginTop: 'var(--pad-5)', background: 'transparent'}}> 
+        <div className="highlight-content">
+          
+          {
+            products.map((product, i) => {
+              
+              const cname = i % 2 === 0 ? "hero card-2" : "hero card-2 padding-dub-left padding-dub-right"
+              const bgImg = `url("${ product.img_a }")`
+
+              return <div key={ `prod-${ i }` } className={ cname }>
+                
+                <div className="product" style={{ backgroundImage: bgImg }}></div>
+                <p className="txt-small padding-top padding-bottom margin-half-top">{ product.description.substring(0, 40)} ...</p>
+                {/* <p>{ product.description.substring(0, 50) }...</p> */}
+                <XButton size="small" onClick={ () => gotoShop(i) }>more</XButton>
+              </div>
+            })
+          }
+        </div>
+    </XSectionHighlight>
+    <XContentMain className="padding-dub-top">
+      <XSection>
         <div className="flex-row block-responsive-small">
           <StyledMainLogo src="/media/company/xcel-logo.png" className="logo-main" />
           <div>
@@ -65,31 +91,9 @@ export const HomePage = () => {
           </div>
         </div>
       </XSection>
-  </XContentMain>
-    <XSectionHighlight className="fw"> 
-        <div className="highlight-content">
-          
-          {
-            products.map((product, i) => {
-              
-              const cname = i % 2 === 0 ? "hero" : "hero padding-dub-left padding-dub-right"
-              const bgImg = `url("${ product.img_a }")`
-
-              return <div key={ `prod-${ i }` } className={ cname }>
-                
-                <div className="product" style={{ backgroundImage: bgImg }}></div>
-                <h3 className="txt-small padding-half-top margin-half-top">{ product.name}</h3>
-                {/* <p>{ product.description.substring(0, 50) }...</p> */}
-                <XButton size="small" onClick={ () => gotoShop(i) }>more</XButton>
-              </div>
-            })
-          }
-        </div>
-    </XSectionHighlight>
-    <XContentMain className="padding-dub-top">
       <XSection className="flex-row block-responsive-small">
-        <img src="/media/product_images/ingredients/b.png" className="margin-half-right fullwidth" />
-        <img src="/media/product_images/ingredients/b.png" className="margin-half-left hide-responsive-small fullwidth" />
+        <img src="/media/product_images/ingredients/w.jpg" className="margin-half-right fullwidth" style={{ width: '455px', height: '405px' }} />
+        <img src="/media/product_images/ingredients/b.png" className="margin-half-left hide-responsive-small fullwidth"  style={{ width: '455px', height: '405px' }} />
       </XSection>
       <XSection>
         <h2>Ingredients!</h2>
