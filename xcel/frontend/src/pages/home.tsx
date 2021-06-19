@@ -57,25 +57,26 @@ export const HomePage = () => {
     <XContentMain  className="margin-dub-bottom">
       <XPageTitle className="cap">IXCEL nature</XPageTitle>
        <XContentMain className="padding-dub-top">
-      <XSection>
-        <div className="flex-row block-responsive-small">
-          <StyledMainLogo src="/media/company/xcel-logo.png" className="logo-main" />
-          <div>
-            <p className="txt-small padding-bottom">We are a small family run business, dedicated to offering you the same benefits we find daily from out home made range of body creams</p>
-            <h3>Our Mission Statement</h3>
-            <p className="txt-small padding-top padding-bottom">We are committed to the highest hygiene standards and quality. We have produce our own body treatments and creams because we love it and believe in it.</p>
-            <p className="txt-small padding-bottom">We sincerely hope that if you try our products, we are sure that you will get as much benefit from them as much as our family does.</p>
+        <XSection>
+          <div className="flex-row block-responsive-small">
+            <StyledMainLogo src="/media/company/xcel-logo.png" className="logo-main" />
+            <div>
+              <p className="txt-small padding-bottom">We are a small family run business, dedicated to offering you the same benefits we find daily from out home made range of body creams</p>
+              <h3>Our Mission Statement</h3>
+              <p className="txt-small padding-top padding-bottom">We are committed to the highest hygiene standards and quality. We have produce our own body treatments and creams because we love it and believe in it.</p>
+              <p className="txt-small padding-bottom">We sincerely hope that if you try our products, we are sure that you will get as much benefit from them as much as our family does.</p>
+            </div>
           </div>
-        </div>
-      </XSection>
+        </XSection>
       </XContentMain>
-      
+      <XSectionHighlight className="fw margin-dub-bottom" style={{ marginTop: 'var(--pad-5)'}}> 
       <h3 className="text-medium">How we started</h3>
-      <p className="txt-small padding-top padding-bottom">We have two beautiful kids: back when our first was born we were looking at body creams, nappy rash creams and all the products you need for their wellbeing</p>
-      <p className="txt-small padding-top padding-bottom">Sadly,  all we kept seeing were chemicals!Therefore we started studying the use of essential oils, through workshops and classes and we  started making our own products: the results were incredible! No more nappy rashes, no more skin reactions and we startyed using them ourselves with the result that our own skin started to feel much smoother and healthier.</p>
-      <p className="txt-small padding-top padding-bottom">We gave our creams and products to a few friends and the feedback was phenomenal, in fact it was so overwhelmingly good that we decided to start a business and Ixcel Nature was born</p>
-      <p className="txt-small padding-top padding-bottom">Our teams can’t wait to safely welcome you back for freshly made breakfast, lunch, organic coffees and more.  </p>
-      </XContentMain>
+        <p className="txt-small padding-top padding-bottom">We have two beautiful kids: back when our first was born we were looking at body creams, nappy rash creams and all the products you need for their wellbeing</p>
+        <p className="txt-small padding-top padding-bottom">Sadly,  all we kept seeing were chemicals! Therefore we started studying the use of essential oils, we took workshops and classes and eventually we  started making our own products: the results were incredible! No more nappy rashes, no more skin reactions: so we started using them ourselves with the result that our own skin started to feel much smoother and healthier.</p>
+        <p className="txt-small padding-top padding-bottom">We gave our creams and products to a few friends and the feedback was phenomenal, in fact it was so overwhelmingly good that we decided to start a business and Ixcel Nature was born</p>
+      </XSectionHighlight>
+    </XContentMain>
+    
     <XSectionHighlight className="fw margin-dub-bottom" style={{ marginTop: 'var(--pad-5)', background: 'transparent'}}> 
         <div className="highlight-content">
           
@@ -113,13 +114,13 @@ export const HomePage = () => {
     </XSectionHighlight>
     <XContentMain className="padding-dub-top margin-dub-top">
       
-      <XSection className="flex-row block-responsive-small">
-        <img src="/media/product_images/ingredients/w.jpg" className="margin-half-right fullwidth" style={{ width: '455px', height: '405px' }} />
-        <img src="/media/product_images/ingredients/b.png" className="margin-half-left hide-responsive-small fullwidth"  style={{ width: '455px', height: '405px' }} />
-      </XSection>
+      
       <XSection>
-        <h2>Ingredients!</h2>
-        <h3>(it is all about the ingredients)</h3>
+        <h2>It is all about the ingredients for us</h2>
+        <XSection className="flex-row block-responsive-small">
+          <img src="/media/product_images/ingredients/w.jpg" className="margin-half-right fullwidth" style={{ width: '455px', height: '405px' }} />
+          <img src="/media/product_images/ingredients/b.png" className="margin-half-left hide-responsive-small fullwidth"  style={{ width: '455px', height: '405px' }} />
+        </XSection>
         <p>The most crucial idea behind our creams is that natural ingredients have the power to help our bodies to get stronger and stimulate them into interaction/reaction rather than passively receive the benefits</p>
         <XButton size="small" onClick={ () => setIngredients(true) } className="margin-dub-top">View All Our Ingredients</XButton>
       </XSection>
@@ -127,7 +128,7 @@ export const HomePage = () => {
     
     
     <XContentMain>
-    <XSection style={{ position: 'relative' }}>
+    {/* <XSection style={{ position: 'relative' }}>
       <StyledPhotoBG>
         <p className="note">
           <span>Lorem ipso dolor sit amet etiam vouptitinmo non adepilor sit amet  titinmo non adepilor sit amet titinmo non adepilor sit amet titinmo non adepilor sit amet titinmo non adepilor sit amet  titinmo non adepilor sit amet eo dolor sit amet etiam vouptitinmo non adepilo</span>
@@ -136,7 +137,7 @@ export const HomePage = () => {
           <span>Lorem ipso dolor sit amet etiam vouptitinmo non adepilor sit amet  titinmo non adepilor sit amet titinmo non adepilor sit amet titinmo non adepilor sit amet titinmo non adepilor sit amet  titinmo non adepilor sit amet eo dolor sit amet etiam vouptitinmo non adepilo</span>
         </p>
       </StyledPhotoBG>
-    </XSection>
+    </XSection> */}
     </XContentMain>
     {
       ingredients ? <IngredientsModal
