@@ -52,6 +52,10 @@ export const HomePage = () => {
   const history = useHistory();
   const gotoShop = useCallback((i) => history.push(`/shop#p-${ i }`), [history]);
 
+  const prodDescript = (prod : Product) => {
+    return window.innerWidth > 800 ? `${ prod.description.substring(0, 40) }...` : null
+  }
+
 	return <>
   
     <XContentMain  className="margin-dub-bottom">
@@ -69,7 +73,7 @@ export const HomePage = () => {
           </div>
         </XSection>
       </XContentMain>
-      <XSectionHighlight className="fw margin-dub-bottom" style={{ marginTop: 'var(--pad-5)'}}> 
+      <XSectionHighlight className="margin-dub-bottom" style={{ marginTop: 'var(--pad-5)'}}> 
       <h3 className="text-medium">How we started</h3>
         <p className="txt-small padding-top padding-bottom">We have two beautiful kids (a boy and a little girl): back when our first was born we were looking at body creams, nappy rash creams and all the products you need for their wellbeing.</p>
         <p className="txt-small padding-top padding-bottom">Sadly,  all we kept seeing were chemicals! Therefore we started studying the use of essential oils, we took workshops and classes and eventually we  started making our own products: the results were incredible! No more nappy rashes, no more skin reactions: so we started using them ourselves with the result that our own skin started to feel much smoother and healthier.</p>
@@ -77,7 +81,7 @@ export const HomePage = () => {
       </XSectionHighlight>
     </XContentMain>
     
-    <XSectionHighlight className="fw margin-dub-bottom" style={{ marginTop: 'var(--pad-5)', background: 'transparent'}}> 
+    <XSectionHighlight className="margin-dub-bottom" style={{ marginTop: 'var(--pad-5)', background: 'transparent'}}> 
         <div className="highlight-content">
           
           {
@@ -89,9 +93,11 @@ export const HomePage = () => {
               return <div key={ `prod-${ i }` } className={ cname }>
                 
                 <div className="product" style={{ backgroundImage: bgImg }}></div>
-                <p className="txt-small padding-top padding-bottom margin-half-top">{ product.description.substring(0, 40)} ...</p>
-                {/* <p>{ product.description.substring(0, 50) }...</p> */}
-                <XButton size="small" onClick={ () => gotoShop(i) }>more</XButton>
+                <div className="desc">
+                  <h2 className="txt-medium">{ product.name }</h2>
+                  <p className="txt-small padding-top padding-bottom margin-half-top">{ prodDescript(product) }</p>
+                  <XButton size="small" onClick={ () => gotoShop(i) }>more</XButton>
+                </div>
               </div>
             })
           }
@@ -103,15 +109,25 @@ export const HomePage = () => {
           <img width="400" src="/media/company/dani.png" />
         </div>
         <div className="padding-dub-left padding-dub-right">
-           <h3>Meet Daniela</h3>
+          <h3>Meet Daniela</h3>
           <p className="txt-small padding-top padding-bottom">Hello! I am Daniela, I was born in the beautiful town of Como in Italy in 1976 and i spent my life studying childcare and looking after children.</p>
-        <p className="txt-small padding-top padding-bottom">I am the one who created the creams we are offering you, and I hope you will feel their benefit as much as my family does!</p>
+          <p className="txt-small padding-top padding-bottom">I am the one who created the creams we are offering you, and I hope you will feel their benefit as much as my family does!</p>
         </div>
         <div>
           <img width="400" src="/media/company/dani-kids.png" />
         </div>
       </div>
     </XSectionHighlight>
+    <XSectionHighlight  className="rw margin-dub-top margin-dub-bottom">
+      <img  src="/media/company/dani.png" className="fullwidth" />
+      <div className="padding-top">
+        <h3>Meet Daniela</h3>
+          <p className="txt-small padding-top padding-bottom">Hello! I am Daniela, I was born in the beautiful town of Como in Italy in 1976 and i spent my life studying childcare and looking after children.</p>
+          <p className="txt-small padding-top padding-bottom">I am the one who created the creams we are offering you, and I hope you will feel their benefit as much as my family does!</p>
+      </div>
+      <img  src="/media/company/dani-kids.png" className="hide-responsive-small fullwidth" />
+    </XSectionHighlight>
+
     <XContentMain className="padding-dub-top margin-dub-top">
       
       

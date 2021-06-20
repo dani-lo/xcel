@@ -166,6 +166,7 @@ const XSectionHighlight = styled.div`
   padding: var(--pad-5);
   background: var(--black);
   color: var(--white);
+  
   .highlight-content {
     width: 1200px;
     display: flex;
@@ -182,6 +183,30 @@ const XSectionHighlight = styled.div`
         color: var(--txt-main);
       }
     }
+
+    @media only screen and (max-width: 800px) {
+      display: block;
+      width: auto;
+      
+      .hero {
+        max-width: none;
+        display: flex;
+        margin-bottom: var(--pad-2 );
+
+        h2 {
+          display: block;
+          color: var(--black);
+        }
+
+        div.desc {
+          padding-left: var(--pad-4);
+          display: flex;
+          flex-direction: column;
+          align-items: end;
+          justify-content: space-between;
+        }
+      }
+    }
   }
 
   > div {
@@ -193,6 +218,13 @@ const XSectionHighlight = styled.div`
     height: 200px;
     background-size: cover;
     border: 1px solid var(--border);
+
+    @media only screen and (max-width: 800px) {
+    
+      width: 100px;
+      height: 100px;
+      background-size: contain;
+    }
   }
 `
 
