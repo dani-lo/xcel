@@ -65,7 +65,7 @@ export const HomePage = () => {
           <div className="flex-row block-responsive-small">
             <StyledMainLogo src="/media/company/xcel-logo.png" className="logo-main" />
             <div>
-              <p className="txt-small padding-bottom">We are a small family run business, dedicated to offering you the same benefits that we find daily from our home made range of body creams.</p>
+              <p className="txt-small padding-bottom">We are a small family run business, dedicated to offering you the same benefits that we find daily from our hand crafted range of body creams.</p>
               <h3>Our Mission Statement</h3>
               <p className="txt-small padding-top padding-bottom">We are committed to the highest hygiene standards and quality. We have produced our own body treatments and creams for several years because we love taking care of our own skin and believe in the soothing, regenerating power of natural ingredients.</p>
               <p className="txt-small padding-bottom">We sincerely hope that you will try our products, and we are sure that you will get as much benefit from them as our family does.</p>
